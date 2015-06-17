@@ -1,0 +1,14 @@
+CXX = g++
+CXXFLAGS = -g -Wall -MMD
+OBJECTS = Models/Card.o Models/Command.o straights.o
+DEPENDS = ${OBJECTS:.o=.d}
+EXEC = straights
+
+${EXEC} : ${OBJECTS}
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+
+clean :
+	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC}
+
+-include ${DEPENDS}
+

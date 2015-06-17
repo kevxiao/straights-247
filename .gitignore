@@ -21,15 +21,16 @@
 *.la
 *.a
 *.lib
+*.d
 
 # Executables
 *.exe
 *.out
 *.app
+straights
 
 # IDEA cmake list
 CMakeLists.txt
 
 #Silly Linux files
-*.cpp~
-*.h~
+*~
