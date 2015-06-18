@@ -25,4 +25,5 @@ Rank Card::getRank() const
 
 std::ostream &operator<<(std::ostream &out, const Card &c){
     out << c.cardValue_;
+    return out;
 }

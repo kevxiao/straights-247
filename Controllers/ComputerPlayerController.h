@@ -2,7 +2,7 @@
 #define COMPUTERPLAYERCONTROLLER_H
 
 #include "PlayerController.h"
-#include "PlayerMove.h"
+#include "../Models/PlayerMove.h"
 
 class ComputerPlayerController : public PlayerController
 {

@@ -1,6 +1,8 @@
 #ifndef TABLECONTROLLER_H
 #define TABLECONTROLLER_H
 
+#include "../Models/TableModel.h"
+
 class TableController
 {
 public:

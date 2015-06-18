@@ -1,4 +1,5 @@
+#include "../Lib/Observer.h"
 
-
-class View{
+class View : public Observer
+{
 };

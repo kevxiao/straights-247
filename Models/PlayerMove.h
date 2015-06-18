@@ -1,14 +1,14 @@
 #ifndef PLAYERMOVE_H
 #define PLAYERMOVE_H
 
-#include "CardValue.h"
+#include "../Models/CardType.h"
 
-enum MoveType { PLAY, DISCARD}
+enum MoveType { PLAY, DISCARD};
 
 struct PlayerMove
 {
     MoveType moveType;
-    CardValue movedCard;
-}
+    CardType cardVale;
+};
 
 #endif
