@@ -1,7 +1,8 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
-#include "GameModel.h"
+#include "Models/GameModel.h"
+#include <string>
 
 class GameController
 {

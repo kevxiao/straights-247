@@ -1,10 +1,12 @@
 #ifndef CARD_H
 #define CARD_H
 
+#include <iostream>
 #include "CardType.h"
 
 class Card
 {
+public:
     Card(Suit, Rank);
     Card(CardType);
     ~Card();
@@ -12,7 +14,10 @@ class Card
 	Rank getRank() const;
 
 private:
+    friend std::ostream & operator<<(std::ostream &out, const Card &c);
     CardType cardValue_;
 };
+
+std::ostream &operator<<(std::ostream &out, const Card &c);
 
 #endif

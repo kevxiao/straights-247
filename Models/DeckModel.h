@@ -2,13 +2,19 @@
 #define DECKMODEL_H
 
 #include "Card.h"
+#include "CardType.h"
+
+const short CARD_COUNT = SUIT_COUNT * RANK_COUNT;
 
 class DeckModel
 {
 public:
     DeckModel();
     ~DeckModel();
-    Card * cards_[52]; //Let's not make this public
+    void shuffle(unsigned long);
+    std::vector<Card *> getCards() const;
+private:
+    std::vector<Card *> cards_;
 };
 
 #endif

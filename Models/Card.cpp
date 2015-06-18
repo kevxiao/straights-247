@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include "Card.h"
 
 Card::Card(Suit cardSuit, Rank cardRank) : cardValue_(cardSuit, cardRank)
@@ -21,4 +21,8 @@ Suit Card::getSuit() const
 Rank Card::getRank() const
 {
     return cardValue_.getRank();
+}
+
+std::ostream &operator<<(std::ostream &out, const Card &c){
+    out << c.cardValue_;
 }
