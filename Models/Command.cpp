@@ -11,10 +11,10 @@ istream &operator>>(istream &in, Command &c){
 	
 	if (cmd == "play") {
 		c.type = PLAY;
-		in >> c.card;
+		in >> c.cardType;
 	} else if (cmd == "discard") {
 		c.type = DISCARD;
-		in >> c.card;
+		in >> c.cardType;
 	} else if (cmd == "deck") {
 		c.type = DECK;
 	} else if (cmd == "quit") {

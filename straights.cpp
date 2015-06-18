@@ -2,8 +2,13 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-    cout<<"Done!"<<endl;
+    string firstArg = "";
+    if(argc > 1)
+    {
+        firstArg = string(argv[1]);
+    }
+    cout<<firstArg<<endl;
     return 0;
 }

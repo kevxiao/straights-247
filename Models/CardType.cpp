@@ -1,26 +1,26 @@
-#include "Card.h"
+#include "CardType.h"
 #include <string>
 #include <cassert>
 using namespace std;
 
-Card::Card(Suit s, Rank r){
+CardType::CardType(Suit s, Rank r){
 	suit_ = s;
 	rank_ = r;
 }
 
-Suit Card::getSuit() const{
+Suit CardType::getSuit() const{
 	return suit_;
 }
 
-Rank Card::getRank() const{
+Rank CardType::getRank() const{
 	return rank_;
 }
 
-bool operator==(const Card &a, const Card &b){
+bool operator==(const CardType &a, const CardType &b){
 	return a.getSuit() == b.getSuit() && a.getRank() == b.getRank();
 }
 
-ostream &operator<<(ostream &out, const Card &c){
+ostream &operator<<(ostream &out, const CardType &c){
 	string suits[SUIT_COUNT] = {"C", "D", "H", "S"};
 	string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
 		"7", "8", "9", "10", "J", "Q", "K"};
@@ -30,7 +30,7 @@ ostream &operator<<(ostream &out, const Card &c){
 	return out;
 }
 
-istream &operator>>(istream &in, Card &c){
+istream &operator>>(istream &in, CardType &c){
 	string suits = "CDHS", ranks = "A234567891JQK";
 	
 	string str;
