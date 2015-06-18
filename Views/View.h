@@ -9,5 +9,5 @@ public:
     virtual void update();
 
 private:
-    GameModel gameModel_;
+    GameModel *gameModel_;
 };

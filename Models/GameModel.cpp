@@ -14,3 +14,7 @@ GameStatus GameModel::gameStatus() const {
 void GameModel::setGameStatus(GameStatus newGameStatus) {
     gameStatus_ = newGameStatus;
 }
+
+std::queue<GameEvent *> GameModel::getGameEvents() {
+    return gameEvents_;
+}

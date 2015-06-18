@@ -6,8 +6,8 @@
 
 DeckModel::DeckModel()
 {
-    for (int i = 0; i < SUIT_COUNT; ++i){
-        for (int j = 0; j < RANK_COUNT; ++j) {
+    for (unsigned int i = 0; i < SUIT_COUNT; ++i){
+        for (unsigned int j = 0; j < RANK_COUNT; ++j) {
             cards_.push_back(new Card((Suit)i, (Rank)j));
         }
     }
@@ -15,7 +15,7 @@ DeckModel::DeckModel()
 
 DeckModel::~DeckModel()
 {
-    for (int i = 0; i < cards_.size(); ++i) {
+    for (unsigned int i = 0; i < cards_.size(); ++i) {
         delete cards_[i];
     }
 }
