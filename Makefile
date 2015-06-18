@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -g -Wall -MMD
-OBJECTS = Models/CardType.o Models/Command.o Lib/Subject.o straights.o
+CXXFLAGS = -g -Wall -MMD -std=c++11
+OBJECTS = Models/CardType.o Models/Card.o Models/DeckModel.o Controllers/DeckController.o Models/Command.o Lib/Subject.o straights.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = straights
 
