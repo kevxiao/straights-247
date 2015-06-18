@@ -9,6 +9,6 @@ int main(int argc, char* argv[])
     {
         firstArg = string(argv[1]);
     }
-    cout<<firstArg<<endl;
+    cout<<"Done"<<endl;
     return 0;
 }
