@@ -18,6 +18,4 @@ private:
     CardType cardValue_;
 };
 
-std::ostream &operator<<(std::ostream &out, const Card &c);
-
 #endif
