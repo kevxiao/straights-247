@@ -12,8 +12,8 @@
 
 View::View(GameController * gameController, DeckController * deckController, TableController * tableController,
            GameModel * gameModel, DeckModel * deckModel, TableModel * tableModel) :
-           gameModel_(gameModel), gameController_(gameController), deckModel_(deckModel),
-           tableModel_(tableModel), deckController_(deckController), tableController_(tableController)
+           gameModel_(gameModel), deckModel_(deckModel), tableModel_(tableModel), 
+           gameController_(gameController), deckController_(deckController), tableController_(tableController)
 {
     gameModel->subscribe(this);
 }
@@ -34,7 +34,7 @@ void View::update()
         printDeck();
         std::cout << std::endl;
         auto cards = deckModel_->getCards();
-        for (int i = 10; i < cards->size() - 10; ++i) {
+        for (unsigned int i = 10; i < cards->size() - 10; ++i) {
             tableModel_->addCardToTable((*cards)[i]);
         }
         printTable();

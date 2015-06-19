@@ -39,6 +39,11 @@ std::vector<std::shared_ptr<Card> > PlayerModel::getDiscards() const
     return discards_;
 }
 
+std::vector<CardType> PlayerModel::getLegalMoves() const
+{
+    return legalMoves_;
+}
+
 void PlayerModel::clearHand()
 {
     hand_.clear();
@@ -55,6 +60,12 @@ void PlayerModel::setHand(std::vector<std::shared_ptr<Card > > newHand)
     clearHand();
 
     hand_ = newHand;
+}
+
+void PlayerModel::setLegalMoves(std::vector<CardType> newLegalMoves)
+{
+    legalMoves_.clear();
+    legalMoves_ = newLegalMoves;
 }
 
 void PlayerModel::discardCard(CardType valToDiscard)

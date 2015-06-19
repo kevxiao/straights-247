@@ -18,11 +18,13 @@ public:
     void makeComputer();
         
     std::vector<std::shared_ptr<Card> > getHand() const;
-    std::vector<std::shared_ptr<Card> > getDiscards() const;    
+    std::vector<std::shared_ptr<Card> > getDiscards() const;
+    std::vector<CardType> getLegalMoves() const;    
 
     void clearHand();
     void clearDiscards();
     void setHand(std::vector<std::shared_ptr<Card > > hand_);
+    void setLegalMoves(std::vector<CardType> newLegalMoves);
 
     void discardCard(CardType valToDiscard);
     void playCard(CardType valToPlay);
@@ -37,6 +39,7 @@ private:
     bool isComputer_;
     std::vector<std::shared_ptr<Card> > hand_;
     std::vector<std::shared_ptr<Card> > discards_;
+    std::vector<CardType> legalMoves_;
 };
 
 #endif
