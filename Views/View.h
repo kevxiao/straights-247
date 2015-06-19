@@ -11,6 +11,7 @@ public:
     virtual ~View();
     virtual void update();
     void run();
+    void printDeck() const;
     void printTable() const;
 private:
     GameModel *gameModel_;

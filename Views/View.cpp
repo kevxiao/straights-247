@@ -23,6 +23,8 @@ View::~View() {
 
 void View::update() {
     if (gameModel_->gameStatus() == INIT_GAME) {
+        printDeck();
+        std::cout << std::endl;
         std::vector<Card *> cards = deckModel_->getCards();
         for (int i = 10; i < cards.size() - 10; ++i) {
             tableModel_->addCardToTable(cards[i]);
@@ -33,6 +35,19 @@ void View::update() {
 
 void View::run() {
     gameController_->startGame();
+}
+
+void View::printDeck() const {
+    auto deck = deckModel_->getCards();
+    for (int i = 0; i < SUIT_COUNT; ++i) {
+        for (int j = 0; j < RANK_COUNT; ++j) {
+            if (j != 0) {
+                std::cout << " ";
+            }
+            std::cout << *(deck[SUIT_COUNT * i + j]);
+        }
+        std::cout << std::endl;
+    }
 }
 
 void View::printTable() const {
@@ -56,18 +71,21 @@ void View::printTable() const {
                 return;
         }
         for (auto rit = it->second.cbegin(); rit != it->second.cend(); ++rit) {
+            if (rit != it->second.cbegin()) {
+                std::cout << " ";
+            }
             switch (rit->first) {
                 case (JACK):
-                    std::cout << 'J' << " ";
+                    std::cout << 'J';
                     break;
                 case (QUEEN):
-                    std::cout << 'Q' << " ";
+                    std::cout << 'Q';
                     break;
                 case (KING):
-                    std::cout << 'K' << " ";
+                    std::cout << 'K';
                     break;
                 default:
-                    std::cout << int(rit->first) + 1 << " ";
+                    std::cout << int(rit->first) + 1;
                     break;
             }
         }
