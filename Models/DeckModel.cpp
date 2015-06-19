@@ -32,8 +32,8 @@ void DeckModel::shuffle(unsigned long seed)
     }
 }
 
-std::vector<std::shared_ptr<Card> > DeckModel::getCards() const 
+const std::vector<std::shared_ptr<Card> > * DeckModel::getCards() const
 {
-    return cards_;
+    return &cards_;
 }
 

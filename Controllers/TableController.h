@@ -6,9 +6,9 @@
 class TableController 
 {
 public:
-    TableController();
+    TableController(TableModel *);
     ~TableController();
-
+    bool isPlayValid(std::shared_ptr<Card> cardToAdd) const;
     void addCardToTable(std::shared_ptr<Card> cardToAdd);
 private:
     TableModel * tableModel_;

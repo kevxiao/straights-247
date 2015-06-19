@@ -1,13 +1,12 @@
-#include "../Models/GameModel.h"
-#include "../Models/DeckModel.h"
-#include "../Models/TableModel.h"
+#include "../Controllers/DeckController.h"
+#include "../Controllers/TableController.h"
 #include "../Controllers/GameController.h"
 #include "../Lib/Observer.h"
 
 class View : public Observer
 {
 public:
-    View(GameController *, GameModel *, DeckModel *, TableModel *);
+    View(GameController *, DeckController *, TableController *, GameModel *, DeckModel *, TableModel *);
     virtual ~View();
     virtual void update();
     void run();
@@ -18,4 +17,6 @@ private:
     DeckModel *deckModel_;
     TableModel *tableModel_;
     GameController *gameController_;
+    DeckController *deckController_;
+    TableController *tableController_;
 };

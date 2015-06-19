@@ -10,52 +10,61 @@
 #include "../Models/TableModel.h"
 #include "View.h"
 
-View::View(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
-    TableModel * tableModel) : gameModel_(gameModel), gameController_(gameController), deckModel_(deckModel),
-    tableModel_(tableModel) {
+View::View(GameController * gameController, DeckController * deckController, TableController * tableController,
+           GameModel * gameModel, DeckModel * deckModel, TableModel * tableModel) :
+           gameModel_(gameModel), gameController_(gameController), deckModel_(deckModel),
+           tableModel_(tableModel), deckController_(deckController), tableController_(tableController)
+{
     gameModel->subscribe(this);
 }
 
-View::~View() {
+View::~View()
+{
     delete gameModel_;
     delete deckModel_;
     delete tableModel_;
     delete gameController_;
+    delete deckController_;
+    delete tableController_;
 }
 
-void View::update() {
+void View::update()
+{
     if (gameModel_->gameStatus() == INIT_GAME) {
         printDeck();
         std::cout << std::endl;
-        std::vector<std::shared_ptr<Card> > cards = deckModel_->getCards();
-        for (int i = 10; i < cards.size() - 10; ++i) {
-            tableModel_->addCardToTable(cards[i]);
+        auto cards = deckModel_->getCards();
+        for (int i = 10; i < cards->size() - 10; ++i) {
+            tableModel_->addCardToTable((*cards)[i]);
         }
         printTable();
     }
 }
 
-void View::run() {
+void View::run()
+{
     gameController_->startGame();
 }
 
-void View::printDeck() const {
+void View::printDeck() const
+{
     auto deck = deckModel_->getCards();
     for (int i = 0; i < SUIT_COUNT; ++i) {
         for (int j = 0; j < RANK_COUNT; ++j) {
             if (j != 0) {
                 std::cout << " ";
             }
-            std::cout << *(deck[SUIT_COUNT * i + j]);
+            std::cout << *((*deck)[SUIT_COUNT * i + j]);
         }
         std::cout << std::endl;
     }
 }
 
-void View::printTable() const {
+void View::printTable() const
+{
     auto table = tableModel_->getCardsOnTable();
     std::cout << "Cards on the table:" << std::endl;
-    for (auto it = table.cbegin(); it != table.cend(); ++it) {
+    for (auto it = table->cbegin(); it != table->cend(); ++it) {
         switch (it->first) {
             case (CLUB):
                 std::cout << "Clubs: ";

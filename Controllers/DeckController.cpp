@@ -24,6 +24,6 @@ void DeckController::shuffle() {
     deckModel_->shuffle(shuffleSeed_);
 }
 
-std::vector<std::shared_ptr<Card> > DeckController::getCards() const {
+const std::vector<std::shared_ptr<Card> > * DeckController::getCards() const {
     return deckModel_->getCards();
 }

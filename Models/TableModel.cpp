@@ -28,8 +28,8 @@ void TableModel::addCardToTable(std::shared_ptr<Card> card)
     cardsOnTable_.at(card->getSuit()).insert(std::pair<Rank, std::shared_ptr<Card> >(card->getRank(), card));
 }
 
-std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > TableModel::getCardsOnTable() const 
+const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * TableModel::getCardsOnTable() const
 {
-    return cardsOnTable_;
+    return &cardsOnTable_;
 }
 

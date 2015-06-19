@@ -14,7 +14,7 @@ public:
     DeckModel();
     ~DeckModel();
     void shuffle(unsigned long);
-    std::vector<std::shared_ptr<Card> > getCards() const;
+    const std::vector<std::shared_ptr<Card> > * getCards() const;
 private:
     std::vector<std::shared_ptr<Card> > cards_;
 };

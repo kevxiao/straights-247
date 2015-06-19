@@ -19,7 +19,7 @@ public:
     ~DeckController();
     void reset();
     void shuffle();
-    std::vector<std::shared_ptr<Card> > getCards() const;
+    const std::vector<std::shared_ptr<Card> > * getCards() const;
 private:
     DeckModel * deckModel_;
     unsigned long shuffleSeed_;
