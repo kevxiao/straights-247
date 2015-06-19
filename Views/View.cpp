@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "../Controllers/GameController.h"
 #include "../Models/DeckModel.h"
 #include "../Models/GameModel.h"
@@ -14,12 +15,9 @@ View::~View() {
 
 void View::update() {
     if (gameModel_->gameStatus() == INIT_GAME) {
-        for (int i = 0; i < 4; ++i) {
-            for (int j = 0; j < 13; ++j) {
-                std::cout << *(deckModel_->getCards()[13 * i + j]) << " ";
-            }
-            std::cout << std::endl;
-        }
+        char player;
+        std::cin >> player;
+
     }
 }
 
