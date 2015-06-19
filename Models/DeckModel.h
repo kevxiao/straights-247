@@ -4,7 +4,7 @@
 #include "Card.h"
 #include "CardType.h"
 
-const short CARD_COUNT = SUIT_COUNT * RANK_COUNT;
+const unsigned short CARD_COUNT = 52;
 
 class DeckModel
 {

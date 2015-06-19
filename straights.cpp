@@ -5,6 +5,7 @@
 #include "Controllers/DeckController.h"
 #include "Models/GameModel.h"
 #include "Models/DeckModel.h"
+#include "Models/TableModel.h"
 #include "Models/Card.h"
 #include "Views/View.h"
 
@@ -18,9 +19,10 @@ int main(int argc, char* argv[])
     }
     GameModel *gameModel = new GameModel();
     DeckModel *deckModel = new DeckModel();
+    TableModel *tableModel = new TableModel();
     DeckController *deckController = new DeckController((unsigned long) firstArg, deckModel);
     GameController *gameController = new GameController(gameModel, deckController);
-    View *view = new View(gameController, gameModel, deckModel);
+    View *view = new View(gameController, gameModel, deckModel, tableModel);
     view->run();
     return 0;
 }

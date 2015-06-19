@@ -13,7 +13,6 @@ void GameController::processInput(std::string input)
 }
 
 void GameController::startGame() {
-    deckController_->reset();
     deckController_->shuffle();
     gameModel_->setGameStatus(INIT_GAME);
 }
