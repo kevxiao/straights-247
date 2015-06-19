@@ -4,7 +4,7 @@
 #include "GameEvent.h"
 #include "CardType.h"
 
-enum MoveType { PLAY, DISCARD};
+enum MoveType { PLAY_CARD, DISCARD_CARD};
 
 struct PlayerMoveEvent : public GameEvent
 {

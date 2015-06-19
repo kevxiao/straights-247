@@ -2,7 +2,7 @@
 #define COMPUTERPLAYERCONTROLLER_H
 
 #include "PlayerController.h"
-#include "../Models/PlayerMove.h"
+#include "../Models/PlayerMoveEvent.h"
 
 class ComputerPlayerController : public PlayerController
 {
@@ -10,7 +10,7 @@ public:
     ComputerPlayerController();
     ~ComputerPlayerController();
     
-    PlayerMove performMove();
+    PlayerMoveEvent performMove();
 };
 
 #endif

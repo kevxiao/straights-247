@@ -3,7 +3,7 @@
 
 #include "PlayerController.h"
 #include "../Models/Command.h"
-#include "../Models/PlayerMove.h"
+#include "../Models/PlayerMoveEvent.h"
 #include "../Models/PlayerModel.h"
 
 class HumanPlayerController : public PlayerController
@@ -11,7 +11,7 @@ class HumanPlayerController : public PlayerController
 public:
     HumanPlayerController();
     ~HumanPlayerController();
-    PlayerMove processCommand(Command commandToProcess, int playerNum);
+    PlayerMoveEvent processCommand(Command commandToProcess, int playerNum);
     PlayerModel * getPlayerModel(int playerNum);
     void removePlayerModel(int playerNum);
 private:

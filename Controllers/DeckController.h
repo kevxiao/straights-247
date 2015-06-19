@@ -13,12 +13,14 @@
 class DeckController
 {
 public:
-    DeckController();
+    DeckController(unsigned long, DeckModel *);
     ~DeckController();
-    void shuffle(unsigned long);
+    void reset();
+    void shuffle();
     std::vector<Card *> getCards() const;
 private:
-    DeckModel * deckModel;
+    DeckModel * deckModel_;
+    unsigned long shuffleSeed_;
 };
 
 #endif

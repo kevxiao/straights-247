@@ -1,7 +1,6 @@
 #include "GameModel.h"
 
-GameModel::GameModel() {
-    gameStatus_ = INIT_GAME;
+GameModel::GameModel() : gameStatus_(INIT_GAME){
 }
 
 GameModel::~GameModel() {
@@ -13,6 +12,7 @@ GameStatus GameModel::gameStatus() const {
 
 void GameModel::setGameStatus(GameStatus newGameStatus) {
     gameStatus_ = newGameStatus;
+    notify();
 }
 
 std::queue<GameEvent *> GameModel::getGameEvents() {
