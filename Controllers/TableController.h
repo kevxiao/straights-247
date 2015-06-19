@@ -3,13 +3,15 @@
 
 #include "../Models/TableModel.h"
 
-class TableController
+class TableController 
 {
 public:
     TableController();
     ~TableController();
+
+    void addCardToTable(std::shared_ptr<Card> cardToAdd);
 private:
-    TableModel * tableModel;
+    TableModel * tableModel_;
 };
 
 #endif

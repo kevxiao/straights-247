@@ -54,16 +54,18 @@ unsigned int PlayerController::getValOfDiscards(unsigned int playerNum) const
     return discardsVal;
 }
 
-std::vector<CardType> PlayerController::getLegalMoves(unsigned int playerNum) const
+//TODO: FINISH THIS FUNCTION
+void PlayerController::setLegalMoves(unsigned int playerNum) const
 {
     std::vector<CardType> legalMoves;
-    return legalMoves;
 }
 
 void PlayerController::playCard(CardType valToPlay, unsigned int playerNum)
 {
     PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<Card> cardToPlay = curPlayer->getCardFromHand(valToPlay);
     curPlayer->playCard(valToPlay);
+    table_->addCardToTable(cardToPlay);
 }
 
 void PlayerController::discardCard(CardType valToDiscard, unsigned int playerNum)

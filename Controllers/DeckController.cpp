@@ -4,8 +4,6 @@
  * through the deck controller.
  */
 
-#include <vector>
-#include "../Models/Card.h"
 #include "DeckController.h"
 
 DeckController::DeckController(unsigned long seed, DeckModel * deckModel): deckModel_(deckModel), shuffleSeed_(seed)
@@ -26,6 +24,6 @@ void DeckController::shuffle() {
     deckModel_->shuffle(shuffleSeed_);
 }
 
-std::vector<Card *> DeckController::getCards() const {
+std::vector<std::shared_ptr<Card> > DeckController::getCards() const {
     return deckModel_->getCards();
 }

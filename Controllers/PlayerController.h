@@ -7,8 +7,7 @@
 #include "../Models/Card.h"
 #include "../Models/PlayerModel.h"
 
-class PlayerController
-{
+class PlayerController {
 public:
     PlayerController();
     virtual ~PlayerController();
@@ -19,16 +18,16 @@ public:
     bool doesPlayerExistHere(unsigned int playerNum) const;
     unsigned int getScore(unsigned int playerNum) const;
     unsigned int getValOfDiscards(unsigned int playerNum) const;
-    std::vector<CardType> getLegalMoves(unsigned int playerNum) const;
 
 protected:
+    void setLegalMoves(unsigned int playerNum) const;
     void playCard(CardType typeToPlay, unsigned int playerNum);
     void discardCard(CardType typeToPlay, unsigned int playerNum);
     PlayerModel * getPlayerModel(unsigned int playerNum) const;
 
 private:
     std::map<unsigned int, PlayerModel *> players_;
-    TableController * table;
+    TableController * table_;
 };
 
 #endif

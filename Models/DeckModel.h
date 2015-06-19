@@ -1,6 +1,8 @@
 #ifndef DECKMODEL_H
 #define DECKMODEL_H
 
+#include <memory>
+
 #include "Card.h"
 #include "CardType.h"
 
@@ -12,9 +14,9 @@ public:
     DeckModel();
     ~DeckModel();
     void shuffle(unsigned long);
-    std::vector<Card *> getCards() const;
+    std::vector<std::shared_ptr<Card> > getCards() const;
 private:
-    std::vector<Card *> cards_;
+    std::vector<std::shared_ptr<Card> > cards_;
 };
 
 #endif

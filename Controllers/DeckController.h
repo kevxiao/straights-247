@@ -7,6 +7,8 @@
 #ifndef DECKCONTROLLER_H
 #define DECKCONTROLLER_H
 
+#include <vector>
+
 #include "../Models/DeckModel.h"
 #include "../Models/Card.h"
 
@@ -17,7 +19,7 @@ public:
     ~DeckController();
     void reset();
     void shuffle();
-    std::vector<Card *> getCards() const;
+    std::vector<std::shared_ptr<Card> > getCards() const;
 private:
     DeckModel * deckModel_;
     unsigned long shuffleSeed_;

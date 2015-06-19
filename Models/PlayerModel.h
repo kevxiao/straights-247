@@ -26,10 +26,10 @@ public:
 
     void discardCard(CardType valToDiscard);
     void playCard(CardType valToPlay);
+    std::shared_ptr<Card> getCardFromHand(CardType valToGet) const;
 
 private:
     int getIndexOfCardFromHand(CardType valToGet) const;
-    std::shared_ptr<Card> getCardFromHand(CardType valToGet) const;
     void removeCardFromHand(CardType valToRemove);
 
     unsigned int playerNum_; 

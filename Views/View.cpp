@@ -1,12 +1,14 @@
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
+#include <type_traits>
+
 #include "../Controllers/GameController.h"
 #include "../Models/DeckModel.h"
 #include "../Models/GameModel.h"
 #include "../Models/TableModel.h"
 #include "View.h"
-#include <type_traits>
 
 View::View(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
     TableModel * tableModel) : gameModel_(gameModel), gameController_(gameController), deckModel_(deckModel),
@@ -25,7 +27,7 @@ void View::update() {
     if (gameModel_->gameStatus() == INIT_GAME) {
         printDeck();
         std::cout << std::endl;
-        std::vector<Card *> cards = deckModel_->getCards();
+        std::vector<std::shared_ptr<Card> > cards = deckModel_->getCards();
         for (int i = 10; i < cards.size() - 10; ++i) {
             tableModel_->addCardToTable(cards[i]);
         }
