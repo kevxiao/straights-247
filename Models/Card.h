@@ -12,6 +12,7 @@ public:
     ~Card();
     Suit getSuit() const;
 	Rank getRank() const;
+    bool hasValue(CardType typeToCompare) const;
 
 private:
     friend std::ostream & operator<<(std::ostream &out, const Card &c);

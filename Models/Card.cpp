@@ -23,6 +23,11 @@ Rank Card::getRank() const
     return cardValue_.getRank();
 }
 
+bool Card::hasValue(CardType typeToCompare) const
+{
+    return cardValue_ == typeToCompare;
+}
+
 std::ostream &operator<<(std::ostream &out, const Card &c){
     out << c.cardValue_;
     return out;

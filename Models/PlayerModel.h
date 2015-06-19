@@ -1,17 +1,42 @@
 #ifndef PLAYERMODEL_H
 #define PLAYERMODEL_H
 
-#include "Card.h"
 #include <vector>
+#include <memory>
+
+#include "Card.h"
 
 class PlayerModel
 {
 public:
-    unsigned int playerNum; 
-    unsigned int score;
-    bool isComputer;
-    std::vector<Card *> hand_; //Change this to shared_ptr
-    std::vector<Card *> discard_; //Change this to shared_ptr
+    PlayerModel();
+    ~PlayerModel();
+
+    unsigned int getPlayerNum() const;
+    unsigned int getScore() const;
+    void incrementScore(unsigned int incrementAmount);
+    void makeComputer();
+        
+    std::vector<std::shared_ptr<Card> > getHand() const;
+    std::vector<std::shared_ptr<Card> > getDiscards() const;    
+
+    void clearHand();
+    void clearDiscards();
+    void setHand(std::vector<std::shared_ptr<Card > > hand_);
+
+    void discardCard(CardType valToDiscard);
+    void playCard(CardType valToPlay);
+
+private:
+    int getIndexOfCardFromHand(CardType valToGet) const;
+    std::shared_ptr<Card> getCardFromHand(CardType valToGet) const;
+    void removeCardFromHand(CardType valToRemove);
+
+    unsigned int playerNum_; 
+    unsigned int score_;
+    bool isComputer_;
+    std::vector<std::shared_ptr<Card> > hand_;
+    std::vector<std::shared_ptr<Card> > discards_;
 };
 
 #endif

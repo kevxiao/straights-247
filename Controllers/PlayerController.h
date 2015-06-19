@@ -1,8 +1,11 @@
 #ifndef PLAYERCONTROLLER_H
 #define PLAYERCONTROLLER_H
 
-#include "../Models/PlayerModel.h"
+#include <map>
+
+#include "TableController.h"
 #include "../Models/Card.h"
+#include "../Models/PlayerModel.h"
 
 class PlayerController
 {
@@ -10,19 +13,22 @@ public:
     PlayerController();
     virtual ~PlayerController();
 
-    void resetHand(std::vector<Card *> newHand, int playerNum);//Responsible for deleting all card references in player model and making score
-    bool hasCards(int playerNum);
+    void resetHand(std::vector<std::shared_ptr<Card> > newHand, unsigned int playerNum);
+    bool hasCards(unsigned int playerNum) const;
 
-    bool doesPlayerExistHere(int playerNum);
-    int getScore(int playerNum);
-    int getValOfDiscards(int playerNum);
+    bool doesPlayerExistHere(unsigned int playerNum) const;
+    unsigned int getScore(unsigned int playerNum) const;
+    unsigned int getValOfDiscards(unsigned int playerNum) const;
+    std::vector<CardType> getLegalMoves(unsigned int playerNum) const;
 
 protected:
-    void playCard(Card *, int playerNum);
-    void discardCard(Card *, int playerNum);
+    void playCard(CardType typeToPlay, unsigned int playerNum);
+    void discardCard(CardType typeToPlay, unsigned int playerNum);
+    PlayerModel * getPlayerModel(unsigned int playerNum) const;
 
 private:
-    std::vector<PlayerModel *> players_;
+    std::map<unsigned int, PlayerModel *> players_;
+    TableController * table;
 };
 
 #endif
