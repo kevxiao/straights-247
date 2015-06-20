@@ -21,8 +21,8 @@ int main(int argc, char* argv[])
     DeckModel *deckModel = new DeckModel();
     TableModel *tableModel = new TableModel();
     DeckController *deckController = new DeckController((unsigned long) firstArg, deckModel);
-    GameController *gameController = new GameController(gameModel, deckController);
     TableController *tableController = new TableController(tableModel);
+    GameController *gameController = new GameController(gameModel, deckController, tableController);
     View *view = new View(gameController, gameModel, deckModel, tableModel);
     view->run();
     return 0;

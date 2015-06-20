@@ -43,7 +43,8 @@ void View::update()
             if (!gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
             {
                 printTable();
-                // TODO: print hand and legal moves
+                std::cout << "Your hand: ";
+
             }
             break;
         case IN_TURN:

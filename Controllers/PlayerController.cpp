@@ -44,7 +44,7 @@ unsigned int PlayerController::getScore(unsigned int playerNum) const
     return curPlayer->getScore();
 }
 
-void PlayerController::setLegalMoves(unsigned int playerNum) const
+void PlayerController::setLegalMoves(unsigned int playerNum)
 {
     std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     std::vector<std::shared_ptr<Card> > playerHand = curPlayer->getHand();

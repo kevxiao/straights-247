@@ -51,3 +51,12 @@ unsigned int GameModel::getNumPlayers() const
 {
     return NUM_PLAYERS;
 }
+
+void GameModel::incrementCurPlayerNum()
+{
+    ++curPlayerNum_;
+    if (curPlayerNum_ >= getNumPlayers())
+    {
+        curPlayerNum_ = 0;
+    }
+}

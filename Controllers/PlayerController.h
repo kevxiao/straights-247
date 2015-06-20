@@ -19,9 +19,9 @@ public:
 
     bool doesPlayerExistHere(unsigned int playerNum) const;
     unsigned int getScore(unsigned int playerNum) const;
+    void setLegalMoves(unsigned int playerNum);
 
 protected:
-    void setLegalMoves(unsigned int playerNum) const;
     void playCard(CardType typeToPlay, unsigned int playerNum);
     void discardCard(CardType typeToPlay, unsigned int playerNum);
     std::shared_ptr<PlayerModel> getPlayerModel(unsigned int playerNum) const;

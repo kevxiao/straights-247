@@ -11,7 +11,6 @@ ComputerPlayerController::~ComputerPlayerController()
 void ComputerPlayerController::performMove(unsigned int playerNum) 
 {
     std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
-    setLegalMoves(playerNum);
     if(curPlayer->getLegalMoves().empty())
     {
         std::shared_ptr<Card> cardToDiscard = curPlayer->getDiscards().at(0);

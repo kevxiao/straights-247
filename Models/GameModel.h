@@ -19,14 +19,13 @@ public:
     std::shared_ptr<PlayerModel> getPlayerModel(unsigned int playerNum) const;
     unsigned int getCurPlayerNum() const;
     void setCurPlayerNum(unsigned int newPlayerNum);
-
     unsigned int getNumPlayers() const;
+    void incrementCurPlayerNum();
 
 private:
     GameStatus gameStatus_;
     unsigned int curPlayerNum_;
     std::vector<std::shared_ptr<PlayerModel> > players_;
-
     static const unsigned int NUM_PLAYERS = 4;
 };
 
