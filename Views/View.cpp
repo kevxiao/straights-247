@@ -37,7 +37,7 @@ void View::update()
         case INIT_GAME:
         {
             std::string input;
-            std::cout << "Is player " << gameModel_->getCurPlayerNum() + 1 << " a human(h) or a computer(c)?" << std::endl;
+            std::cout << "Is player " << gameModel_->getCurPlayerNum() + 1 << " a human(h) or a computer(c)?" << std::endl<<">";
             std::getline(std::cin, input);
             gameController_->processInput(input);
             break;
