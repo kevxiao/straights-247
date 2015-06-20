@@ -9,8 +9,8 @@ Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
 	
     string cmd = commandInStringForm.substr(0, commandInStringForm.find(" "));
 
-	if (commandInStringForm == "play" || commandInStringForm == "discard") {
-	    if (commandInStringForm == "discard") {
+	if (cmd == "play" || cmd == "discard") {
+	    if (cmd == "discard") {
 		    type_ = DISCARD;
         }
         else
@@ -26,7 +26,7 @@ Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
 	} else if (commandInStringForm == "ragequit") {
 		type_ = RAGEQUIT;
 	}
-	
+
 	assert(type_ != BAD_COMMAND);
 }
 

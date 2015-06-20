@@ -9,8 +9,8 @@ class HumanPlayerController : public PlayerController
 public:
     HumanPlayerController(TableController *table);
     ~HumanPlayerController();
-    void processCommand(Command commandToProcess, int playerNum);
-    void removePlayerModel(int playerNum);
+    void processCommand(Command commandToProcess, unsigned int playerNum);
+    void removePlayerModel(unsigned int playerNum);
 private:
     //Top secret stuff
 };

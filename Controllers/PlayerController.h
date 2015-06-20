@@ -19,6 +19,7 @@ public:
 
     bool doesPlayerExistHere(unsigned int playerNum) const;
     unsigned int getScore(unsigned int playerNum) const;
+    void incrementScore(unsigned int amountToIncrement, unsigned int playerNum);
     void setLegalMoves(unsigned int playerNum);
 
 protected:
