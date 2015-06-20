@@ -90,11 +90,13 @@ void PlayerModel::discardCard(CardType valToDiscard)
     std::shared_ptr<Card> cardToDiscard = getCardFromHand(valToDiscard);
     removeCardFromHand(valToDiscard);
     discards_.push_back(cardToDiscard);
+    lastMove_ = PlayerMove(MoveType::DISCARD_CARD, valToDiscard);
 }
 
 void PlayerModel::playCard(CardType valToPlay)
 {
     removeCardFromHand(valToPlay);
+    lastMove_ = PlayerMove(MoveType::PLAY_CARD, valToPlay);
 }
 
 int PlayerModel::getIndexOfCardFromHand(CardType valToGet) const
@@ -115,7 +117,7 @@ std::shared_ptr<Card> PlayerModel::getCardFromHand(CardType valToGet) const
     int indexOfCard = getIndexOfCardFromHand(valToGet);
     if(indexOfCard == -1)
     {
-        return std::shared_ptr<Card>();
+        return std::shared_ptr<Card>(nullptr);
     }
     else
     {
@@ -130,5 +132,10 @@ void PlayerModel::removeCardFromHand(CardType valToRemove)
     {
         hand_.erase(hand_.begin() + indexOfCard);
     }    
+}
+
+PlayerMove PlayerModel::getLastMove() const
+{
+    return lastMove_;
 }
 

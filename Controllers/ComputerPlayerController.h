@@ -2,14 +2,13 @@
 #define COMPUTERPLAYERCONTROLLER_H
 
 #include "PlayerController.h"
-#include "../Models/PlayerMoveEvent.h"
 
 class ComputerPlayerController : public PlayerController
 {
 public:
-    ComputerPlayerController();
+    ComputerPlayerController(TableController* table);
     ~ComputerPlayerController();
-    PlayerMoveEvent performMove();
+    void performMove();
 };
 
 #endif

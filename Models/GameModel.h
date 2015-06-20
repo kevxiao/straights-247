@@ -3,7 +3,6 @@
 
 #include <queue>
 
-#include "GameEvent.h"
 #include "PlayerModel.h"
 #include "../Lib/Subject.h"
 

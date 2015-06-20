@@ -1,6 +1,6 @@
 #include "PlayerController.h"
 
-PlayerController::PlayerController()
+PlayerController::PlayerController(TableController *table):table_(table)
 {
 }
 
@@ -8,10 +8,15 @@ PlayerController::~PlayerController()
 {
 }
 
+void PlayerController::addPlayerModel(std::shared_ptr<PlayerModel> newPlayer)
+{
+    players_.insert(std::pair<unsigned int, std::shared_ptr<PlayerModel> >(newPlayer->getPlayerNum(), newPlayer));
+}
+
 //Deleting all card references in player model and updates score
 void PlayerController::resetHand(std::vector<std::shared_ptr<Card> > newHand, unsigned int playerNum)
 {
-    PlayerModel * playerToReset = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> playerToReset = getPlayerModel(playerNum);
 
     int discardVal = playerToReset->getValOfDiscards();
     playerToReset->incrementScore(discardVal);
@@ -23,25 +28,25 @@ void PlayerController::resetHand(std::vector<std::shared_ptr<Card> > newHand, un
 
 bool PlayerController::hasCards(unsigned int playerNum) const
 {
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     return curPlayer->getHand().empty();
 }
 
 bool PlayerController::doesPlayerExistHere(unsigned int playerNum) const
 {
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     return curPlayer != nullptr;
 }
 
 unsigned int PlayerController::getScore(unsigned int playerNum) const
 {
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     return curPlayer->getScore();
 }
 
 void PlayerController::setLegalMoves(unsigned int playerNum) const
 {
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     std::vector<std::shared_ptr<Card> > playerHand = curPlayer->getHand();
 
     std::vector<CardType> legalMoves;
@@ -69,7 +74,7 @@ void PlayerController::setLegalMoves(unsigned int playerNum) const
 
 void PlayerController::playCard(CardType valToPlay, unsigned int playerNum)
 {
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     std::shared_ptr<Card> cardToPlay = curPlayer->getCardFromHand(valToPlay);
     curPlayer->playCard(valToPlay);
     table_->addCardToTable(cardToPlay);
@@ -77,11 +82,11 @@ void PlayerController::playCard(CardType valToPlay, unsigned int playerNum)
 
 void PlayerController::discardCard(CardType valToDiscard, unsigned int playerNum)
 {
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
+    std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     curPlayer->discardCard(valToDiscard);
 }
 
-PlayerModel * PlayerController::getPlayerModel(unsigned int playerNum) const
+std::shared_ptr<PlayerModel> PlayerController::getPlayerModel(unsigned int playerNum) const
 {
     if(players_.find(playerNum) != players_.end())
     {

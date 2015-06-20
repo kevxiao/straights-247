@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "Card.h"
+#include "PlayerMove.h"
 
 class PlayerModel
 {
@@ -31,6 +32,7 @@ public:
     void discardCard(CardType valToDiscard);
     void playCard(CardType valToPlay);
     std::shared_ptr<Card> getCardFromHand(CardType valToGet) const;
+    PlayerMove getLastMove() const;
 
 private:
     int getIndexOfCardFromHand(CardType valToGet) const;
@@ -42,6 +44,7 @@ private:
     std::vector<std::shared_ptr<Card> > hand_;
     std::vector<std::shared_ptr<Card> > discards_;
     std::vector<CardType> legalMoves_;
+    PlayerMove lastMove_;
 };
 
 #endif

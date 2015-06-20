@@ -1,11 +1,14 @@
 #include "ComputerPlayerController.h"
 
-ComputerPlayerController::ComputerPlayerController() {
+ComputerPlayerController::ComputerPlayerController(TableController *table):PlayerController(table)
+{
 }
 
-ComputerPlayerController::~ComputerPlayerController() {
+ComputerPlayerController::~ComputerPlayerController() 
+{
 }
 
-PlayerMoveEvent ComputerPlayerController::performMove() {
+void ComputerPlayerController::performMove() 
+{
 
 }

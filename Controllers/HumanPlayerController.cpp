@@ -1,6 +1,6 @@
 #include "HumanPlayerController.h"
 
-HumanPlayerController::HumanPlayerController()
+HumanPlayerController::HumanPlayerController(TableController *table):PlayerController(table)
 {
 }
 

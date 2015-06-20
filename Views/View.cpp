@@ -31,7 +31,7 @@ void View::update()
         case INIT_GAME:
         {
             std::string input;
-            std::cout << "Is player " << gameModel_->getCurPlayerNum() << " a human(h) or a computer(c)?" << std::endl;
+            std::cout << "Is player " << gameModel_->getCurPlayerNum() + 1 << " a human(h) or a computer(c)?" << std::endl;
             std::getline(std::cin, input);
             gameController_->processInput(input);
             break;
@@ -57,7 +57,6 @@ void View::update()
                     std::cout << e << std::endl;
                     update();
                 }
-
             }
             break;
         case DECK_COMMAND:
@@ -67,7 +66,16 @@ void View::update()
             std::cout << "Player " << gameModel_->getCurPlayerNum() << " ragequits. A computer will now take over." << std::endl;
             break;
         case END_TURN:
-
+            std::cout << "Player " << gameModel_->getCurPlayerNum() << " ";
+            if(gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().moveType == MoveType::PLAY_CARD)
+            {
+                std::cout<<" plays ";
+            }
+            else
+            {
+                std::cout<<" discards ";
+            }
+            std::cout<<gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().cardValue<<"."<<std::endl;
             break;
         case END_ROUND:
             unsigned int score, discardScore;
