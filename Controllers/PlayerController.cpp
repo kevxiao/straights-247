@@ -13,7 +13,7 @@ void PlayerController::resetHand(std::vector<std::shared_ptr<Card> > newHand, un
 {
     PlayerModel * playerToReset = getPlayerModel(playerNum);
 
-    int discardVal = getValOfDiscards(playerNum);
+    int discardVal = playerToReset->getValOfDiscards();
     playerToReset->incrementScore(discardVal);
 
     playerToReset->clearHand();
@@ -37,21 +37,6 @@ unsigned int PlayerController::getScore(unsigned int playerNum) const
 {
     PlayerModel * curPlayer = getPlayerModel(playerNum);
     return curPlayer->getScore();
-}
-
-unsigned int PlayerController::getValOfDiscards(unsigned int playerNum) const
-{
-    PlayerModel * curPlayer = getPlayerModel(playerNum);
-    std::vector<std::shared_ptr<Card> > playerHand = curPlayer->getHand();
-    
-    unsigned int discardsVal = 0;
-    std::vector<std::shared_ptr<Card> >::iterator handIt = playerHand.begin();
-    while(handIt != playerHand.end())
-    {
-        discardsVal += (*(handIt))->getRank();
-        handIt++;
-    }
-    return discardsVal;
 }
 
 void PlayerController::setLegalMoves(unsigned int playerNum) const

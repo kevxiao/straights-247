@@ -2,17 +2,20 @@
 #define _COMMAND_
 
 #include "CardType.h"
-#include <istream>
 
 enum Type { PLAY, DISCARD, DECK, QUIT, RAGEQUIT, BAD_COMMAND };
 
-struct Command{
-	Type type;
-	CardType cardType;
-	
-	Command() : type(BAD_COMMAND), cardType(SPADE, ACE) {}
-};
+class Command
+{
+public:
+    Command(std::string commandInStringForm);
+	Command() : type_(BAD_COMMAND), cardType_(SPADE, ACE) {}
+    Type getType() const;
+    CardType getCardType() const;
 
-std::istream &operator>>(std::istream &, Command &);
+private:
+    Type type_;
+	CardType cardType_;
+};
 
 #endif

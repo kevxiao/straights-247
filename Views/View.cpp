@@ -29,11 +29,13 @@ void View::update()
     switch (gameModel_->getGameStatus())
     {
         case INIT_GAME:
+        {
             std::string input;
             std::cout << "Is player " << gameModel_->getCurPlayerNum() << " a human(h) or a computer(c)?" << std::endl;
             std::getline(std::cin, input);
             gameController_->processInput(input);
             break;
+        } //TODO: Deal with braces
         case START_ROUND:
             std::cout << "A new round begins. It\'s player " << gameModel_->getCurPlayerNum() << "\'s turn to play." << std::endl;
             break;

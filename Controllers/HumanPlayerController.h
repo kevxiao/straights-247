@@ -11,8 +11,7 @@ class HumanPlayerController : public PlayerController
 public:
     HumanPlayerController();
     ~HumanPlayerController();
-    PlayerMoveEvent processCommand(Command commandToProcess, int playerNum);
-    PlayerModel * getPlayerModel(int playerNum);
+    void processCommand(Command commandToProcess, int playerNum);
     void removePlayerModel(int playerNum);
 private:
     //Top secret stuff

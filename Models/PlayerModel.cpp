@@ -1,7 +1,7 @@
 
 #include "PlayerModel.h"
 
-PlayerModel::PlayerModel()
+PlayerModel::PlayerModel(unsigned int playerNum, bool isComputer):playerNum_(playerNum), isComputer_(isComputer)
 {
 }
 
@@ -22,6 +22,11 @@ unsigned int PlayerModel::getScore() const
 void PlayerModel::incrementScore(unsigned int incrementAmount)
 {
     score_ += incrementAmount;
+}
+
+bool PlayerModel::isComputer() const
+{
+    return isComputer_;
 }
 
 void PlayerModel::makeComputer()
@@ -52,6 +57,18 @@ void PlayerModel::clearHand()
 void PlayerModel::clearDiscards()
 {
     discards_.clear();
+}
+
+unsigned int PlayerModel::getValOfDiscards() const
+{
+    unsigned int discardsVal = 0;
+    std::vector<std::shared_ptr<Card> >::const_iterator discardsIt = discards_.begin();
+    while(discardsIt != discards_.end())
+    {
+        discardsVal += (*(discardsIt))->getRank();
+        discardsIt++;
+    }
+    return discardsVal;
 }
 
 void PlayerModel::setHand(std::vector<std::shared_ptr<Card > > newHand)

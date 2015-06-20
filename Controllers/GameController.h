@@ -12,12 +12,18 @@ class GameController
 public:
     GameController(GameModel *, DeckController *);
     ~GameController();
-    void processInput(std::string input);
+    void processInput(std::string userInput);
     void startGame();
 
 private:
+    void initGame(std::string userInput);
+    void processPlayerCommand(std::string userInput);
+
     GameModel * gameModel_;
     DeckController * deckController_;
+    TableController * tableController_;
+    HumanPlayerController * humanPlayerController;
+    ComputerPlayerController * computerPlayerController;
 };
 
 #endif

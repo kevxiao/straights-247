@@ -3,27 +3,39 @@
 #include <sstream>
 using namespace std;
 
-istream &operator>>(istream &in, Command &c){
-	c.type = BAD_COMMAND;
+Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
+{
+	type_ = BAD_COMMAND;
 	
-	string cmd;
-	in >> cmd;
-	
-	if (cmd == "play") {
-		c.type = PLAY;
-		in >> c.cardType;
-	} else if (cmd == "discard") {
-		c.type = DISCARD;
-		in >> c.cardType;
-	} else if (cmd == "deck") {
-		c.type = DECK;
-	} else if (cmd == "quit") {
-		c.type = QUIT;
-	} else if (cmd == "ragequit") {
-		c.type = RAGEQUIT;
+    string cmd = commandInStringForm.substr(0, commandInStringForm.find(" "));
+
+	if (commandInStringForm == "play" || commandInStringForm == "discard") {
+	    if (commandInStringForm == "discard") {
+		    type_ = DISCARD;
+        }
+        else
+        {
+            type_ = PLAY;
+        }
+        assert(commandInStringForm.find(" ") != std::string::npos);
+		cardType_ = CardType(commandInStringForm.substr(commandInStringForm.find(" ") + 1, std::string::npos));
+	} else if (commandInStringForm == "deck") {
+		type_ = DECK;
+	} else if (commandInStringForm == "quit") {
+		type_ = QUIT;
+	} else if (commandInStringForm == "ragequit") {
+		type_ = RAGEQUIT;
 	}
 	
-	assert(!in.fail() && c.type != BAD_COMMAND);
-	
-	return in;
+	assert(type_ != BAD_COMMAND);
+}
+
+Type Command::getType() const
+{
+    return type_;
+}
+
+CardType Command::getCardType() const
+{
+    return cardType_;
 }

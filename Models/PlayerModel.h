@@ -9,12 +9,13 @@
 class PlayerModel
 {
 public:
-    PlayerModel();
+    PlayerModel(unsigned int playerNum, bool isComputer);
     ~PlayerModel();
 
     unsigned int getPlayerNum() const;
     unsigned int getScore() const;
     void incrementScore(unsigned int incrementAmount);
+    bool isComputer() const;
     void makeComputer();
         
     std::vector<std::shared_ptr<Card> > getHand() const;
@@ -23,6 +24,7 @@ public:
 
     void clearHand();
     void clearDiscards();
+    unsigned int getValOfDiscards() const;
     void setHand(std::vector<std::shared_ptr<Card > > hand_);
     void setLegalMoves(std::vector<CardType> newLegalMoves);
 

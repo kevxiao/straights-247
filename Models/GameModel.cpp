@@ -8,7 +8,7 @@ GameModel::~GameModel()
 {
 }
 
-GameStatus GameModel::gameStatus() const 
+GameStatus GameModel::getGameStatus() const 
 {
     return gameStatus_;
 }
@@ -19,19 +19,14 @@ void GameModel::setGameStatus(GameStatus newGameStatus)
     notify();
 }
 
-std::queue<GameEvent *> GameModel::getGameEvents() 
-{
-    return gameEvents_;
-}
-
-void GameModel::addPlayer(PlayerModel * playerToAdd) 
+void GameModel::addPlayer(std::shared_ptr<PlayerModel> playerToAdd) 
 {
     players_.push_back(playerToAdd);
 }
 
-PlayerModel * GameModel::getPlayerModel(unsigned int playerNum)
+std::shared_ptr<PlayerModel> GameModel::getPlayerModel(unsigned int playerNum) const
 {
-    PlayerModel *selectedModel = nullptr;
+    std::shared_ptr<PlayerModel> selectedModel = nullptr;
     for(unsigned int counter = 0; counter < players_.size(); counter++)
     {
         if(players_.at(counter)->getPlayerNum() == playerNum)
@@ -42,12 +37,17 @@ PlayerModel * GameModel::getPlayerModel(unsigned int playerNum)
     return selectedModel;
 }
 
-unsigned int GameModel::getCurPlayerNum()
+unsigned int GameModel::getCurPlayerNum() const
 {
     return curPlayerNum_;
 }
 
-void GameModel::incrementCurPlayerNum()
+void GameModel::setCurPlayerNum(unsigned int newPlayerNum)
 {
-    curPlayerNum_ = (curPlayerNum_ + 1)%4; //TODO: Change 4 to be the NUMOFPLAYERS
+    curPlayerNum_ = newPlayerNum;
+}
+
+unsigned int GameModel::getNumPlayers() const
+{
+    return NUM_PLAYERS;
 }

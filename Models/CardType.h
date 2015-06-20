@@ -9,10 +9,9 @@ enum Rank { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
 			EIGHT, NINE, TEN, JACK, QUEEN, KING, RANK_COUNT };
 
 class CardType {
-	friend std::istream &operator>>(std::istream &, CardType &);
-
 public:
 	CardType(Suit, Rank);
+    CardType(std::string cardTypeinString);
 	Suit getSuit() const;
 	Rank getRank() const;
 	
@@ -25,6 +24,5 @@ bool operator==(const CardType &, const CardType &);
 
 //output/input Card in the format <rank><suit>
 std::ostream &operator<<(std::ostream &, const CardType &);
-std::istream &operator>>(std::istream &, CardType &);
 
 #endif

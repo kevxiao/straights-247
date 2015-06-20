@@ -7,25 +7,28 @@
 #include "PlayerModel.h"
 #include "../Lib/Subject.h"
 
-enum GameStatus {INIT_GAME, START_ROUND, START_TURN, IN_TURN, DECK, RAGEQUIT, END_TURN, END_ROUND, END_GAME, STATUS_COUNT};
+enum GameStatus {INIT_GAME, START_ROUND, START_TURN, IN_TURN, DECK_COMMAND, RAGEQUIT_COMMAND, END_TURN, END_ROUND, END_GAME, STATUS_COUNT};
 
 class GameModel: public Subject
 {
 public:
     GameModel();
     ~GameModel();
-    GameStatus gameStatus() const;
+    GameStatus getGameStatus() const;
     void setGameStatus(GameStatus newGameStatus);
-    std::queue<GameEvent *> getGameEvents();
-    void addPlayer(PlayerModel * playerToAdd);
-    PlayerModel * getPlayerModel(unsigned int playerNum);
-    unsigned int getCurPlayerNum();
-    void incrementCurPlayerNum();
+    void addPlayer(std::shared_ptr<PlayerModel> playerToAdd);
+    std::shared_ptr<PlayerModel> getPlayerModel(unsigned int playerNum) const;
+    unsigned int getCurPlayerNum() const;
+    void setCurPlayerNum(unsigned int newPlayerNum);
+
+    unsigned int getNumPlayers() const;
 
 private:
     GameStatus gameStatus_;
     unsigned int curPlayerNum_;
-    std::vector<PlayerModel *> players_;
+    std::vector<std::shared_ptr<PlayerModel> > players_;
+
+    static const unsigned int NUM_PLAYERS = 4;
 };
 
 #endif

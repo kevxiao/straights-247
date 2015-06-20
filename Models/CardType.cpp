@@ -3,20 +3,43 @@
 #include <cassert>
 using namespace std;
 
-CardType::CardType(Suit s, Rank r){
+CardType::CardType(Suit s, Rank r)
+{
 	suit_ = s;
 	rank_ = r;
 }
 
-Suit CardType::getSuit() const{
+CardType::CardType(std::string cardTypeinString)
+{
+    string suits = "CDHS", ranks = "A234567891JQK";
+	
+    //Read in the rank, make sure it's valid
+    rank_ = (Rank)ranks.find( cardTypeinString.at(0) );
+    assert ( rank_ != string::npos );
+	
+    //If it's a 10, make sure the 2nd character is a 0
+    if ( rank_ == TEN ){
+        assert(cardTypeinString.at(1) == '0');
+        cardTypeinString.at(1) = cardTypeinString.at(2);
+    }
+	
+    //Read in the suit, make sure it's valid
+    suit_ = (Suit)suits.find( cardTypeinString.at(1) );
+    assert ( suit_ != string::npos );
+}
+
+Suit CardType::getSuit() const
+{
 	return suit_;
 }
 
-Rank CardType::getRank() const{
+Rank CardType::getRank() const
+{
 	return rank_;
 }
 
-bool operator==(const CardType &a, const CardType &b){
+bool operator==(const CardType &a, const CardType &b)
+{
 	return a.getSuit() == b.getSuit() && a.getRank() == b.getRank();
 }
 
@@ -28,28 +51,4 @@ ostream &operator<<(ostream &out, const CardType &c){
 	out << ranks[c.getRank()] << suits[c.getSuit()];
 	
 	return out;
-}
-
-istream &operator>>(istream &in, CardType &c){
-	string suits = "CDHS", ranks = "A234567891JQK";
-	
-	string str;
-	in >> str;
-	assert ( !in.fail() );
-	
-	//Read in the rank, make sure it's valid
-	c.rank_ = (Rank)ranks.find( str.at(0) );
-	assert ( c.rank_ != string::npos );
-	
-	//If it's a 10, make sure the 2nd character is a 0
-	if ( c.rank_ == TEN ){
-		assert(str.at(1) == '0');
-		str.at(1) = str.at(2);
-	}
-	
-	//Read in the suit, make sure it's valid
-	c.suit_ = (Suit)suits.find( str.at(1) );
-	assert ( c.suit_ != string::npos );
-	
-	return in;
 }
