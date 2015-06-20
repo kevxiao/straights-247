@@ -5,7 +5,7 @@
 GameController::GameController(GameModel *gameModel, DeckController *deckController, TableController * tableController) :
                                gameModel_(gameModel), deckController_(deckController), tableController_(tableController)
 {
-    // creat the human and computer controllers
+    // create the human and computer controllers
     humanPlayerController_ = new HumanPlayerController(tableController);
     computerPlayerController_ = new ComputerPlayerController(tableController);
 }
