@@ -6,7 +6,7 @@
 class View : public Observer
 {
 public:
-    View(GameController *, DeckController *, TableController *, GameModel *, DeckModel *, TableModel *);
+    View(GameController *, GameModel *, DeckModel *, TableModel *);
     virtual ~View();
     virtual void update();
     void run();
@@ -17,6 +17,4 @@ private:
     DeckModel *deckModel_;
     TableModel *tableModel_;
     GameController *gameController_;
-    DeckController *deckController_;
-    TableController *tableController_;
 };
