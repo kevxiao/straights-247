@@ -4,9 +4,10 @@
 #include <queue>
 
 #include "GameEvent.h"
+#include "PlayerModel.h"
 #include "../Lib/Subject.h"
 
-enum GameStatus {INIT_GAME, PLAYER_TURN, END_ROUND, END_GAME, STATUS_COUNT};
+enum GameStatus {INIT_GAME, START_ROUND, START_TURN, IN_TURN, DECK, RAGEQUIT, END_TURN, END_ROUND, END_GAME, STATUS_COUNT};
 
 class GameModel: public Subject
 {
@@ -17,13 +18,13 @@ public:
     void setGameStatus(GameStatus newGameStatus);
     std::queue<GameEvent *> getGameEvents();
     void addPlayer(PlayerModel * playerToAdd);
+    PlayerModel * getPlayerModel(unsigned int playerNum);
     unsigned int getCurPlayerNum();
     void incrementCurPlayerNum();
 
 private:
     GameStatus gameStatus_;
     unsigned int curPlayerNum_;
-    std::queue<GameEvent *> gameEvents_;
     std::vector<PlayerModel *> players_;
 };
 

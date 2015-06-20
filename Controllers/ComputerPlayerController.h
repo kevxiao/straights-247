@@ -9,7 +9,6 @@ class ComputerPlayerController : public PlayerController
 public:
     ComputerPlayerController();
     ~ComputerPlayerController();
-    
     PlayerMoveEvent performMove();
 };
 
