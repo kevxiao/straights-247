@@ -93,7 +93,6 @@ void GameController::endTurn()
 
 void GameController::endRound()
 {
-    unsigned int curPlayer = gameModel_->getCurPlayerNum();
     gameModel_->setGameStatus(END_ROUND);
     for (int i = 0; i < gameModel_->getNumPlayers(); ++i)
     {
