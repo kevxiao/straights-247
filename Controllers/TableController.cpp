@@ -23,3 +23,8 @@ void TableController::addCardToTable(std::shared_ptr<Card> cardToAdd)
         tableModel_->addCardToTable(cardToAdd);
     }
 }
+
+void TableController::resetTable()
+{
+    tableModel_->resetTable();
+}

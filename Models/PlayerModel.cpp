@@ -65,7 +65,7 @@ unsigned int PlayerModel::getValOfDiscards() const
     std::vector<std::shared_ptr<Card> >::const_iterator discardsIt = discards_.begin();
     while(discardsIt != discards_.end())
     {
-        discardsVal += (*(discardsIt))->getRank();
+        discardsVal += (*(discardsIt))->getRank() + 1;
         discardsIt++;
     }
     return discardsVal;

@@ -21,6 +21,7 @@ void GameController::processInput(std::string userInput)
             break;
         case IN_TURN:
             processPlayerCommand(userInput);
+            endTurn();
             break;
         default: break;
     }
@@ -51,6 +52,7 @@ void GameController::startRound()
         }
         hand.clear();
     }
+    tableController_->resetTable();
     gameModel_->setCurPlayerNum(determineStartPlayer());
     gameModel_->setGameStatus(START_ROUND);
     startTurn();
@@ -60,17 +62,59 @@ void GameController::startTurn()
 {
     if (gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
     {
+        if (!computerPlayerController_->hasCards(gameModel_->getCurPlayerNum()))
+        {
+            endRound();
+            return;
+        }
         computerPlayerController_->setLegalMoves(gameModel_->getCurPlayerNum());
         computerPlayerController_->performMove(gameModel_->getCurPlayerNum());
-        gameModel_->setGameStatus(END_TURN);
-        gameModel_->incrementCurPlayerNum();
-        startTurn();
+        endTurn();
     }
     else
     {
+        if (!humanPlayerController_->hasCards(gameModel_->getCurPlayerNum()))
+        {
+            endRound();
+            return;
+        }
         humanPlayerController_->setLegalMoves(gameModel_->getCurPlayerNum());
         gameModel_->setGameStatus(START_TURN);
         gameModel_->setGameStatus(IN_TURN);
+    }
+}
+
+void GameController::endTurn()
+{
+    gameModel_->setGameStatus(END_TURN);
+    gameModel_->incrementCurPlayerNum();
+    startTurn();
+}
+
+void GameController::endRound()
+{
+    unsigned int curPlayer = gameModel_->getCurPlayerNum();
+    gameModel_->setGameStatus(END_ROUND);
+    for (int i = 0; i < gameModel_->getNumPlayers(); ++i)
+    {
+        if (gameModel_->getPlayerModel(i)->isComputer())
+        {
+            computerPlayerController_->incrementScore(gameModel_->getPlayerModel(i)->getValOfDiscards(), i);
+        }
+        else
+        {
+            humanPlayerController_->incrementScore(gameModel_->getPlayerModel(i)->getValOfDiscards(), i);
+        }
+    }
+    int winner = determineWinner();
+    if (winner >= 0)
+    {
+        gameModel_->setCurPlayerNum((unsigned int)winner);
+        gameModel_->setGameStatus(END_GAME);
+    }
+    else
+    {
+        startRound();
     }
 }
 
@@ -100,7 +144,7 @@ void GameController::initGame(std::string userInput)
     }
 }
 
-unsigned int GameController::determineStartPlayer()
+unsigned int GameController::determineStartPlayer() const
 {
     for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
     {
@@ -108,6 +152,34 @@ unsigned int GameController::determineStartPlayer()
         {
             return i;
         }
+    }
+}
+
+int GameController::determineWinner() const
+{
+    unsigned int max = gameModel_->getPlayerModel(0)->getScore();
+    unsigned int min = max, minPlayer = 0;
+    unsigned int value;
+    for (unsigned int i = 1; i < gameModel_->getNumPlayers(); ++i)
+    {
+        value = gameModel_->getPlayerModel(i)->getScore();
+        if (value > max)
+        {
+            max = value;
+        }
+        else if (value < min)
+        {
+            min = value;
+            minPlayer = i;
+        }
+    }
+    if (max >= 80)
+    {
+        return minPlayer;
+    }
+    else
+    {
+        return -1;
     }
 }
 

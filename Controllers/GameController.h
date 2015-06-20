@@ -17,10 +17,13 @@ public:
     void startGame();
     void startRound();
     void startTurn();
+    void endTurn();
+    void endRound();
 
 private:
     void initGame(std::string userInput);
-    unsigned int determineStartPlayer();
+    unsigned int determineStartPlayer() const;
+    int determineWinner() const;
     void processPlayerCommand(std::string userInput);
 
     GameModel * gameModel_;

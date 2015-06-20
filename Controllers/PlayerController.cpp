@@ -26,7 +26,7 @@ void PlayerController::resetHand(std::vector<std::shared_ptr<Card> > newHand, un
 bool PlayerController::hasCards(unsigned int playerNum) const
 {
     std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
-    return curPlayer->getHand().empty();
+    return !curPlayer->getHand().empty();
 }
 
 bool PlayerController::doesPlayerExistHere(unsigned int playerNum) const

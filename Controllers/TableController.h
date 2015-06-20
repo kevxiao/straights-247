@@ -10,6 +10,7 @@ public:
     ~TableController();
     bool isPlayValid(std::shared_ptr<Card> cardToAdd) const;
     void addCardToTable(std::shared_ptr<Card> cardToAdd);
+    void resetTable();
 private:
     TableModel * tableModel_;
 };
