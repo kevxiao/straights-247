@@ -36,17 +36,34 @@ void View::update()
             gameController_->processInput(input);
             break;
         } //TODO: Deal with braces
+
         case START_ROUND:
             std::cout << "A new round begins. It\'s player " << gameModel_->getCurPlayerNum() + 1 << "\'s turn to play." << std::endl;
             break;
+
         case START_TURN:
-            if (!gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
+        {
+            std::shared_ptr<PlayerModel> curPlayer = gameModel_->getPlayerModel(gameModel_->getCurPlayerNum());
+            if (!curPlayer->isComputer())
             {
                 printTable();
-                std::cout << "Your hand: ";
+                std::cout << "Your hand:";
+                for(unsigned int counter = 0; counter < curPlayer->getHand().size(); counter++)
+                {
+                    std::cout<<" "<<*(curPlayer->getHand().at(counter));
+                }
+                std::cout<<std::endl;
 
+                std::cout << "Legal plays:";
+                for(unsigned int counter = 0; counter < curPlayer->getLegalMoves().size(); counter++)
+                {
+                    std::cout<<" "<<curPlayer->getLegalMoves().at(counter);
+                }
+                std::cout<<std::endl<<">";
             }
             break;
+        }
+
         case IN_TURN:
             if (!gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
             {
@@ -60,12 +77,15 @@ void View::update()
                 }
             }
             break;
+
         case DECK_COMMAND:
             printDeck();
             break;
+
         case RAGEQUIT_COMMAND:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ragequits. A computer will now take over." << std::endl;
             break;
+
         case END_TURN:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ";
             if(gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().moveType == MoveType::PLAY_CARD)
@@ -78,6 +98,7 @@ void View::update()
             }
             std::cout << gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().cardValue << "." << std::endl;
             break;
+
         case END_ROUND:
             unsigned int score, discardScore;
             for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
@@ -95,9 +116,11 @@ void View::update()
                 std::cout << std::endl << "Player " << i + 1 << "\'s score: " << score << " + " << discardScore << " = " << score + discardScore << std::endl;
             }
             break;
+
         case END_GAME:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " wins!";
             return;
+
         default:
             return;
     }
