@@ -13,7 +13,7 @@ void ComputerPlayerController::performMove(unsigned int playerNum)
     std::shared_ptr<PlayerModel> curPlayer = getPlayerModel(playerNum);
     if(curPlayer->getLegalMoves().empty())
     {
-        std::shared_ptr<Card> cardToDiscard = curPlayer->getDiscards().at(0);
+        std::shared_ptr<Card> cardToDiscard = curPlayer->getHand().at(0);
         CardType cardTypeToDiscard = CardType(cardToDiscard->getSuit(), cardToDiscard->getRank());
         discardCard(cardTypeToDiscard, playerNum);
     }

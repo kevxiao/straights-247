@@ -55,8 +55,5 @@ unsigned int GameModel::getNumPlayers() const
 void GameModel::incrementCurPlayerNum()
 {
     ++curPlayerNum_;
-    if (curPlayerNum_ >= getNumPlayers())
-    {
-        curPlayerNum_ = 0;
-    }
+    curPlayerNum_ = curPlayerNum_ % getNumPlayers();
 }

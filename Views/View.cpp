@@ -37,7 +37,7 @@ void View::update()
             break;
         } //TODO: Deal with braces
         case START_ROUND:
-            std::cout << "A new round begins. It\'s player " << gameModel_->getCurPlayerNum() << "\'s turn to play." << std::endl;
+            std::cout << "A new round begins. It\'s player " << gameModel_->getCurPlayerNum() + 1 << "\'s turn to play." << std::endl;
             break;
         case START_TURN:
             if (!gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
@@ -64,25 +64,25 @@ void View::update()
             printDeck();
             break;
         case RAGEQUIT_COMMAND:
-            std::cout << "Player " << gameModel_->getCurPlayerNum() << " ragequits. A computer will now take over." << std::endl;
+            std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ragequits. A computer will now take over." << std::endl;
             break;
         case END_TURN:
-            std::cout << "Player " << gameModel_->getCurPlayerNum() << " ";
+            std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ";
             if(gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().moveType == MoveType::PLAY_CARD)
             {
-                std::cout<<" plays ";
+                std::cout << "plays ";
             }
             else
             {
-                std::cout<<" discards ";
+                std::cout << "discards ";
             }
-            std::cout<<gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().cardValue<<"."<<std::endl;
+            std::cout << gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().cardValue << "." << std::endl;
             break;
         case END_ROUND:
             unsigned int score, discardScore;
             for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
             {
-                std::cout << "Player " << i << "\'s discards: ";
+                std::cout << "Player " << i + 1 << "\'s discards: ";
                 for (unsigned int j = 0; j < gameModel_->getPlayerModel(i)->getDiscards().size(); ++j)
                 {
                     if (j != 0) {
@@ -92,11 +92,11 @@ void View::update()
                 };
                 score = gameModel_->getPlayerModel(i)->getScore();
                 discardScore = gameModel_->getPlayerModel(i)->getValOfDiscards();
-                std::cout << std::endl << "Player "<< i << "\'s score: " << score << " + " << discardScore << " = " << score + discardScore << std::endl;
+                std::cout << std::endl << "Player " << i + 1 << "\'s score: " << score << " + " << discardScore << " = " << score + discardScore << std::endl;
             }
             break;
         case END_GAME:
-            std::cout << "Player " << gameModel_->getCurPlayerNum() << " wins!";
+            std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " wins!";
             return;
         default:
             return;
