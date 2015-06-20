@@ -23,12 +23,15 @@ public:
     void setCurPlayerNum(unsigned int newPlayerNum);                                // mutator - set the current player
     unsigned int getNumPlayers() const;                                             // accessor - get a constant number of players for this game
     void incrementCurPlayerNum();                                                   // mutator - move to next player
+    void setWinners(std::vector<unsigned int>);                                     // mutator - set the winning player(s)
+    std::vector<unsigned int> getWinners() const;                                   // accessor - get the winning player(s)
 
 private:
     GameStatus gameStatus_;                                                         // current status of the game
     unsigned int curPlayerNum_;                                                     // current player's turn
     std::vector<std::shared_ptr<PlayerModel> > players_;                            // list of pointers to the players in the game
     static const unsigned int NUM_PLAYERS = 4;                                      // constant number of players for the game
+    std::vector<unsigned int> winners_;                                             // list of winnders
 };
 
 #endif

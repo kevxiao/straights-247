@@ -126,10 +126,10 @@ void GameController::endRound()
         }
     }
     // check for winner
-    int winner = determineWinner();
-    if (winner >= 0)
+    auto winner = determineWinner();
+    if (!winner.empty())
     {
-        gameModel_->setCurPlayerNum((unsigned int)winner);
+        gameModel_->setWinners(winner);
         gameModel_->setGameStatus(END_GAME);
     }
     else
@@ -180,10 +180,11 @@ unsigned int GameController::determineStartPlayer() const
 }
 
 // determine if there is a winner at this time
-int GameController::determineWinner() const
+std::vector<unsigned int> GameController::determineWinner() const
 {
     unsigned int max = gameModel_->getPlayerModel(0)->getScore();
-    unsigned int min = max, minPlayer = 0;
+    unsigned int min = max;
+    std::vector<unsigned int> winners;
     unsigned int value;
     for (unsigned int i = 1; i < gameModel_->getNumPlayers(); ++i)
     {
@@ -197,18 +198,20 @@ int GameController::determineWinner() const
         else if (value < min)
         {
             min = value;
-            minPlayer = i;
         }
     }
     // only return winner if someone has a score over 80
     if (max >= 80)
     {
-        return minPlayer;
+        for (unsigned int i = 1; i < gameModel_->getNumPlayers(); ++i)
+        {
+            value = gameModel_->getPlayerModel(i)->getScore();
+            if (value == min) {
+                winners.push_back(i);
+            }
+        }
     }
-    else
-    {
-        return -1;
-    }
+    return winners;
 }
 
 // process a player's command and perform the correct answers

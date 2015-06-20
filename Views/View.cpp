@@ -141,8 +141,11 @@ void View::update()
 
         // print winner at the end of game
         case END_GAME:
-            std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " wins!" << std::endl;
-            return;
+            for (unsigned int i = 0; i < gameModel_->getWinners().size(); ++i)
+            {
+                std::cout << "Player " << gameModel_->getWinners().at(i) + 1 << " wins!" << std::endl;
+            }
+            break;
 
         default:
             return;

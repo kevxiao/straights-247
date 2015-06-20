@@ -24,7 +24,7 @@ public:
 private:
     void initGame(std::string userInput);                               // mutator - initialize game with players
     unsigned int determineStartPlayer() const;                          // accessor - determine player to start a round
-    int determineWinner() const;                                        // accessor - determine if round ends with a winner
+    std::vector<unsigned int> determineWinner() const;                                        // accessor - determine if round ends with a winner
     void processPlayerCommand(std::string userInput);                   // mutator - process command by a human player into actions
 
     GameModel * gameModel_;                                             // pointer to the model

@@ -67,3 +67,13 @@ void GameModel::incrementCurPlayerNum()
     ++curPlayerNum_;
     curPlayerNum_ = curPlayerNum_ % getNumPlayers();
 }
+
+void GameModel::setWinners(std::vector<unsigned int> winners)
+{
+    winners_ = winners;
+}
+
+std::vector<unsigned int> GameModel::getWinners() const
+{
+    return winners_;
+}
