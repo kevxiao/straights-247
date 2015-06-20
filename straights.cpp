@@ -25,5 +25,6 @@ int main(int argc, char* argv[])
     GameController *gameController = new GameController(gameModel, deckController, tableController);
     View *view = new View(gameController, gameModel, deckModel, tableModel);
     view->run();
+    delete view;
     return 0;
 }

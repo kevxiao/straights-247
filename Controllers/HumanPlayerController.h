@@ -11,6 +11,10 @@ public:
     ~HumanPlayerController();
     void processCommand(Command commandToProcess, unsigned int playerNum);
     void removePlayerModel(unsigned int playerNum);
+
+    class InvalidPlayException {};
+    class InvalidDiscardException {};
+
 private:
     //Top secret stuff
 };

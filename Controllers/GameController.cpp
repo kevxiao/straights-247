@@ -10,6 +10,10 @@ GameController::GameController(GameModel *gameModel, DeckController *deckControl
 
 GameController::~GameController()
 {
+    delete humanPlayerController_;
+    delete computerPlayerController_;
+    delete deckController_;
+    delete tableController_;
 }
 
 void GameController::processInput(std::string userInput)
@@ -21,7 +25,6 @@ void GameController::processInput(std::string userInput)
             break;
         case IN_TURN:
             processPlayerCommand(userInput);
-            endTurn();
             break;
         default: break;
     }
@@ -36,9 +39,9 @@ void GameController::startRound()
     deckController_->shuffle();
     auto deck = deckController_->getCards();
     std::vector<std::shared_ptr<Card> > hand;
-    for (int i = 0; i < gameModel_->getNumPlayers(); ++i)
+    for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
     {
-        for (int j = 0; j < deck->size() / gameModel_->getNumPlayers(); ++j)
+        for (unsigned int j = 0; j < deck->size() / gameModel_->getNumPlayers(); ++j)
         {
             hand.push_back((*deck).at(i * (deck->size() / gameModel_->getNumPlayers()) + j));
         }
@@ -94,7 +97,7 @@ void GameController::endTurn()
 void GameController::endRound()
 {
     gameModel_->setGameStatus(END_ROUND);
-    for (int i = 0; i < gameModel_->getNumPlayers(); ++i)
+    for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
     {
         if (gameModel_->getPlayerModel(i)->isComputer())
         {
@@ -152,6 +155,7 @@ unsigned int GameController::determineStartPlayer() const
             return i;
         }
     }
+    return 0;
 }
 
 int GameController::determineWinner() const
@@ -185,8 +189,27 @@ int GameController::determineWinner() const
 void GameController::processPlayerCommand(std::string userInput)
 {
     Command playerCommand = Command(userInput);
-    if(playerCommand.getType() == PLAY || playerCommand.getType() == DISCARD)
+    if(playerCommand.getType() == Type::PLAY || playerCommand.getType() == Type::DISCARD)
     {
         humanPlayerController_->processCommand(playerCommand, gameModel_->getCurPlayerNum());
+        endTurn();
+    }
+    else if(playerCommand.getType() == Type::DECK)
+    {
+        gameModel_->setGameStatus(DECK_COMMAND);
+        gameModel_->setGameStatus(IN_TURN);
+    }
+    else if(playerCommand.getType() == Type::RAGEQUIT)
+    {
+        gameModel_->setGameStatus(RAGEQUIT_COMMAND);
+        std::shared_ptr<PlayerModel> modelToComputerize = gameModel_->getPlayerModel(gameModel_->getCurPlayerNum());
+        humanPlayerController_->removePlayerModel(gameModel_->getCurPlayerNum());
+        computerPlayerController_->addPlayerModel(modelToComputerize);
+        modelToComputerize->makeComputer();
+        startTurn();
+    }
+    else if(playerCommand.getType() == Type::QUIT)
+    {
+        gameModel_->setGameStatus(EXIT_GAME);
     }
 }

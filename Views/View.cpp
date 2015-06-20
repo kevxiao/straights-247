@@ -59,7 +59,7 @@ void View::update()
                 {
                     std::cout<<" "<<curPlayer->getLegalMoves().at(counter);
                 }
-                std::cout<<std::endl<<">";
+                std::cout<<std::endl;
             }
             break;
         }
@@ -68,11 +68,20 @@ void View::update()
             if (!gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
             {
                 std::string player_input;
+                std::cout<<">";
                 std::getline(std::cin, player_input);
-                try {
+                try 
+                {
                     gameController_->processInput(player_input);
-                } catch (std::string e) {
-                    std::cout << e << std::endl;
+                }
+                catch (HumanPlayerController::InvalidPlayException invalidPlayEx) 
+                {
+                    std::cout << "This is not a legal play." << std::endl;
+                    update();
+                } 
+                catch (HumanPlayerController::InvalidDiscardException invalidDiscardEx) 
+                {
+                    std::cout << "You have a legal play. You may not discard." << std::endl;
                     update();
                 }
             }
@@ -118,7 +127,7 @@ void View::update()
             break;
 
         case END_GAME:
-            std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " wins!";
+            std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " wins!" << std::endl;
             return;
 
         default:

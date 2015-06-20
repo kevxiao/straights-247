@@ -25,7 +25,7 @@ void HumanPlayerController::processCommand(Command commandToProcess, unsigned in
         }
         else
         {
-            throw "This is not a legal play.";
+            throw InvalidPlayException();
         }
     }
     else
@@ -36,7 +36,7 @@ void HumanPlayerController::processCommand(Command commandToProcess, unsigned in
         }
         else
         {
-            throw "You have a legal play. You may not discard.";
+            throw InvalidDiscardException();
         }
     }
 }

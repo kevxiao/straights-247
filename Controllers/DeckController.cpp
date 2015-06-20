@@ -12,7 +12,6 @@ DeckController::DeckController(unsigned long seed, DeckModel * deckModel): deckM
 
 DeckController::~DeckController()
 {
-    delete deckModel_;
 }
 
 void DeckController::reset() {
