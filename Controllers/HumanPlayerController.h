@@ -4,19 +4,17 @@
 #include "PlayerController.h"
 #include "../Models/Command.h"
 
+// controller for the human players, derived from player controller
 class HumanPlayerController : public PlayerController
 {
 public:
-    HumanPlayerController(TableController *table);
-    ~HumanPlayerController();
-    void processCommand(Command commandToProcess, unsigned int playerNum);
-    void removePlayerModel(unsigned int playerNum);
+    HumanPlayerController(TableController *table);                          // constructor
+    ~HumanPlayerController();                                               // destructor
+    void processCommand(Command commandToProcess, unsigned int playerNum);  // mutator - handle a command for a specific player
+    void removePlayerModel(unsigned int playerNum);                         // mutator - remove a player as a human
 
-    class InvalidPlayException {};
-    class InvalidDiscardException {};
-
-private:
-    //Top secret stuff
+    class InvalidPlayException {};                                          // exception for invalid play commands
+    class InvalidDiscardException {};                                       // exception for invalid discard commands
 };
 
 #endif

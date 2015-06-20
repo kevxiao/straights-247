@@ -1,6 +1,7 @@
 #include <random>
 #include "DeckModel.h"
 
+// create deck model and add in all the cards in order
 DeckModel::DeckModel()
 {
     for (unsigned int i = 0; i < SUIT_COUNT; ++i)
@@ -12,10 +13,12 @@ DeckModel::DeckModel()
     }
 }
 
+// default destructor
 DeckModel::~DeckModel()
 {
 }
 
+// shuffle cards in deck using the seed
 void DeckModel::shuffle(unsigned long seed) 
 {
     static std::mt19937 rng(seed);
@@ -32,6 +35,7 @@ void DeckModel::shuffle(unsigned long seed)
     }
 }
 
+// get the list of cards in the deck in order
 const std::vector<std::shared_ptr<Card> > * DeckModel::getCards() const
 {
     return &cards_;

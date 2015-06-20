@@ -17,6 +17,7 @@ int main(int argc, char* argv[])
     if (argc > 1) {
         firstArg = atoi(argv[1]);
     }
+    // initialize all the required models and controllers
     GameModel *gameModel = new GameModel();
     DeckModel *deckModel = new DeckModel();
     TableModel *tableModel = new TableModel();
@@ -24,6 +25,7 @@ int main(int argc, char* argv[])
     TableController *tableController = new TableController(tableModel);
     GameController *gameController = new GameController(gameModel, deckController, tableController);
     View *view = new View(gameController, gameModel, deckModel, tableModel);
+    // run the view
     view->run();
     delete view;
     return 0;

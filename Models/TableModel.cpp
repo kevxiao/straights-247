@@ -3,6 +3,7 @@
 #include "Card.h"
 #include "CardType.h"
 
+// create table model by create a map of 4 suits
 TableModel::TableModel() 
 {
     for (int i = 0; i < SUIT_COUNT; ++i) 
@@ -11,10 +12,12 @@ TableModel::TableModel()
     }
 }
 
+//default destructor
 TableModel::~TableModel() 
 {
 }
 
+// clear all cards from the table
 void TableModel::resetTable() 
 {
     for (auto it = cardsOnTable_.begin(); it != cardsOnTable_.end(); ++it) 
@@ -23,11 +26,13 @@ void TableModel::resetTable()
     }
 }
 
+// add a card to the table
 void TableModel::addCardToTable(std::shared_ptr<Card> card) 
 {
     cardsOnTable_.at(card->getSuit()).insert(std::pair<Rank, std::shared_ptr<Card> >(card->getRank(), card));
 }
 
+// get all the cards on the table
 const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * TableModel::getCardsOnTable() const
 {
     return &cardsOnTable_;

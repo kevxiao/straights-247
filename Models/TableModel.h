@@ -6,16 +6,17 @@
 #include "Card.h"
 #include "CardType.h"
 
+// model of a table and cards played on it
 class TableModel 
 {
 public:
-    TableModel();
-    ~TableModel();
-    void resetTable();
-    void addCardToTable(std::shared_ptr<Card> cardToAdd);
-    const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * getCardsOnTable() const;
+    TableModel();                                                                               // constructor
+    ~TableModel();                                                                              // destructor
+    void resetTable();                                                                          // mutator - clear cards on table
+    void addCardToTable(std::shared_ptr<Card> cardToAdd);                                       // mutator - add one card to table
+    const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * getCardsOnTable() const;    // accessor - get the list of cards on table
 private:
-    std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > cardsOnTable_; //Split into array of vectors of card *
+    std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > cardsOnTable_;                      // ordered map of cards on table
 };
 
 #endif

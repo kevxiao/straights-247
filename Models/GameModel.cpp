@@ -1,29 +1,35 @@
 #include "GameModel.h"
 
+// constructor for game model
 GameModel::GameModel() : gameStatus_(INIT_GAME)
 {
 }
 
+// default destructor
 GameModel::~GameModel() 
 {
 }
 
+// get the game status
 GameStatus GameModel::getGameStatus() const 
 {
     return gameStatus_;
 }
 
+// set the game status and notify observers when new status is set
 void GameModel::setGameStatus(GameStatus newGameStatus) 
 {
     gameStatus_ = newGameStatus;
     notify();
 }
 
+// add a player to the game
 void GameModel::addPlayer(std::shared_ptr<PlayerModel> playerToAdd) 
 {
     players_.push_back(playerToAdd);
 }
 
+// get a player using the identifier
 std::shared_ptr<PlayerModel> GameModel::getPlayerModel(unsigned int playerNum) const
 {
     std::shared_ptr<PlayerModel> selectedModel = nullptr;
@@ -37,21 +43,25 @@ std::shared_ptr<PlayerModel> GameModel::getPlayerModel(unsigned int playerNum) c
     return selectedModel;
 }
 
+// get the player whose turn it is
 unsigned int GameModel::getCurPlayerNum() const
 {
     return curPlayerNum_;
 }
 
+// set the player whose turn it will be
 void GameModel::setCurPlayerNum(unsigned int newPlayerNum)
 {
     curPlayerNum_ = newPlayerNum;
 }
 
+// get the number of players in the game
 unsigned int GameModel::getNumPlayers() const
 {
     return NUM_PLAYERS;
 }
 
+// increment and rotate through current players
 void GameModel::incrementCurPlayerNum()
 {
     ++curPlayerNum_;

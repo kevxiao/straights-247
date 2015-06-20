@@ -12,17 +12,18 @@
 #include "../Models/DeckModel.h"
 #include "../Models/Card.h"
 
+// controller for the deck of cards
 class DeckController
 {
 public:
-    DeckController(unsigned long, DeckModel *);
-    ~DeckController();
-    void reset();
-    void shuffle();
-    const std::vector<std::shared_ptr<Card> > * getCards() const;
+    DeckController(unsigned long, DeckModel *);                     // constructor
+    ~DeckController();                                              // destructor
+    void reset();                                                   // mutator - reset deck order
+    void shuffle();                                                 // mutator - shuffle the deck
+    const std::vector<std::shared_ptr<Card> > * getCards() const;   // accessor - get card list in order
 private:
-    DeckModel * deckModel_;
-    unsigned long shuffleSeed_;
+    DeckModel * deckModel_;                                         // pointer to the deck's model
+    unsigned long shuffleSeed_;                                     // seed to use for shuffling
 };
 
 #endif

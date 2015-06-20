@@ -9,13 +9,16 @@
 #include "../Models/TableModel.h"
 #include "View.h"
 
+// create view with required models and controllers, and subscribe to updates
 View::View(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
            TableModel * tableModel) : gameModel_(gameModel), deckModel_(deckModel),
            tableModel_(tableModel), gameController_(gameController)
 {
+    // subscribe to updates from game model
     gameModel->subscribe(this);
 }
 
+// destructor to delete all the models and controller instances
 View::~View()
 {
     delete gameModel_;
@@ -24,10 +27,13 @@ View::~View()
     delete gameController_;
 }
 
+// update the view based on the game state
 void View::update()
 {
     switch (gameModel_->getGameStatus())
     {
+
+        // ask for input for players if in initialization stage
         case INIT_GAME:
         {
             std::string input;
@@ -35,12 +41,14 @@ void View::update()
             std::getline(std::cin, input);
             gameController_->processInput(input);
             break;
-        } //TODO: Deal with braces
+        }
 
+        // output player's turn if starting round
         case START_ROUND:
             std::cout << "A new round begins. It\'s player " << gameModel_->getCurPlayerNum() + 1 << "\'s turn to play." << std::endl;
             break;
 
+        // output table, player's hand and legal moves if starting a human player's turn
         case START_TURN:
         {
             std::shared_ptr<PlayerModel> curPlayer = gameModel_->getPlayerModel(gameModel_->getCurPlayerNum());
@@ -64,6 +72,7 @@ void View::update()
             break;
         }
 
+        // ask for input in a human player's turn
         case IN_TURN:
             if (!gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer())
             {
@@ -87,14 +96,17 @@ void View::update()
             }
             break;
 
+        // print the deck if input asks for a deck
         case DECK_COMMAND:
             printDeck();
             break;
 
+        // notify that a computer is taking over for a player if ragequitting
         case RAGEQUIT_COMMAND:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ragequits. A computer will now take over." << std::endl;
             break;
 
+        // print out the move of the player when ending a turn
         case END_TURN:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ";
             if(gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().moveType == MoveType::PLAY_CARD)
@@ -108,6 +120,7 @@ void View::update()
             std::cout << gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->getLastMove().cardValue << "." << std::endl;
             break;
 
+        // print discards and scores of each player on ending a round
         case END_ROUND:
             unsigned int score, discardScore;
             for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
@@ -126,6 +139,7 @@ void View::update()
             }
             break;
 
+        // print winner at the end of game
         case END_GAME:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " wins!" << std::endl;
             return;
@@ -135,11 +149,13 @@ void View::update()
     }
 }
 
+// run the view and start the controller
 void View::run()
 {
     gameController_->startGame();
 }
 
+// print out the deck in order
 void View::printDeck() const
 {
     auto deck = deckModel_->getCards();
@@ -156,12 +172,14 @@ void View::printDeck() const
     }
 }
 
+// print out the cards on the table sorted by the suit and the rank
 void View::printTable() const
 {
     auto table = tableModel_->getCardsOnTable();
     std::cout << "Cards on the table:" << std::endl;
     for (auto it = table->cbegin(); it != table->cend(); ++it)
     {
+        // list by suit
         switch (it->first)
         {
             case (CLUB):
@@ -179,6 +197,7 @@ void View::printTable() const
             default:
                 return;
         }
+        // sort by rank since ordered map is sorted by value
         for (auto rit = it->second.cbegin(); rit != it->second.cend(); ++rit)
         {
             if (rit != it->second.cbegin())

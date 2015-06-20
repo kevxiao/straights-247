@@ -3,12 +3,15 @@
 #include <sstream>
 using namespace std;
 
+// create command out of a string
 Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
 {
 	type_ = BAD_COMMAND;
-	
+
+    // split string into the command and the card type
     string cmd = commandInStringForm.substr(0, commandInStringForm.find(" "));
 
+    // process each command string
 	if (cmd == "play" || cmd == "discard") {
 	    if (cmd == "discard") {
 		    type_ = DISCARD;
@@ -30,11 +33,13 @@ Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
 	assert(type_ != BAD_COMMAND);
 }
 
+// get the command type
 Type Command::getType() const
 {
     return type_;
 }
 
+// get the card type associated with the command
 CardType Command::getCardType() const
 {
     return cardType_;
