@@ -8,7 +8,7 @@ class ComputerPlayerController : public PlayerController
 public:
     ComputerPlayerController(TableController* table);
     ~ComputerPlayerController();
-    void performMove();
+    void performMove(unsigned int playerNum);
 };
 
 #endif
