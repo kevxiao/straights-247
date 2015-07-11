@@ -203,7 +203,7 @@ std::vector<unsigned int> GameController::determineWinner() const
     // only return winner if someone has a score over 80
     if (max >= 80)
     {
-        for (unsigned int i = 1; i < gameModel_->getNumPlayers(); ++i)
+        for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
         {
             value = gameModel_->getPlayerModel(i)->getScore();
             if (value == min) {

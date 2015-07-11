@@ -169,7 +169,7 @@ void View::printDeck() const
             if (j != 0) {
                 std::cout << " ";
             }
-            std::cout << *((*deck)[SUIT_COUNT * i + j]);
+            std::cout << *((*deck)[RANK_COUNT * i + j]);
         }
         std::cout << std::endl;
     }
@@ -186,16 +186,16 @@ void View::printTable() const
         switch (it->first)
         {
             case (CLUB):
-                std::cout << "Clubs: ";
+                std::cout << "Clubs:";
                 break;
             case (DIAMOND):
-                std::cout << "Diamonds: ";
+                std::cout << "Diamonds:";
                 break;
             case (HEART):
-                std::cout << "Hearts: ";
+                std::cout << "Hearts:";
                 break;
             case (SPADE):
-                std::cout << "Spades: ";
+                std::cout << "Spades:";
                 break;
             default:
                 return;
@@ -203,10 +203,7 @@ void View::printTable() const
         // sort by rank since ordered map is sorted by value
         for (auto rit = it->second.cbegin(); rit != it->second.cend(); ++rit)
         {
-            if (rit != it->second.cbegin())
-            {
-                std::cout << " ";
-            }
+            std::cout << " ";
             switch (rit->first)
             {
                 case (JACK):

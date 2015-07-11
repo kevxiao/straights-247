@@ -68,11 +68,13 @@ void GameModel::incrementCurPlayerNum()
     curPlayerNum_ = curPlayerNum_ % getNumPlayers();
 }
 
+// set the winners of the game
 void GameModel::setWinners(std::vector<unsigned int> winners)
 {
     winners_ = winners;
 }
 
+// get the list of winners
 std::vector<unsigned int> GameModel::getWinners() const
 {
     return winners_;
