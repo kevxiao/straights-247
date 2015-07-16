@@ -4,7 +4,7 @@
 #include <map>
 
 #include "TableController.h"
-#include "../Models/Card.h"
+#include "../Models/CardModel.h"
 #include "../Models/PlayerModel.h"
 
 // controller for the players in the game

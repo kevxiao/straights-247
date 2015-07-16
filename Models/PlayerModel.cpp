@@ -1,4 +1,3 @@
-
 #include "PlayerModel.h"
 
 // create player model with the identifier and whether it is a computer

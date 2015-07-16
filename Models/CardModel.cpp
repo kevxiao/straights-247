@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Card.h"
+#include "CardModel.h"
 
 // constructor usign the suit and the rank
 Card::Card(Suit cardSuit, Rank cardRank) : cardValue_(cardSuit, cardRank)

@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "Card.h"
-#include "CardType.h"
+#include "CardModel.h"
+#include "../Lib/CardType.h"
 #include "../Lib/Constants.h"
 
 // model of a deck entity

@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 
-#include "Card.h"
-#include "PlayerMove.h"
+#include "CardModel.h"
+#include "../Lib/PlayerMove.h"
 
 // model for a player entity in the game
 class PlayerModel

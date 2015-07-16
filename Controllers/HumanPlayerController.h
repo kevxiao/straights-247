@@ -2,7 +2,7 @@
 #define HUMANPLAYERCONTROLLER_H
 
 #include "PlayerController.h"
-#include "../Models/Command.h"
+#include "../Lib/Command.h"
 
 // controller for the human players, derived from player controller
 class HumanPlayerController : public PlayerController

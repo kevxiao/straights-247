@@ -3,7 +3,7 @@
 
 #include <ostream>
 #include <istream>
-#include "../Lib/Constants.h"
+#include "Constants.h"
 
 // value of cards
 class CardType {

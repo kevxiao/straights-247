@@ -1,7 +1,7 @@
 #include "PlayerWidget.h"
 
-PlayerWidget::PlayerWidget(GameController * gameController, int playerNum) : gameController_(gameController), playerBox_(false, UI_SPACING),
-        playerNum_(playerNum + 1), name_("Player " + std::to_string(playerNum_)), playerType_(""), points_("Points: 0"),
+PlayerWidget::PlayerWidget(GameController * gameController, int playerNum) : gameController_(gameController), playerNum_(playerNum + 1),
+        playerBox_(false, UI_SPACING), name_("Player " + std::to_string(playerNum_)), playerType_(""), points_("Points: 0"),
         discards_("Discards: 0"), ragequit_("Ragequit")
 {
     add(playerBox_);

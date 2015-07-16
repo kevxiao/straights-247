@@ -2,7 +2,7 @@
 #define CARD_H
 
 #include <iostream>
-#include "CardType.h"
+#include "../Lib/CardType.h"
 
 // model for a card entity
 class Card

@@ -10,7 +10,7 @@
 #include <vector>
 
 #include "../Models/DeckModel.h"
-#include "../Models/Card.h"
+#include "../Models/CardModel.h"
 
 // controller for the deck of cards
 class DeckController
