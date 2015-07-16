@@ -1,7 +1,5 @@
 #include <map>
 #include "TableModel.h"
-#include "Card.h"
-#include "CardType.h"
 
 // create table model by create a map of 4 suits
 TableModel::TableModel() 

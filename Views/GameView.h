@@ -1,8 +1,13 @@
+#ifndef GAMEVIEW_H
+#define GAMEVIEW_H
+
 #include <gtkmm.h>
 #include "../Controllers/DeckController.h"
 #include "../Controllers/TableController.h"
 #include "../Controllers/GameController.h"
 #include "../Lib/Observer.h"
+#include "../Lib/Constants.h"
+#include "AllPlayersWidget.h"
 
 // view class derived from observer class
 class GameView : public Gtk::Window, public Observer
@@ -18,4 +23,7 @@ private:
     DeckModel *deckModel_;                                              // pointer to deck model
     TableModel *tableModel_;                                            // pointer to table model
     GameController *gameController_;                                    // pointer to game controller
+    AllPlayersWidget allPlayersWidget_;
 };
+
+#endif

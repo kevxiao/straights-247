@@ -5,8 +5,7 @@
 
 #include "Card.h"
 #include "CardType.h"
-
-const unsigned short CARD_COUNT = 52;                                   // constant value for the number of cards in deck
+#include "../Lib/Constants.h"
 
 // model of a deck entity
 class DeckModel
