@@ -1,16 +1,16 @@
+#include <gtkmm.h>
 #include "../Controllers/DeckController.h"
 #include "../Controllers/TableController.h"
 #include "../Controllers/GameController.h"
 #include "../Lib/Observer.h"
 
 // view class derived from observer class
-class View : public Observer
+class GameView : public Gtk::Window, public Observer
 {
 public:
-    View(GameController *, GameModel *, DeckModel *, TableModel *);     // constructor
-    virtual ~View();                                                    // destructor
+    GameView(GameController *, GameModel *, DeckModel *, TableModel *);     // constructor
+    virtual ~GameView();                                                    // destructor
     virtual void update();                                              // mutator - update view with model info
-    void run();                                                         // mutator - start the view
     void printDeck() const;                                             // accessor - print deck in order
     void printTable() const;                                            // accessor - print sorted cards on table
 private:

@@ -7,19 +7,22 @@
 #include "../Models/DeckModel.h"
 #include "../Models/GameModel.h"
 #include "../Models/TableModel.h"
-#include "View.h"
+#include "GameView.h"
 
 // create view with required models and controllers, and subscribe to updates
-View::View(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
+GameView::GameView(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
            TableModel * tableModel) : gameModel_(gameModel), deckModel_(deckModel),
            tableModel_(tableModel), gameController_(gameController)
 {
+    set_title("Straights");
+    set_border_width(10);
+
     // subscribe to updates from game model
     gameModel->subscribe(this);
 }
 
 // destructor to delete all the models and controller instances
-View::~View()
+GameView::~GameView()
 {
     delete gameModel_;
     delete deckModel_;
@@ -28,7 +31,7 @@ View::~View()
 }
 
 // update the view based on the game state
-void View::update()
+void GameView::update()
 {
     switch (gameModel_->getGameStatus())
     {
@@ -152,14 +155,8 @@ void View::update()
     }
 }
 
-// run the view and start the controller
-void View::run()
-{
-    gameController_->startGame();
-}
-
 // print out the deck in order
-void View::printDeck() const
+void GameView::printDeck() const
 {
     auto deck = deckModel_->getCards();
     for (int i = 0; i < SUIT_COUNT; ++i)
@@ -176,7 +173,7 @@ void View::printDeck() const
 }
 
 // print out the cards on the table sorted by the suit and the rank
-void View::printTable() const
+void GameView::printTable() const
 {
     auto table = tableModel_->getCardsOnTable();
     std::cout << "Cards on the table:" << std::endl;
