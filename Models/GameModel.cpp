@@ -55,17 +55,11 @@ void GameModel::setCurPlayerNum(unsigned int newPlayerNum)
     curPlayerNum_ = newPlayerNum;
 }
 
-// get the number of players in the game
-unsigned int GameModel::getNumPlayers() const
-{
-    return NUM_PLAYERS;
-}
-
 // increment and rotate through current players
 void GameModel::incrementCurPlayerNum()
 {
     ++curPlayerNum_;
-    curPlayerNum_ = curPlayerNum_ % getNumPlayers();
+    curPlayerNum_ = curPlayerNum_ % NUM_PLAYERS;
 }
 
 // set the winners of the game

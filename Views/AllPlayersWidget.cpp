@@ -10,6 +10,7 @@ AllPlayersWidget::AllPlayersWidget(GameController *gameController) : gameControl
         onePlayer = std::make_shared<PlayerWidget>(gameController, i);
         eachPlayer_.push_back(onePlayer);
         players_.add(*onePlayer);
+        players_.set_sensitive(false);
     }
     show_all();
 }

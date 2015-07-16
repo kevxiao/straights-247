@@ -22,7 +22,6 @@ public:
     std::shared_ptr<PlayerModel> getPlayerModel(unsigned int playerNum) const;      // accessor - get a player model
     unsigned int getCurPlayerNum() const;                                           // accessor - get the current player
     void setCurPlayerNum(unsigned int newPlayerNum);                                // mutator - set the current player
-    unsigned int getNumPlayers() const;                                             // accessor - get a constant number of players for this game
     void incrementCurPlayerNum();                                                   // mutator - move to next player
     void setWinners(std::vector<unsigned int>);                                     // mutator - set the winning player(s)
     std::vector<unsigned int> getWinners() const;                                   // accessor - get the winning player(s)

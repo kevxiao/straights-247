@@ -127,7 +127,7 @@ void GameView::update()
         // print discards and scores of each player on ending a round
         case END_ROUND:
             unsigned int score, discardScore;
-            for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
+            for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
             {
                 std::cout << "Player " << i + 1 << "\'s discards: ";
                 for (unsigned int j = 0; j < gameModel_->getPlayerModel(i)->getDiscards().size(); ++j)

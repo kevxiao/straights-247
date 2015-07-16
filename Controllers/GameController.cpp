@@ -47,11 +47,11 @@ void GameController::startRound()
     auto deck = deckController_->getCards();
     std::vector<std::shared_ptr<Card> > hand;
     // create the hand
-    for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
+    for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
     {
-        for (unsigned int j = 0; j < deck->size() / gameModel_->getNumPlayers(); ++j)
+        for (unsigned int j = 0; j < deck->size() / NUM_PLAYERS; ++j)
         {
-            hand.push_back((*deck).at(i * (deck->size() / gameModel_->getNumPlayers()) + j));
+            hand.push_back((*deck).at(i * (deck->size() / NUM_PLAYERS) + j));
         }
         // set the player's hand to the allocated hand
         if (gameModel_->getPlayerModel(i)->isComputer())
@@ -113,7 +113,7 @@ void GameController::endTurn()
 void GameController::endRound()
 {
     gameModel_->setGameStatus(END_ROUND);
-    for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
+    for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
     {
         // add the discard score to the total player score
         if (gameModel_->getPlayerModel(i)->isComputer())
@@ -168,7 +168,7 @@ void GameController::initGame(std::string userInput)
 // determine which player should start
 unsigned int GameController::determineStartPlayer() const
 {
-    for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
+    for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
     {
         // check for the 7 of spades
         if (gameModel_->getPlayerModel(i)->getCardFromHand(CardType(SPADE, SEVEN)) != std::shared_ptr<Card>(nullptr))
@@ -186,7 +186,7 @@ std::vector<unsigned int> GameController::determineWinner() const
     unsigned int min = max;
     std::vector<unsigned int> winners;
     unsigned int value;
-    for (unsigned int i = 1; i < gameModel_->getNumPlayers(); ++i)
+    for (unsigned int i = 1; i < NUM_PLAYERS; ++i)
     {
         value = gameModel_->getPlayerModel(i)->getScore();
         // set max value
@@ -203,7 +203,7 @@ std::vector<unsigned int> GameController::determineWinner() const
     // only return winner if someone has a score over 80
     if (max >= 80)
     {
-        for (unsigned int i = 0; i < gameModel_->getNumPlayers(); ++i)
+        for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
         {
             value = gameModel_->getPlayerModel(i)->getScore();
             if (value == min) {
