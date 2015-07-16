@@ -29,8 +29,8 @@
 *.app
 straights
 
-# IDEA cmake list
-CMakeLists.txt
+# Idea IDE files
+.idea/
 
 #Silly Linux files
 *~

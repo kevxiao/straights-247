@@ -5,6 +5,7 @@
 
 #include "PlayerModel.h"
 #include "../Lib/Subject.h"
+#include "../Lib/Constants.h"
 
 // all the game status needed
 enum GameStatus {INIT_GAME, START_ROUND, START_TURN, IN_TURN, DECK_COMMAND, RAGEQUIT_COMMAND, END_TURN, END_ROUND, END_GAME, EXIT_GAME, STATUS_COUNT};
@@ -30,7 +31,6 @@ private:
     GameStatus gameStatus_;                                                         // current status of the game
     unsigned int curPlayerNum_;                                                     // current player's turn
     std::vector<std::shared_ptr<PlayerModel> > players_;                            // list of pointers to the players in the game
-    static const unsigned int NUM_PLAYERS = 4;                                      // constant number of players for the game
     std::vector<unsigned int> winners_;                                             // list of winnders
 };
 
