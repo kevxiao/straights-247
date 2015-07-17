@@ -6,29 +6,25 @@ DiscardsDialog::DiscardsDialog(GameModel * gameModel, unsigned int playerNum) :
 {
     Gtk::VBox *dialogContent = this->get_vbox();
     unsigned long first, second;
-    //auto discards = gameModel->getPlayerModel(playerNum)->getDiscards();
-    std::vector<bool> discards;
-    discards.push_back(true);
-    discards.push_back(true);
-    discards.push_back(true);
-    discards.push_back(true);
-    discards.push_back(true);
+    std::shared_ptr<PlayerModel> playerModel = gameModel->getPlayerModel(playerNum);
+    std::vector<std::shared_ptr<Card> > discards = playerModel->getDiscards();
+
+    for(unsigned int i = 0; i < discards.size(); i++)
+    {
+        const Glib::RefPtr<Gdk::Pixbuf> curCardPixBuff = deck.getCardImage(discards.at(i)->getRank(), discards.at(i)->getSuit());
+        discardImages.push_back(new Gtk::Image(curCardPixBuff));
+    }
+
+    first = discards.size() / 2 + discards.size() % 2;
     second = discards.size() / 2;
-    if (discards.size() % 2 != 0)
+
+    for (unsigned int  i = 0; i < first; ++i)
     {
-        first = second + 1;
+        firstRow.add(*discardImages.at(i));
     }
-    else
+    for (unsigned int i = 0; i < second; ++i)
     {
-        first = second;
-    }
-    for (int i = 0; i < first; ++i)
-    {
-        firstRow.add(*(new Gtk::Label("something")));
-    }
-    for (int i = 0; i < second; ++i)
-    {
-        secondRow.add(*(new Gtk::Label("something")));
+        secondRow.add(*discardImages.at(i + first));
     }
     dialogContent->add(firstRow);
     dialogContent->add(secondRow);
@@ -38,5 +34,8 @@ DiscardsDialog::DiscardsDialog(GameModel * gameModel, unsigned int playerNum) :
 
 DiscardsDialog::~DiscardsDialog()
 {
-
+    for(unsigned int i = 0; i < discardImages.size(); i++)
+    {
+        delete discardImages.at(i);
+    }
 }

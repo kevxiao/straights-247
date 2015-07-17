@@ -2,17 +2,23 @@
 #define DISCARDSDIALOG_H
 
 #include <gtkmm.h>
-#include "../Models/GameModel.h"
+#include <vector>
 
+#include "../Models/GameModel.h"
+#include "DeckGUI.h"
 
 class DiscardsDialog : public Gtk::Dialog
 {
 public:
     DiscardsDialog(GameModel *, unsigned int);
     virtual ~DiscardsDialog();
-protected:
+
+private:
+    DeckGUI deck;
+
     Gtk::HBox firstRow;
     Gtk::HBox secondRow;
+    vector<Gtk::Image *> discardImages;
 };
 
 #endif

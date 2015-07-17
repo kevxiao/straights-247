@@ -46,7 +46,7 @@ void HandFrame::displayPlayerHand()
 
     for(unsigned int i = 0; i < playerHand.size(); i++)
     {
-        createNewButton( new Gtk::Image (deck.getCardImage( playerHand.at(i)->getRank(), playerHand.at(i)->getSuit() )));
+        createNewButton( new Gtk::Image (deck.getCardImage( playerHand.at(i)->getRank(), playerHand.at(i)->getSuit())));
 
         int buttonIndex = displayedCardButtons.size() - 1;
 
