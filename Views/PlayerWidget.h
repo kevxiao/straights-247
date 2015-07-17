@@ -10,27 +10,28 @@
 class PlayerWidget : public Gtk::Frame
 {
 public:
-    PlayerWidget(GameController *, GameModel *, unsigned int);                          // constructor
-    virtual ~PlayerWidget();                                                            // destructor
-    void disable();
-    void setActive();
-    void setPoints(unsigned int);
-    void setDiscards(unsigned int);
-protected:
-    Gtk::VBox playerBox;
-    Gtk::Label name;
-    Gtk::Label playerType;
-    Gtk::Label points;
-    Gtk::Button discards;
-    Gtk::Button ragequit;
-
-    // signals
-    virtual void discardsClicked();
-    virtual void ragequitClicked();
+    PlayerWidget(GameController *, GameModel *, unsigned int);      // constructor
+    virtual ~PlayerWidget();                                        // destructor
+    void disable();                                                 // mutator - disables all of the buttons
+    void setActive();                                               // mutator - enables all of the buttons
+    void setPoints(unsigned int);                                   // mutator - updates the points label
+    void setDiscards(unsigned int);                                 // mutator - updates the discards label
 private:
-    GameController * gameController_;
-    GameModel * gameModel_;
-    unsigned int playerNum_;
+    // signals
+    virtual void discardsClicked();                                 // mutator - launches the discards dialog for player to see discards
+    virtual void ragequitClicked();                                 // mutator - launches ragequit gif and send ragequit command to gameController
+
+    GameController * gameController_;                               // pointer to the GameController
+    GameModel * gameModel_;                                         // pointer to the GameModel
+    unsigned int playerNum_;                                        // value of player that this widget represents
+
+    //components
+    Gtk::VBox playerBox;                                            // container for elements in this widget
+    Gtk::Label name;                                                // label that will displays the player "name"
+    Gtk::Label playerType;                                          // label that displays the player type
+    Gtk::Label points;                                              // label that displays the amount of points the player has currently
+    Gtk::Button discards;                                           // button to allow player to view discarded cards
+    Gtk::Button ragequit;                                           // button to allow the player to ragequit
 };
 
 #endif

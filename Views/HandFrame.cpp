@@ -109,15 +109,12 @@ void HandFrame::createNewButton(Gtk::Image *buttonImage)
     displayedCardButtons.at(addedButtonNum)->set_image(*displayedImages.at(addedImageIndex));     
 }
 
-void HandFrame::playCard(CardType cardToPlay)
+void HandFrame::playCard(CardType cardToPlay) const
 {
-    unsigned int curPlayerNum = gameModel_->getCurPlayerNum();
-    std::shared_ptr<PlayerModel> playerModel_ = gameModel_->getPlayerModel(curPlayerNum);
-
-    playerModel_->playCard(cardToPlay);
+    // Add functiontionality here after
 }
 
-bool HandFrame::isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves)
+bool HandFrame::isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves) const
 {
     for(unsigned int i = 0; i < legalMoves.size(); i++)
     {

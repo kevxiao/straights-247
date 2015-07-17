@@ -14,25 +14,25 @@
 
 class HandFrame : public Gtk::Frame {
 public:
-    HandFrame(GameModel *);
-	virtual ~HandFrame();
+    HandFrame(GameModel *);                     // constructor
+	virtual ~HandFrame();                       // deconstructor
 
-    void resetHand();
-    void displayPlayerHand();
+    void resetHand();                           // mutator - resets the hand to display 13 blank card images
+    void displayPlayerHand();                   // mutator - displays the current player's hand
 
 private:
-    void clearContainer();
-    void deleteCards();
-    void createNewButton(Gtk::Image *);
-    void playCard(CardType cardPlayed);
-    bool isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves);
+    void clearContainer();                      // mutator - clears the main hBoxContainer
+    void deleteCards();                         // mutator - deletes all of the card images and buttons
+    void createNewButton(Gtk::Image *);         // mutator - creates a button with the specificed image and adds it to interal vectors
+    void playCard(CardType cardPlayed) const;   // mutator - recieves button press and sends play card signal to PlayerModel
+    bool isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves) const;    // accessor - checks if card is in vector of legalMoves
 
-    DeckGUI deck;
-    GameModel *gameModel_;
+    DeckGUI deck;                               // deckGUI which returns pixbufs for card images
+    GameModel *gameModel_;                      // pointer to the gameModel
 
-    Gtk::HBox hBoxContainer;
-    vector <Gtk::Image *> displayedImages;
-    vector <Gtk::Button *> displayedCardButtons;
+    Gtk::HBox hBoxContainer;                    // main container for all elements within this frame
+    vector <Gtk::Image *> displayedImages;      // vector of all card images that are displayed or within buttons
+    vector <Gtk::Button *> displayedCardButtons;// vector of all buttons we are displaying
 };
 
 #endif

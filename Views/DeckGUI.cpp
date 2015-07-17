@@ -1,12 +1,8 @@
 
 #include "DeckGUI.h"
-#include <algorithm>
-#include <iterator>
-#include <string>
-using std::string;
-using std::transform;
 
-const char * image_names[] = {   
+const char * image_names[] = 
+{   
 	"Assets/0_0.png", "Assets/0_1.png", "Assets/0_2.png", "Assets/0_3.png",
     "Assets/0_4.png", "Assets/0_5.png", "Assets/0_6.png", "Assets/0_7.png",
     "Assets/0_8.png", "Assets/0_9.png", "Assets/0_j.png", "Assets/0_q.png", "Assets/0_k.png",
@@ -22,24 +18,28 @@ const char * image_names[] = {
 	"Assets/nothing.png"
 }; 
 
-Glib::RefPtr<Gdk::Pixbuf> createPixbuf(const string & name) {
-	return Gdk::Pixbuf::create_from_file( name );
-} 
 
-DeckGUI::DeckGUI()  {
-	transform( &image_names[0], &image_names[G_N_ELEMENTS(image_names)], 
-			   std::back_inserter(deck), &createPixbuf );
+DeckGUI::DeckGUI()  
+{
+    for(int i = 0; i < CARD_COUNT + 1; i++)
+    {
+        deck.push_back(createPixbuf(image_names[i]));
+    }
 }
 
 DeckGUI::~DeckGUI() {
 }
 
-Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getCardImage( Rank f, Suit s ) {
+Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getCardImage( Rank f, Suit s ) const {
 	int index = (int)f + ((int)s  * (int) RANK_COUNT);
 	return deck[ index ];
 }
 
-Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getNullCardImage() {
+Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getNullCardImage() const {
 	unsigned long size = deck.size();
 	return deck[ size-1 ];
 }
+
+Glib::RefPtr<Gdk::Pixbuf> DeckGUI::createPixbuf(const std::string & name) const {
+	return Gdk::Pixbuf::create_from_file( name );
+} 

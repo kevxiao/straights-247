@@ -8,15 +8,15 @@
 
 class PlayerSetupFrame : public Gtk::Frame {
 public:
-    PlayerSetupFrame( const Glib::ustring& label);
-	virtual ~PlayerSetupFrame();
+    PlayerSetupFrame( const Glib::ustring& label);  // constructor
+	virtual ~PlayerSetupFrame();                    // deconstructor
 
-    bool isHuman();
+    bool isHuman() const;                           // accessor - returns if the human radio button was selected or not
 private:
-    Gtk::VBox                    vBoxContainer;
-    Gtk::RadioButton::Group      buttonGroup;
-    Gtk::RadioButton *           humanButton;
-    Gtk::RadioButton *           computerButton;
+    Gtk::VBox vBoxContainer;                        // container for all elements in this frame
+    Gtk::RadioButton::Group buttonGroup;            // radio button group that contains the human and computer radio buttons 
+    Gtk::RadioButton *humanButton;                  // radio button for human option
+    Gtk::RadioButton *computerButton;               // radio button for computer option
 };
 
 #endif

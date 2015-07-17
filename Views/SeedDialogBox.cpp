@@ -37,10 +37,10 @@ void SeedDialogBox::popupAndUpdate() {
     hide();
 }
 
-bool SeedDialogBox::isSeedValid() {
+bool SeedDialogBox::isSeedValid() const {
     return isValidSeed;
 }
 
-int SeedDialogBox::getSeedValue() {
+int SeedDialogBox::getSeedValue() const {
     return seedValue;
 }

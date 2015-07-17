@@ -20,7 +20,7 @@ PlayerSetupFrame::~PlayerSetupFrame()
     delete computerButton;
 }
 
-bool PlayerSetupFrame::isHuman()
+bool PlayerSetupFrame::isHuman() const
 {
     return humanButton->get_active();
 }

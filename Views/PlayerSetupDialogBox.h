@@ -14,13 +14,13 @@ using std::vector;
 
 class PlayerSetupDialogBox : Gtk::Dialog {
 public:
-	PlayerSetupDialogBox( Gtk::Window & parentWindow);
-	virtual ~PlayerSetupDialogBox();
+	PlayerSetupDialogBox( Gtk::Window & parentWindow);  // constructor
+	virtual ~PlayerSetupDialogBox();                    // destructor
 
-    vector<bool> popupAndGetPlayerStatus();
+    vector<bool> popupAndGetPlayerStatus();             // mutator - displays the popup and returns whether each player is a human or not
 	
 private:
-    Gtk::HBox                         containerBox;
-    PlayerSetupFrame *                  playerSetupFrames[4];
+    Gtk::HBox containerBox;                             // container that holds all of the elements in this dialog
+    PlayerSetupFrame *playerSetupFrames[4];             // array of pointers to 4 PlayerSetupFrames to be displayed
 };
 #endif
