@@ -1,9 +1,17 @@
 #include "TableFrame.h"
 #include "DeckGUI.h"
 
-TableFrame::TableFrame(): Frame("Table")
+TableFrame::TableFrame(): Frame("Table"), vBoxContainer(true, UI_SPACING)
 {
+    vBoxContainer.set_border_width(UI_SPACING);
+
     add(vBoxContainer);
+
+    for(int i = 0; i < 52; i++)
+    {
+        card[i] = NULL;
+    }
+
     resetTable();
 }
 
@@ -35,9 +43,6 @@ void TableFrame::resetTable()
 
 void TableFrame::addCardToTable(Rank rankOfCard, Suit suitOfCard)
 {
-    unsigned int suitToInsert = (int)suitOfCard;
-    unsigned int rankToInsert = (int)rankOfCard;
-
     const Glib::RefPtr<Gdk::Pixbuf> cardPixBuf = deck.getCardImage(rankOfCard, suitOfCard);
 
     delete card[(suitOfCard * RANK_COUNT) + rankOfCard];

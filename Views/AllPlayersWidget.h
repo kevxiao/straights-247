@@ -8,6 +8,7 @@
 #include "../Models/GameModel.h"
 #include "../Lib/Constants.h"
 #include "PlayerWidget.h"
+#include "HandFrame.h"
 
 
 class AllPlayersWidget : public Gtk::VBox
@@ -19,8 +20,8 @@ private:
     GameController *gameController_;
     GameModel *gameModel_;
     Gtk::HBox players_;
-    Gtk::HBox hand_;
     std::vector<std::shared_ptr<PlayerWidget> > eachPlayer_;
+    HandFrame handFrame_;
 };
 
 #endif

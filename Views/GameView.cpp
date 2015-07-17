@@ -9,13 +9,11 @@
 
 // create view with required models and controllers, and subscribe to updates
 GameView::GameView(GameController * gameController, GameModel * gameModel) : gameModel_(gameModel),
-            gameController_(gameController), allPlayersWidget_(gameController_, gameModel_),
-            startGameButton("Start new game"), endGameButton("End game"), containerBox(false, UI_SPACING), gameButtonHBox(true, UI_SPACING)
+            gameController_(gameController), startGameButton("Start new game"), endGameButton("End game"), 
+            containerBox(false, UI_SPACING), gameButtonHBox(true, UI_SPACING), allPlayersWidget_(gameController_, gameModel_)
 {
     set_title("Straights");
     set_border_width(UI_SPACING);
-
-    const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 
     add( containerBox );
     containerBox.add(gameButtonHBox);
@@ -25,15 +23,14 @@ GameView::GameView(GameController * gameController, GameModel * gameModel) : gam
     gameButtonHBox.add(startGameButton);
     gameButtonHBox.add(endGameButton);
 
-    for(int j = 0; j < SUIT_COUNT; j++)
-    {
-        cardHBoxes[j] = new Gtk::HBox(true, UI_SPACING);
-        for (int i = 0; i < RANK_COUNT; i++ ) {
-            card[(j * RANK_COUNT) + i] = new Gtk::Image( nullCardPixbuf );
-            cardHBoxes[j]->add( *card[(j * RANK_COUNT) + i] );
-        }
-        containerBox.add(*cardHBoxes[j]);
-    }
+    containerBox.add(tableFrame_);
+
+    tableFrame_.addCardToTable(Rank::ACE, Suit::CLUB);
+    tableFrame_.addCardToTable(Rank::SIX, Suit::CLUB);
+    tableFrame_.addCardToTable(Rank::SEVEN, Suit::CLUB);
+    tableFrame_.addCardToTable(Rank::SEVEN, Suit::SPADE);
+    tableFrame_.addCardToTable(Rank::SEVEN, Suit::DIAMOND);
+    tableFrame_.addCardToTable(Rank::SEVEN, Suit::HEART);
 
     containerBox.add(allPlayersWidget_);
 
@@ -46,8 +43,6 @@ GameView::GameView(GameController * gameController, GameModel * gameModel) : gam
 // destructor to delete all the models and controller instances
 GameView::~GameView()
 {
-    for (int i = 0; i < 52; i++ ) delete card[i];
-    for(int i = 0; i < 4; i++) delete cardHBoxes[i];
     delete gameModel_;
     delete gameController_;
 }

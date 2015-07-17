@@ -2,7 +2,7 @@
 #include "../Controllers/GameController.h"
 
 AllPlayersWidget::AllPlayersWidget(GameController *gameController, GameModel *gameModel) : gameController_(gameController),
-        gameModel_(gameModel), players_(true, UI_SPACING), hand_(true, UI_SPACING)
+        gameModel_(gameModel), players_(true, UI_SPACING), handFrame_(gameModel_)
 {
     add(players_);
     std::shared_ptr<PlayerWidget> onePlayer;
@@ -14,6 +14,9 @@ AllPlayersWidget::AllPlayersWidget(GameController *gameController, GameModel *ga
         eachPlayer_.at(i)->disable();
     }
     eachPlayer_.at(2)->setActive();
+
+    add(handFrame_);
+
     show_all();
 }
 
