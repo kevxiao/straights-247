@@ -13,7 +13,6 @@ AllPlayersWidget::AllPlayersWidget(GameController *gameController, GameModel *ga
         players_.add(*onePlayer);
         eachPlayer_.at(i)->disable();
     }
-    eachPlayer_.at(2)->setActive();
 
     add(handFrame_);
 
@@ -45,7 +44,7 @@ void AllPlayersWidget::enablePlayer(unsigned int playerNum, bool activateButtons
     }
 }
 
-void AllPlayersWidget::setDiscards(unsigned int playerNum, unsigned int newNumDiscards)
+void AllPlayersWidget::setDiscards(unsigned int playerNum, unsigned long newNumDiscards)
 {
     eachPlayer_.at(playerNum)->setDiscards(newNumDiscards);
 }

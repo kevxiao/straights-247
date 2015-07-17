@@ -1,7 +1,6 @@
 #include "PlayerWidget.h"
 #include "../Lib/CardType.h"
 #include "DiscardsDialog.h"
-#include "RagequitDialog.h"
 
 PlayerWidget::PlayerWidget(GameController * gameController, GameModel * gameModel, unsigned int playerNum) : gameController_(gameController),
         gameModel_(gameModel), playerNum_(playerNum + 1), playerBox(false, UI_SPACING), name(), playerType(), points("Points: 0"),
@@ -40,8 +39,6 @@ void PlayerWidget::ragequitClicked()
 {
     discards.set_sensitive(false);
     ragequit.set_sensitive(false);
-    RagequitDialog dialog;
-    dialog.run();
     gameController_->processInput("ragequit");
 }
 
@@ -55,14 +52,14 @@ void PlayerWidget::disable()
     ragequit.set_sensitive(false);
 }
 
-void PlayerWidget::setActive()
+void PlayerWidget::setActive(bool buttons)
 {
     name.modify_fg(Gtk::STATE_NORMAL, Gdk::Color("black"));
     name.set_markup("<big><u><b>Player " + std::to_string(playerNum_) + "</b></u></big>");
     playerType.modify_fg(Gtk::STATE_NORMAL, Gdk::Color("black"));
     points.modify_fg(Gtk::STATE_NORMAL, Gdk::Color("black"));
-    discards.set_sensitive(true);
-    ragequit.set_sensitive(true);
+    discards.set_sensitive(buttons);
+    ragequit.set_sensitive(buttons);
 }
 
 void PlayerWidget::setPoints(unsigned int newPoints)
@@ -71,7 +68,7 @@ void PlayerWidget::setPoints(unsigned int newPoints)
     points.set_tooltip_text("Player " + std::to_string(playerNum_) + " has 0 points.");
 }
 
-void PlayerWidget::setDiscards(unsigned int newDiscards)
+void PlayerWidget::setDiscards(unsigned long newDiscards)
 {
     discards.set_label("Discards: " + std::to_string(newDiscards));
 }

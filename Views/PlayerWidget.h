@@ -13,9 +13,9 @@ public:
     PlayerWidget(GameController *, GameModel *, unsigned int);      // constructor
     virtual ~PlayerWidget();                                        // destructor
     void disable();                                                 // mutator - disables all of the buttons
-    void setActive();                                               // mutator - enables all of the buttons
+    void setActive(bool);                                           // mutator - enables all of the buttons
     void setPoints(unsigned int);                                   // mutator - updates the points label
-    void setDiscards(unsigned int);                                 // mutator - updates the discards label
+    void setDiscards(unsigned long);                                 // mutator - updates the discards label
 private:
     // signals
     virtual void discardsClicked();                                 // mutator - launches the discards dialog for player to see discards

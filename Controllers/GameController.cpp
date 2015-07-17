@@ -37,6 +37,7 @@ void GameController::processInput(std::string userInput)
 
 // start game with setting game status
 void GameController::startGame() {
+    resetGame();
     gameModel_->setGameStatus(INIT_GAME);
 }
 

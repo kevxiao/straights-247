@@ -20,7 +20,7 @@ public:
     void disablePlayer(unsigned int);                                   // mutator - disables a player
     void enablePlayer(unsigned int, bool);                              // mutator - enables a player
 
-    void setDiscards(unsigned int, unsigned int);                       // mutator - sets the number of discards displayed for a player
+    void setDiscards(unsigned int, unsigned long);                       // mutator - sets the number of discards displayed for a player
     void setPoints(unsigned int, unsigned int);                         // mutator - sets the number of points displayed for a player
 
 private:

@@ -6,6 +6,7 @@
 #include <gtkmm/image.h>
 
 #include "../Lib/Constants.h"
+#include "../Lib/CardType.h"
 #include "DeckGUI.h"
 
 class TableFrame : public Gtk::Frame {
