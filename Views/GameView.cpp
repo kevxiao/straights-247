@@ -4,15 +4,12 @@
 #include <vector>
 
 #include "../Controllers/GameController.h"
-#include "../Models/DeckModel.h"
 #include "../Models/GameModel.h"
-#include "../Models/TableModel.h"
 #include "GameView.h"
 
 // create view with required models and controllers, and subscribe to updates
-GameView::GameView(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
-            TableModel * tableModel) : gameModel_(gameModel), deckModel_(deckModel),
-            tableModel_(tableModel), gameController_(gameController), allPlayersWidget_(gameController_, gameModel_),
+GameView::GameView(GameController * gameController, GameModel * gameModel) : gameModel_(gameModel),
+            gameController_(gameController), allPlayersWidget_(gameController_, gameModel_),
             startGameButton("Start new game"), endGameButton("End game"), containerBox(false, UI_SPACING), gameButtonHBox(true, UI_SPACING)
 {
     set_title("Straights");
@@ -52,8 +49,6 @@ GameView::~GameView()
     for (int i = 0; i < 52; i++ ) delete card[i];
     for(int i = 0; i < 4; i++) delete cardHBoxes[i];
     delete gameModel_;
-    delete deckModel_;
-    delete tableModel_;
     delete gameController_;
 }
 
@@ -198,7 +193,7 @@ void GameView::update()
 // print out the deck in order
 void GameView::printDeck() const
 {
-    auto deck = deckModel_->getCards();
+    auto deck = gameModel_->getCards();
     for (int i = 0; i < SUIT_COUNT; ++i)
     {
         for (int j = 0; j < RANK_COUNT; ++j)
@@ -215,7 +210,7 @@ void GameView::printDeck() const
 // print out the cards on the table sorted by the suit and the rank
 void GameView::printTable() const
 {
-    auto table = tableModel_->getCardsOnTable();
+    auto table = gameModel_->getCardsOnTable();
     std::cout << "Cards on the table:" << std::endl;
     for (auto it = table->cbegin(); it != table->cend(); ++it)
     {

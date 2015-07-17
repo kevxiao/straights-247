@@ -24,11 +24,11 @@ int main(int argc, char* argv[])
     // initialize all the required models and controllers
     DeckModel *deckModel = new DeckModel();
     TableModel *tableModel = new TableModel();
-    GameModel *gameModel = new GameModel();
-    DeckController *deckController = new DeckController((unsigned long) firstArg, deckModel);
-    TableController *tableController = new TableController(tableModel);
+    GameModel *gameModel = new GameModel(tableModel, deckModel);
+    DeckController *deckController = new DeckController((unsigned long) firstArg, gameModel);
+    TableController *tableController = new TableController(gameModel);
     GameController *gameController = new GameController(gameModel, deckController, tableController);
-    GameView game(gameController, gameModel, deckModel, tableModel);
+    GameView game(gameController, gameModel);
     // run the view
     kit.run(game);
     return 0;

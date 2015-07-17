@@ -1,13 +1,16 @@
 #include "GameModel.h"
 
 // constructor for game model
-GameModel::GameModel() : gameStatus_(INIT_GAME)
+GameModel::GameModel(TableModel * tableModel, DeckModel * deckModel) : tableModel_(tableModel),
+        deckModel_(deckModel), gameStatus_(INIT_GAME)
 {
 }
 
 // default destructor
 GameModel::~GameModel() 
 {
+    delete tableModel_;
+    delete deckModel_;
 }
 
 // get the game status
@@ -72,4 +75,40 @@ void GameModel::setWinners(std::vector<unsigned int> winners)
 std::vector<unsigned int> GameModel::getWinners() const
 {
     return winners_;
+}
+
+// clear all cards from the table
+void GameModel::resetTable()
+{
+    tableModel_->resetTable();
+}
+
+// add a card to the table
+void GameModel::addCardToTable(std::shared_ptr<Card> cardToAdd)
+{
+    tableModel_->addCardToTable(cardToAdd);
+}
+
+// get all the cards on the table
+const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * GameModel::getCardsOnTable() const
+{
+    return tableModel_->getCardsOnTable();
+}
+
+// shuffle cards in deck using the seed
+void GameModel::shuffle(unsigned long seed)
+{
+    deckModel_->shuffle(seed);
+}
+
+// get the list of cards in the deck in order
+const std::vector<std::shared_ptr<Card> > * GameModel::getCards() const
+{
+    return deckModel_->getCards();
+}
+
+// reset cards in deck to original ordered state
+void GameModel::resetDeck()
+{
+    deckModel_->reset();
 }

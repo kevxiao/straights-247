@@ -13,6 +13,7 @@ class DeckModel
 public:
     DeckModel();                                                        // constructor
     ~DeckModel();                                                       // destructor
+    void reset();                                                       // mutator - reset the cards in deck to original state
     void shuffle(unsigned long);                                        // mutator - shuffle order of cards
     const std::vector<std::shared_ptr<Card> > * getCards() const;       // accessor - get the cards in the deck in order
 private:

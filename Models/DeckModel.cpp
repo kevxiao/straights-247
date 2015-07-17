@@ -41,3 +41,14 @@ const std::vector<std::shared_ptr<Card> > * DeckModel::getCards() const
     return &cards_;
 }
 
+// reset cards in deck to original ordered state
+void DeckModel::reset()
+{
+    for (unsigned int i = 0; i < SUIT_COUNT; ++i)
+    {
+        for (unsigned int j = 0; j < RANK_COUNT; ++j)
+        {
+            cards_.push_back(std::make_shared<Card>((Suit)i, (Rank)j));
+        }
+    }
+}
