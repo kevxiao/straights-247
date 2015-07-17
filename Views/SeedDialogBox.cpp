@@ -2,7 +2,10 @@
 #include <iostream>
 
 SeedDialogBox::SeedDialogBox( Gtk::Window & parentWindow, string title) : Dialog( "New game", parentWindow, true, true ), seedPrompt(" Enter the starting seed: ") {
-	
+
+    isValidSeed = false;
+    seedValue = 0;
+
 	Gtk::VBox* contentArea = this->get_vbox();
 
     contentArea->add(container);
@@ -19,15 +22,25 @@ SeedDialogBox::~SeedDialogBox() {
 
 }
 
-int SeedDialogBox::popupAndGetSeed() {
+void SeedDialogBox::popupAndUpdate() {
     show_all_children();
 	
 	int result = run();
     switch (result) {
         case Gtk::RESPONSE_OK:
-            return atoi(seedEntry.get_text().c_str());
+            isValidSeed = true;
+            seedValue = atoi(seedEntry.get_text().c_str());
             break;
         default:
-            return -1;
+            isValidSeed = false;
     }
+    hide();
+}
+
+bool SeedDialogBox::isSeedValid() {
+    return isValidSeed;
+}
+
+int SeedDialogBox::getSeedValue() {
+    return seedValue;
 }

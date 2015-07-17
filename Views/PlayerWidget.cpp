@@ -38,8 +38,11 @@ void PlayerWidget::discardsClicked()
 
 void PlayerWidget::ragequitClicked()
 {
+    discards.set_sensitive(false);
+    ragequit.set_sensitive(false);
     RagequitDialog dialog;
     dialog.run();
+    gameController_->processInput("ragequit");
 }
 
 void PlayerWidget::disable()

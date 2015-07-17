@@ -7,6 +7,7 @@
 #include <gtkmm/stock.h>
 #include <string>
 #include <vector>
+
 using std::string;
 using std::vector;
 
@@ -15,9 +16,14 @@ public:
 	SeedDialogBox( Gtk::Window & parentWindow, string title);
 	virtual ~SeedDialogBox();
 
-    int popupAndGetSeed();
+    void popupAndUpdate();
+    bool isSeedValid();
+    int getSeedValue();
 	
 private:
+    bool isValidSeed;
+    int seedValue;
+
     Gtk::HBox                    container;
     Gtk::Label                   seedPrompt;
     Gtk::Entry                   seedEntry;

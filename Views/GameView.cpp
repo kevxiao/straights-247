@@ -11,12 +11,36 @@
 
 // create view with required models and controllers, and subscribe to updates
 GameView::GameView(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
-           TableModel * tableModel) : gameModel_(gameModel), deckModel_(deckModel),
-           tableModel_(tableModel), gameController_(gameController), allPlayersWidget_(gameController_, gameModel_)
+            TableModel * tableModel) : gameModel_(gameModel), deckModel_(deckModel),
+            tableModel_(tableModel), gameController_(gameController), allPlayersWidget_(gameController_, gameModel_),
+            startGameButton("Start new game"), endGameButton("End game"), containerBox(false, UI_SPACING), gameButtonHBox(true, UI_SPACING)
 {
     set_title("Straights");
     set_border_width(UI_SPACING);
-    add(allPlayersWidget_);
+
+    const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
+
+    add( containerBox );
+    containerBox.add(gameButtonHBox);
+
+    startGameButton.signal_clicked().connect( sigc::mem_fun( *this, &GameView::onStartGameButtonClicked ) );
+
+    gameButtonHBox.add(startGameButton);
+    gameButtonHBox.add(endGameButton);
+
+    for(int j = 0; j < SUIT_COUNT; j++)
+    {
+        cardHBoxes[j] = new Gtk::HBox(true, UI_SPACING);
+        for (int i = 0; i < RANK_COUNT; i++ ) {
+            card[(j * RANK_COUNT) + i] = new Gtk::Image( nullCardPixbuf );
+            cardHBoxes[j]->add( *card[(j * RANK_COUNT) + i] );
+        }
+        containerBox.add(*cardHBoxes[j]);
+    }
+
+    containerBox.add(allPlayersWidget_);
+
+    show_all();
 
     // subscribe to updates from game model
     gameModel->subscribe(this);
@@ -25,10 +49,25 @@ GameView::GameView(GameController * gameController, GameModel * gameModel, DeckM
 // destructor to delete all the models and controller instances
 GameView::~GameView()
 {
+    for (int i = 0; i < 52; i++ ) delete card[i];
+    for(int i = 0; i < 4; i++) delete cardHBoxes[i];
     delete gameModel_;
     delete deckModel_;
     delete tableModel_;
     delete gameController_;
+}
+
+void GameView::onStartGameButtonClicked() {
+    SeedDialogBox * seedDialog = new SeedDialogBox(*this, "Pick a seed:");
+    seedDialog->popupAndUpdate();
+    if(seedDialog->isSeedValid())
+    {
+        PlayerSetupDialogBox * playerSetupDialog = new PlayerSetupDialogBox(*this);
+        std::vector<bool> arePlayersHuman = playerSetupDialog->popupAndGetPlayerStatus();
+        delete playerSetupDialog;
+        //Note: If isPlayerHuman is empty, the window was closed. Otherwise the i-th element signifies if player i+1 is human or if is dancer
+    }
+    delete seedDialog;
 }
 
 // update the view based on the game state

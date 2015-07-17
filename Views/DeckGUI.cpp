@@ -34,12 +34,12 @@ DeckGUI::DeckGUI()  {
 DeckGUI::~DeckGUI() {
 }
 
-Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getCardImage( Faces f, Suits s ) {
-	int index = ((int) f) + ((int) s )*13;
+Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getCardImage( Rank f, Suit s ) {
+	int index = ((int) f) + ((int) s ) * (int) RANK_COUNT;
 	return deck[ index ];
 }
 
 Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getNullCardImage() {
-	int size = deck.size();
+	unsigned long size = deck.size();
 	return deck[ size-1 ];
 }
