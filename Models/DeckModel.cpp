@@ -44,6 +44,7 @@ const std::vector<std::shared_ptr<Card> > * DeckModel::getCards() const
 // reset cards in deck to original ordered state
 void DeckModel::reset()
 {
+    cards_.clear();
     for (unsigned int i = 0; i < SUIT_COUNT; ++i)
     {
         for (unsigned int j = 0; j < RANK_COUNT; ++j)
