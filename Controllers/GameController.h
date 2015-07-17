@@ -20,6 +20,7 @@ public:
     void startTurn();                                                   // mutator - determine which player has 7S and needs to start
     void endTurn();                                                     // mutator - end a turn and move on to the next turn
     void endRound();                                                    // mutator - display required info and transiton to next round
+    void resetGame();                                                   // mutator - restart the game with new deck, table and players
 
 private:
     void initGame(std::string userInput);                               // mutator - initialize game with players

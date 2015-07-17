@@ -27,15 +27,18 @@ private:
     GameController *gameController_;                                    // pointer to game controller
 
     // Member widgets:
-    Gtk::Button startGameButton;
-    Gtk::Button endGameButton;
-    Gtk::VBox containerBox;
-    Gtk::HBox gameButtonHBox;
+    Gtk::Button startGameButton_;
+    Gtk::Button endGameButton_;
+    Gtk::Button quitButton_;
+    Gtk::VBox containerBox_;
+    Gtk::HBox gameButtonHBox_;
     AllPlayersWidget allPlayersWidget_;
     TableFrame tableFrame_;
 
     // signals
     void onStartGameButtonClicked();
+    void onEndGameButtonClicked();
+    void onQuitButtonClicked();
 };
 
 #endif

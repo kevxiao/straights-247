@@ -9,21 +9,27 @@
 
 // create view with required models and controllers, and subscribe to updates
 GameView::GameView(GameController * gameController, GameModel * gameModel) : gameModel_(gameModel),
-            gameController_(gameController), startGameButton("Start new game"), endGameButton("End game"), 
-            containerBox(false, UI_SPACING), gameButtonHBox(true, UI_SPACING), allPlayersWidget_(gameController_, gameModel_)
+            gameController_(gameController), startGameButton_("Start New Game"), endGameButton_("End Current Game"), quitButton_("Quit Game"),
+            containerBox_(false, UI_SPACING), gameButtonHBox_(true, UI_SPACING), allPlayersWidget_(gameController_, gameModel_)
 {
     set_title("Straights");
     set_border_width(UI_SPACING);
 
-    add( containerBox );
-    containerBox.add(gameButtonHBox);
+    add( containerBox_ );
+    containerBox_.add(gameButtonHBox_);
 
-    startGameButton.signal_clicked().connect( sigc::mem_fun( *this, &GameView::onStartGameButtonClicked ) );
+    startGameButton_.signal_clicked().connect( sigc::mem_fun( *this, &GameView::onStartGameButtonClicked ) );
+    endGameButton_.signal_clicked().connect( sigc::mem_fun( *this, &GameView::onEndGameButtonClicked ) );
+    quitButton_.signal_clicked().connect( sigc::mem_fun( *this, &GameView::onQuitButtonClicked ) );
+    startGameButton_.set_tooltip_text("Start the game already!");
+    endGameButton_.set_tooltip_text("The true ragequit button.");
+    quitButton_.set_tooltip_markup("<span foreground=\"red\">Baby don't leave me! T_T</span>");
 
-    gameButtonHBox.add(startGameButton);
-    gameButtonHBox.add(endGameButton);
+    gameButtonHBox_.add(startGameButton_);
+    gameButtonHBox_.add(endGameButton_);
+    gameButtonHBox_.add(quitButton_);
 
-    containerBox.add(tableFrame_);
+    containerBox_.add(tableFrame_);
 
     tableFrame_.addCardToTable(Rank::ACE, Suit::CLUB);
     tableFrame_.addCardToTable(Rank::SIX, Suit::CLUB);
@@ -32,7 +38,7 @@ GameView::GameView(GameController * gameController, GameModel * gameModel) : gam
     tableFrame_.addCardToTable(Rank::SEVEN, Suit::DIAMOND);
     tableFrame_.addCardToTable(Rank::SEVEN, Suit::HEART);
 
-    containerBox.add(allPlayersWidget_);
+    containerBox_.add(allPlayersWidget_);
 
     show_all();
 
@@ -48,6 +54,7 @@ GameView::~GameView()
 }
 
 void GameView::onStartGameButtonClicked() {
+    gameController_->resetGame();
     SeedDialogBox * seedDialog = new SeedDialogBox(*this, "Pick a seed:");
     seedDialog->popupAndUpdate();
     if(seedDialog->isSeedValid())
@@ -58,6 +65,16 @@ void GameView::onStartGameButtonClicked() {
         //Note: If isPlayerHuman is empty, the window was closed. Otherwise the i-th element signifies if player i+1 is human or if is dancer
     }
     delete seedDialog;
+}
+
+void GameView::onEndGameButtonClicked()
+{
+    gameController_->resetGame();
+}
+
+void GameView::onQuitButtonClicked()
+{
+    gameController_->processInput("quit");
 }
 
 // update the view based on the game state
@@ -129,11 +146,6 @@ void GameView::update()
             }
             break;
 
-        // print the deck if input asks for a deck
-        case DECK_COMMAND:
-            printDeck();
-            break;
-
         // notify that a computer is taking over for a player if ragequitting
         case RAGEQUIT_COMMAND:
             std::cout << "Player " << gameModel_->getCurPlayerNum() + 1 << " ragequits. A computer will now take over." << std::endl;
@@ -180,25 +192,11 @@ void GameView::update()
             }
             break;
 
+        case EXIT_GAME:
+            hide();
+
         default:
             return;
-    }
-}
-
-// print out the deck in order
-void GameView::printDeck() const
-{
-    auto deck = gameModel_->getCards();
-    for (int i = 0; i < SUIT_COUNT; ++i)
-    {
-        for (int j = 0; j < RANK_COUNT; ++j)
-        {
-            if (j != 0) {
-                std::cout << " ";
-            }
-            std::cout << *((*deck)[RANK_COUNT * i + j]);
-        }
-        std::cout << std::endl;
     }
 }
 

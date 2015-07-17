@@ -77,6 +77,12 @@ std::vector<unsigned int> GameModel::getWinners() const
     return winners_;
 }
 
+// delete all players so that they can be added again
+void GameModel::clearPlayers()
+{
+    players_.clear();
+}
+
 // clear all cards from the table
 void GameModel::resetTable()
 {

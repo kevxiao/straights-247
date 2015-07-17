@@ -138,10 +138,24 @@ void GameController::endRound()
     }
 }
 
+// restart the game with new deck, table and players
+void GameController::resetGame()
+{
+    gameModel_->resetTable();
+    gameModel_->resetDeck();
+    gameModel_->clearPlayers();
+}
+
 // initialize game with different type of players
 void GameController::initGame(std::string userInput)
 {
-    assert(userInput.size() > 0 && (userInput.at(0) == 'h' || userInput.at(0) == 'c'));
+    assert(userInput.size() > 0 && (userInput.at(0) == 'h' || userInput.at(0) == 'c' || userInput == "quit"));
+
+    if (userInput == "quit")
+    {
+        processPlayerCommand(userInput);
+        return;
+    }
     
     std::shared_ptr<PlayerModel> newPlayerModel = std::make_shared<PlayerModel>(gameModel_->getCurPlayerNum(), userInput.at(0) == 'c');
     gameModel_->addPlayer(newPlayerModel);
@@ -223,12 +237,6 @@ void GameController::processPlayerCommand(std::string userInput)
     {
         humanPlayerController_->processCommand(playerCommand, gameModel_->getCurPlayerNum());
         endTurn();
-    }
-    // change game status to show deck and then go back to in turn
-    else if(playerCommand.getType() == Type::DECK)
-    {
-        gameModel_->setGameStatus(DECK_COMMAND);
-        gameModel_->setGameStatus(IN_TURN);
     }
     // move model from human controller to computer controller and restarts the turn
     else if(playerCommand.getType() == Type::RAGEQUIT)

@@ -10,7 +10,7 @@
 #include "DeckModel.h"
 
 // all the game status needed
-enum GameStatus {INIT_GAME, START_ROUND, START_TURN, IN_TURN, DECK_COMMAND, RAGEQUIT_COMMAND, END_TURN, END_ROUND, END_GAME, EXIT_GAME, STATUS_COUNT};
+enum GameStatus {INIT_GAME, START_ROUND, START_TURN, IN_TURN, RAGEQUIT_COMMAND, END_TURN, END_ROUND, END_GAME, EXIT_GAME, STATUS_COUNT};
 
 // model of the game entity
 class GameModel: public Subject
@@ -27,6 +27,7 @@ public:
     void incrementCurPlayerNum();                                                               // mutator - move to next player
     void setWinners(std::vector<unsigned int>);                                                 // mutator - set the winning player(s)
     std::vector<unsigned int> getWinners() const;                                               // accessor - get the winning player(s)
+    void clearPlayers();                                                                        // mutator - delete all the players
     void resetTable();                                                                          // mutator - clear cards on table
     void addCardToTable(std::shared_ptr<Card> cardToAdd);                                       // mutator - add one card to table
     const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * getCardsOnTable() const;    // accessor - get the list of cards on table
