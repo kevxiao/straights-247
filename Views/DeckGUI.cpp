@@ -35,7 +35,7 @@ DeckGUI::~DeckGUI() {
 }
 
 Glib::RefPtr<Gdk::Pixbuf> DeckGUI::getCardImage( Rank f, Suit s ) {
-	int index = ((int) f) + ((int) s ) * (int) RANK_COUNT;
+	int index = (int)f + ((int)s  * (int) RANK_COUNT);
 	return deck[ index ];
 }
 
