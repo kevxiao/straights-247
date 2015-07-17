@@ -1,6 +1,7 @@
 #include "HandFrame.h"
 
-HandFrame::HandFrame(GameModel *gameModel): Frame("Hand"), gameModel_(gameModel), hBoxContainer(false, UI_SPACING)
+HandFrame::HandFrame(GameModel *gameModel): Frame("Hand"), 
+    gameModel_(gameModel), hBoxContainer(false, UI_SPACING)
 {
     hBoxContainer.set_border_width(UI_SPACING);
 
@@ -29,23 +30,35 @@ void HandFrame::resetHand()
     hBoxContainer.add(*displayedImages.at(0));
 
     show_all_children();
-
-    displayPlayerHand();
 }
 
 void HandFrame::displayPlayerHand()
 {
-    //Insert getting player's hand, creating new buttons and images based on cards in hand and putting them in hBoxContainer and displayedCards
-
     clearContainer();
 
     deleteCards();
-    
-    createNewButton( new Gtk::Image (deck.getCardImage( Rank::ACE, Suit::HEART)));
 
-    hBoxContainer.add(*displayedCardButtons.at(0));
+    unsigned int curPlayerNum = gameModel_->getCurPlayerNum();
+    std::shared_ptr<PlayerModel> playerModel_ = gameModel_->getPlayerModel(curPlayerNum);
 
-    int numOfCards = 1;
+    std::vector<std::shared_ptr<Card> > playerHand = playerModel_->getHand();
+    std::vector<CardType> legalMoves = playerModel_->getLegalMoves();
+
+    for(unsigned int i = 0; i < playerHand.size(); i++)
+    {
+        createNewButton( new Gtk::Image (deck.getCardImage( playerHand.at(i)->getRank(), playerHand.at(i)->getSuit() )));
+
+        int buttonIndex = displayedCardButtons.size() - 1;
+
+        bool canClick = legalMoves.size() == 0 || isCardLegalMove(playerHand.at(i), legalMoves);
+        displayedCardButtons.at(buttonIndex)->set_sensitive(canClick);
+
+        displayedCardButtons.at(buttonIndex)->signal_clicked().connect(sigc::bind<CardType>( sigc::mem_fun(*this, &HandFrame::playCard), CardType(playerHand.at(i)->getSuit(), playerHand.at(i)->getRank())));
+
+        hBoxContainer.add(*displayedCardButtons.at(displayedCardButtons.size() - 1));
+    }
+
+    int numOfCards = playerHand.size();
 
     const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 
@@ -91,4 +104,24 @@ void HandFrame::createNewButton(Gtk::Image *buttonImage)
     int addedButtonNum = displayedCardButtons.size() - 1;
 
     displayedCardButtons.at(addedButtonNum)->set_image(*displayedImages.at(addedImageIndex));     
+}
+
+void HandFrame::playCard(CardType cardToPlay)
+{
+    unsigned int curPlayerNum = gameModel_->getCurPlayerNum();
+    std::shared_ptr<PlayerModel> playerModel_ = gameModel_->getPlayerModel(curPlayerNum);
+
+    playerModel_->playCard(cardToPlay);
+}
+
+bool HandFrame::isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves)
+{
+    for(unsigned int i = 0; i < legalMoves.size(); i++)
+    {
+        if(cardToCheck->hasValue(legalMoves.at(i)))
+        {
+            return true;
+        }
+    }
+    return false;
 }

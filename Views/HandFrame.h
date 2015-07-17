@@ -24,9 +24,11 @@ private:
     void clearContainer();
     void deleteCards();
     void createNewButton(Gtk::Image *);
+    void playCard(CardType cardPlayed);
+    bool isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves);
 
     DeckGUI deck;
-    GameModel* gameModel_;
+    GameModel *gameModel_;
 
     Gtk::HBox hBoxContainer;
     vector <Gtk::Image *> displayedImages;
