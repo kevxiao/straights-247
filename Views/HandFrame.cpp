@@ -25,9 +25,12 @@ void HandFrame::resetHand()
     }
     deleteCards();
 
-    displayedImages.push_back(new Gtk::Image( nullCardPixbuf ));
+    for(int i = 0; i < RANK_COUNT; i++)
+    {
+        displayedImages.push_back(new Gtk::Image( nullCardPixbuf ));
 
-    hBoxContainer.add(*displayedImages.at(0));
+        hBoxContainer.add(*displayedImages.at(i));
+    }
 
     show_all_children();
 }
