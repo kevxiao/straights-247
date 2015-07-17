@@ -7,7 +7,7 @@
 #include "DeckController.h"
 
 // construct deck controller with a seed value for random shuffle and a deck model
-DeckController::DeckController(unsigned long seed, GameModel * gameModel): gameModel_(gameModel), shuffleSeed_(seed)
+DeckController::DeckController(GameModel * gameModel): gameModel_(gameModel), shuffleSeed_(0)
 {
 }
 
@@ -19,6 +19,12 @@ DeckController::~DeckController()
 // reset the deck by replacing the deck model
 void DeckController::reset() {
     gameModel_->resetDeck();
+}
+
+// set the seed to use for shuffling the deck
+void DeckController::setSeed(unsigned long seed)
+{
+    shuffleSeed_ = seed;
 }
 
 // shuffle cards in specified way using the seed

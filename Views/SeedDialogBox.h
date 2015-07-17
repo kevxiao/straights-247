@@ -18,14 +18,14 @@ public:
 
     void popupAndUpdate();                                      // mutator - displays popup and updates seed value
     bool isSeedValid() const;                                   // accessor - returns whether the user entered a seed value and pressed the ok button
-    int getSeedValue() const;                                   // accessor - returns the seed value that the user entered
+    unsigned long getSeedValue() const;                                   // accessor - returns the seed value that the user entered
 	
 private:
-    bool isValidSeed;                                           // holds if the user entered a seed value and pressed the ok button
-    int seedValue;                                              // holds the seed value that the user entered
+    bool isValidSeed_;                                           // holds if the user entered a seed value and pressed the ok button
+    unsigned long seedValue_;                                              // holds the seed value that the user entered
 
-    Gtk::HBox container;                                        // main container for elements in this dialog
-    Gtk::Label seedPrompt;                                      // label to prompt user for seed
-    Gtk::Entry seedEntry;                                       // entry to allow user to enter the seed
+    Gtk::HBox container_;                                        // main container for elements in this dialog
+    Gtk::Label seedPrompt_;                                      // label to prompt user for seed
+    Gtk::Entry seedEntry_;                                       // entry to allow user to enter the seed
 };
 #endif

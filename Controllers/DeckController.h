@@ -16,9 +16,10 @@
 class DeckController
 {
 public:
-    DeckController(unsigned long, GameModel *);                     // constructor
+    DeckController(GameModel *);                                    // constructor
     ~DeckController();                                              // destructor
     void reset();                                                   // mutator - reset deck order
+    void setSeed(unsigned long);                                    // mutator - set the shuffle seed
     void shuffle();                                                 // mutator - shuffle the deck
     const std::vector<std::shared_ptr<Card> > * getCards() const;   // accessor - get card list in order
 private:

@@ -1,19 +1,20 @@
 #include "SeedDialogBox.h"
 #include <iostream>
+#include <sstream>
 
-SeedDialogBox::SeedDialogBox( Gtk::Window & parentWindow, string title) : Dialog( "New game", parentWindow, true, true ), seedPrompt(" Enter the starting seed: ") {
+SeedDialogBox::SeedDialogBox( Gtk::Window & parentWindow, string title) : Dialog( "New game", parentWindow, true, true ), seedPrompt_(" Enter the starting seed: ") {
 
-    isValidSeed = false;
-    seedValue = 0;
+    isValidSeed_ = false;
+    seedValue_ = 0;
 
 	Gtk::VBox* contentArea = this->get_vbox();
 
-    contentArea->add(container);
+    contentArea->add(container_);
 
-    seedEntry.set_text("0");
+    seedEntry_.set_text("0");
 
-    container.add(seedPrompt);
-    container.add(seedEntry);
+    container_.add(seedPrompt_);
+    container_.add(seedEntry_);
 	
     Gtk::Button * okButton = add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);  	
 }
@@ -24,23 +25,25 @@ SeedDialogBox::~SeedDialogBox() {
 
 void SeedDialogBox::popupAndUpdate() {
     show_all_children();
+    std::stringstream ssSeed;
 	
 	int result = run();
     switch (result) {
         case Gtk::RESPONSE_OK:
-            isValidSeed = true;
-            seedValue = atoi(seedEntry.get_text().c_str());
+            isValidSeed_ = true;
+            ssSeed << seedEntry_.get_text();
+            ssSeed >> seedValue_;
             break;
         default:
-            isValidSeed = false;
+            isValidSeed_ = false;
     }
     hide();
 }
 
 bool SeedDialogBox::isSeedValid() const {
-    return isValidSeed;
+    return isValidSeed_;
 }
 
-int SeedDialogBox::getSeedValue() const {
-    return seedValue;
+unsigned long SeedDialogBox::getSeedValue() const {
+    return seedValue_;
 }

@@ -38,7 +38,6 @@ void GameController::processInput(std::string userInput)
 // start game with setting game status
 void GameController::startGame() {
     resetGame();
-    gameModel_->setGameStatus(INIT_GAME);
 }
 
 // start a round by shuffling distributing the deck to the players' hands, resetting the player and determining starting player
@@ -142,9 +141,20 @@ void GameController::endRound()
 // restart the game with new deck, table and players
 void GameController::resetGame()
 {
-    gameModel_->resetTable();
-    gameModel_->resetDeck();
+    tableController_->resetTable();
+    deckController_->reset();
     gameModel_->clearPlayers();
+    gameModel_->setGameStatus(INIT_GAME);
+}
+
+// restart the game with new deck, table and players and set a new seed for shuffling
+void GameController::resetGame(unsigned long seed)
+{
+    tableController_->resetTable();
+    deckController_->reset();
+    deckController_->setSeed(seed);
+    gameModel_->clearPlayers();
+    gameModel_->setGameStatus(INIT_GAME);
 }
 
 // initialize game with different type of players

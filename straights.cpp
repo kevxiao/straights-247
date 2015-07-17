@@ -17,15 +17,11 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     Gtk::Main kit(&argc, &argv);
-    int firstArg = 0;
-    if (argc > 1) {
-        firstArg = atoi(argv[1]);
-    }
     // initialize all the required models and controllers
     DeckModel *deckModel = new DeckModel();
     TableModel *tableModel = new TableModel();
     GameModel *gameModel = new GameModel(tableModel, deckModel);
-    DeckController *deckController = new DeckController((unsigned long) firstArg, gameModel);
+    DeckController *deckController = new DeckController(gameModel);
     TableController *tableController = new TableController(gameModel);
     GameController *gameController = new GameController(gameModel, deckController, tableController);
     GameView game(gameController, gameModel);

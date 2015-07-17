@@ -33,21 +33,13 @@ GameView::GameView(GameController * gameController, GameModel * gameModel) : gam
 
     containerBox_.add(tableFrame_);
 
-    tableFrame_.addCardToTable(Rank::ACE, Suit::CLUB);
-    tableFrame_.addCardToTable(Rank::SIX, Suit::CLUB);
-    tableFrame_.addCardToTable(Rank::SEVEN, Suit::CLUB);
-    tableFrame_.addCardToTable(Rank::SEVEN, Suit::SPADE);
-    tableFrame_.addCardToTable(Rank::SEVEN, Suit::DIAMOND);
-    tableFrame_.addCardToTable(Rank::SEVEN, Suit::HEART);
-
     containerBox_.add(allPlayersWidget_);
-
-    gameController_->startGame();
 
     show_all();
 
     // subscribe to updates from game model
     gameModel->subscribe(this);
+    gameController_->startGame();
 }
 
 // destructor to delete all the models and controller instances
@@ -57,18 +49,32 @@ GameView::~GameView()
     delete gameController_;
 }
 
-void GameView::onStartGameButtonClicked() {
-    gameController_->resetGame();
+void GameView::onStartGameButtonClicked()
+{
     SeedDialogBox * seedDialog = new SeedDialogBox(*this, "Pick a seed:");
+    std::vector<bool> arePlayersHuman;
     seedDialog->popupAndUpdate();
     if(seedDialog->isSeedValid())
     {
+        unsigned long seedValue = seedDialog->getSeedValue();
+        delete seedDialog;
         PlayerSetupDialogBox * playerSetupDialog = new PlayerSetupDialogBox(*this);
-        std::vector<bool> arePlayersHuman = playerSetupDialog->popupAndGetPlayerStatus();
+        arePlayersHuman = playerSetupDialog->popupAndGetPlayerStatus();
         delete playerSetupDialog;
+        if (!arePlayersHuman.empty())
+        {
+            gameController_->resetGame(seedValue);
+            for(unsigned int i = 0; i < arePlayersHuman.size(); ++i)
+            {
+                gameController_->processInput(arePlayersHuman.at(i) ? "h" : "c");
+            }
+        }
         //Note: If isPlayerHuman is empty, the window was closed. Otherwise the i-th element signifies if player i+1 is human or if is dancer
     }
-    delete seedDialog;
+    else
+    {
+        delete seedDialog;
+    }
 }
 
 void GameView::onEndGameButtonClicked()

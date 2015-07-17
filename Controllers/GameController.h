@@ -21,6 +21,7 @@ public:
     void endTurn();                                                     // mutator - end a turn and move on to the next turn
     void endRound();                                                    // mutator - display required info and transiton to next round
     void resetGame();                                                   // mutator - restart the game with new deck, table and players
+    void resetGame(unsigned long);                                      // mutator - restart the game with new deck, seed, table and players
 
 private:
     void initGame(std::string userInput);                               // mutator - initialize game with players
