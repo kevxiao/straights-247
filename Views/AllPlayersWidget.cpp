@@ -24,3 +24,13 @@ AllPlayersWidget::~AllPlayersWidget()
 {
 
 }
+
+void AllPlayersWidget::setDiscards(unsigned int playerNum, unsigned int newNumDiscards)
+{
+    eachPlayer_.at(playerNum)->setDiscards(newNumDiscards);
+}
+
+void AllPlayersWidget::setPoints(unsigned int playerNum, unsigned int newNumPoints)
+{
+    eachPlayer_.at(playerNum)->setPoints(newNumPoints);
+}
