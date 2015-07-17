@@ -12,7 +12,7 @@
 // create view with required models and controllers, and subscribe to updates
 GameView::GameView(GameController * gameController, GameModel * gameModel, DeckModel * deckModel,
            TableModel * tableModel) : gameModel_(gameModel), deckModel_(deckModel),
-           tableModel_(tableModel), gameController_(gameController), allPlayersWidget_(gameController_)
+           tableModel_(tableModel), gameController_(gameController), allPlayersWidget_(gameController_, gameModel_)
 {
     set_title("Straights");
     set_border_width(UI_SPACING);

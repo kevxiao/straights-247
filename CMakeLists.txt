@@ -23,6 +23,6 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 link_directories(${GTKMM_LIBRARY_DIRS})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-add_executable(straights_247 ${SOURCE_FILES} Views/AllPlayersWidget.h Views/AllPlayersWidget.cpp Lib/Constants.h Views/PlayerWidget.h Views/PlayerWidget.cpp)
+add_executable(straights_247 ${SOURCE_FILES} Views/AllPlayersWidget.h Views/AllPlayersWidget.cpp Lib/Constants.h Views/PlayerWidget.h Views/PlayerWidget.cpp Views/DiscardsDialog.h Views/DiscardsDialog.cpp Views/RagequitDialog.h Views/RagequitDialog.cpp)
 
 target_link_libraries(straights_247 ${GTKMM_LIBRARIES})

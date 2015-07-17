@@ -4,24 +4,33 @@
 #include <string>
 #include <gtkmm.h>
 #include "../Controllers/GameController.h"
+#include "../Models/GameModel.h"
 #include "../Lib/Constants.h"
 
 class PlayerWidget : public Gtk::Frame
 {
 public:
-    PlayerWidget(GameController *, int);                                                  // constructor
-    virtual ~PlayerWidget();                                                // destructor
+    PlayerWidget(GameController *, GameModel *, unsigned int);                          // constructor
+    virtual ~PlayerWidget();                                                            // destructor
+    void disable();
+    void setActive();
     void setPoints(unsigned int);
     void setDiscards(unsigned int);
+protected:
+    Gtk::VBox playerBox;
+    Gtk::Label name;
+    Gtk::Label playerType;
+    Gtk::Label points;
+    Gtk::Button discards;
+    Gtk::Button ragequit;
+
+    // signals
+    virtual void discardsClicked();
+    virtual void ragequitClicked();
 private:
     GameController * gameController_;
-    int playerNum_;
-    Gtk::VBox playerBox_;
-    Gtk::Label name_;
-    Gtk::Label playerType_;
-    Gtk::Label points_;
-    Gtk::Button discards_;
-    Gtk::Button ragequit_;
+    GameModel * gameModel_;
+    unsigned int playerNum_;
 };
 
 #endif
