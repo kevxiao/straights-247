@@ -5,8 +5,6 @@
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 
-#include <iostream>
-
 #include "../Lib/Constants.h"
 #include "DeckGUI.h"
 
@@ -16,7 +14,8 @@ public:
 	virtual ~TableFrame();              // destructor
 
     void resetTable();                  // mutator - resets the table to display 52 blank card images 
-    void addCardToTable(Rank, Suit);    // mutator - adds a card to teh table and renders the Frame again
+    void addCardToTable(CardType);      // mutator - adds a card to the table and renders the Frame again
+    void addCardToTable(Rank, Suit);    // mutator - adds a card to the table and renders the Frame again
 private:
     void addCardsToRows();              // mutator - adds all of the cards to the appropriate rows
     void addRowsToContainer();          // mutator - adds all of the rows to the container

@@ -41,6 +41,11 @@ void TableFrame::resetTable()
     show_all_children();
 }
 
+void TableFrame::addCardToTable(CardType cardToAdd)
+{
+    addCardToTable(cardToAdd.getRank(), cardToAdd.getSuit());
+}
+
 void TableFrame::addCardToTable(Rank rankOfCard, Suit suitOfCard)
 {
     const Glib::RefPtr<Gdk::Pixbuf> cardPixBuf = deck.getCardImage(rankOfCard, suitOfCard);
