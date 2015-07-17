@@ -35,14 +35,13 @@ void HandFrame::resetHand()
     show_all_children();
 }
 
-void HandFrame::displayPlayerHand()
+void HandFrame::displayPlayerHand(unsigned int playerNum)
 {
     clearContainer();
 
     deleteCards();
 
-    unsigned int curPlayerNum = gameModel_->getCurPlayerNum();
-    std::shared_ptr<PlayerModel> playerModel_ = gameModel_->getPlayerModel(curPlayerNum);
+    std::shared_ptr<PlayerModel> playerModel_ = gameModel_->getPlayerModel(playerNum);
 
     std::vector<std::shared_ptr<Card> > playerHand = playerModel_->getHand();
     std::vector<CardType> legalMoves = playerModel_->getLegalMoves();

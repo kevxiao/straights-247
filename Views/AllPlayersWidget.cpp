@@ -25,6 +25,26 @@ AllPlayersWidget::~AllPlayersWidget()
 
 }
 
+void AllPlayersWidget::disablePlayer(unsigned int playerNum)
+{
+    eachPlayer_.at(playerNum)->disable();
+    handFrame_.resetHand();
+}
+
+void AllPlayersWidget::enablePlayer(unsigned int playerNum, bool activateButtons)
+{
+    eachPlayer_.at(playerNum)->setActive(activateButtons);
+
+    if(activateButtons)
+    {
+        handFrame_.displayPlayerHand(playerNum);
+    }
+    else
+    {
+        handFrame_.resetHand();
+    }
+}
+
 void AllPlayersWidget::setDiscards(unsigned int playerNum, unsigned int newNumDiscards)
 {
     eachPlayer_.at(playerNum)->setDiscards(newNumDiscards);
