@@ -15,7 +15,9 @@ public:
     void disable();                                                 // mutator - disables all of the buttons
     void setActive(bool);                                           // mutator - enables all of the buttons
     void setPoints(unsigned int);                                   // mutator - updates the points label
-    void setDiscards(unsigned long);                                 // mutator - updates the discards label
+    void setDiscards(unsigned long);                                // mutator - updates the discards label
+    void setType(bool);                                             // mutator - set the player to human or computer
+    void resetPlayer();                                             // mutator - reset the player points, discards and type
 private:
     // signals
     virtual void discardsClicked();                                 // mutator - launches the discards dialog for player to see discards
@@ -26,12 +28,12 @@ private:
     unsigned int playerNum_;                                        // value of player that this widget represents
 
     //components
-    Gtk::VBox playerBox;                                            // container for elements in this widget
-    Gtk::Label name;                                                // label that will displays the player "name"
-    Gtk::Label playerType;                                          // label that displays the player type
-    Gtk::Label points;                                              // label that displays the amount of points the player has currently
-    Gtk::Button discards;                                           // button to allow player to view discarded cards
-    Gtk::Button ragequit;                                           // button to allow the player to ragequit
+    Gtk::VBox playerBox_;                                            // container for elements in this widget
+    Gtk::Label name_;                                                // label that will displays the player "name"
+    Gtk::Label playerType_;                                          // label that displays the player type
+    Gtk::Label points_;                                              // label that displays the amount of points the player has currently
+    Gtk::Button discards_;                                           // button to allow player to view discarded cards
+    Gtk::Button ragequit_;                                           // button to allow the player to ragequit
 };
 
 #endif

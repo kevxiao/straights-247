@@ -20,8 +20,10 @@ public:
     void disablePlayer(unsigned int);                                   // mutator - disables a player
     void enablePlayer(unsigned int, bool);                              // mutator - enables a player
 
-    void setDiscards(unsigned int, unsigned long);                       // mutator - sets the number of discards displayed for a player
+    void setDiscards(unsigned int, unsigned long);                      // mutator - sets the number of discards displayed for a player
     void setPoints(unsigned int, unsigned int);                         // mutator - sets the number of points displayed for a player
+    void setType(unsigned int, bool);                                   // mutator - sets the player type for a player
+    void resetPlayer(unsigned int);                                     // mutator - reset all the values for a player
 
 private:
     GameController *gameController_;                                    // pointer to the gameController

@@ -2,7 +2,7 @@
 #include "../Controllers/GameController.h"
 
 AllPlayersWidget::AllPlayersWidget(GameController *gameController, GameModel *gameModel) : gameController_(gameController),
-        gameModel_(gameModel), players_(true, UI_SPACING), handFrame_(gameModel_)
+        gameModel_(gameModel), players_(true, UI_SPACING), handFrame_(gameModel_, gameController_)
 {
     add(players_);
     std::shared_ptr<PlayerWidget> onePlayer;
@@ -52,4 +52,14 @@ void AllPlayersWidget::setDiscards(unsigned int playerNum, unsigned long newNumD
 void AllPlayersWidget::setPoints(unsigned int playerNum, unsigned int newNumPoints)
 {
     eachPlayer_.at(playerNum)->setPoints(newNumPoints);
+}
+
+void AllPlayersWidget::setType(unsigned int playerNum, bool human)
+{
+    eachPlayer_.at(playerNum)->setType(human);
+}
+
+void AllPlayersWidget::resetPlayer(unsigned int playerNum)
+{
+    eachPlayer_.at(playerNum)->resetPlayer();
 }

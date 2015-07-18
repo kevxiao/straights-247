@@ -80,6 +80,10 @@ void GameView::onStartGameButtonClicked()
 void GameView::onEndGameButtonClicked()
 {
     gameController_->resetGame();
+    for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
+    {
+        allPlayersWidget_.resetPlayer(i);
+    }
 }
 
 void GameView::onQuitButtonClicked()
@@ -106,11 +110,14 @@ void GameView::update()
         // output player's turn if starting round
         case START_ROUND:
         {
-            std::stringstream ssDialog;
-            std::string dialogString;
-            ssDialog << "A new round begins. It\'s player " << gameModel_->getCurPlayerNum() + 1 << "\'s turn to play.";
-            ssDialog >> dialogString;
+            for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
+            {
+                allPlayersWidget_.setType(i, !gameModel_->getPlayerModel(i)->isComputer());
+                allPlayersWidget_.disablePlayer(i);
+            }
+            std::string dialogString = "A new round begins.";
             Gtk::MessageDialog scoreDialog("<big><b>" + dialogString + "</b></big>", true);
+            scoreDialog.set_secondary_text("It\'s player " + std::to_string(gameModel_->getCurPlayerNum() + 1) + "\'s turn to play.");
             scoreDialog.set_title("Round Start");
             scoreDialog.run();
             break;
@@ -153,27 +160,31 @@ void GameView::update()
         // print discards and scores of each player to popup dialog on ending a round
         case END_ROUND:
         {
-            std::string scoreString;
+            std::string scoreString = "", tempStr;
             std::stringstream ssScore;
             unsigned int score, discardScore;
             for (unsigned int i = 0; i < NUM_PLAYERS; ++i) {
-                ssScore << "Player " << std::to_string(i + 1) << "\'s discards: ";
+                scoreString += "Player " + std::to_string(i + 1) + "\'s discards: ";
                 for (unsigned int j = 0; j < gameModel_->getPlayerModel(i)->getDiscards().size(); ++j) {
                     if (j != 0) {
-                        ssScore << " ";
+                        scoreString += " ";
                     }
                     ssScore << *(gameModel_->getPlayerModel(i)->getDiscards()[j]);
+                    ssScore >> tempStr;
+                    scoreString += tempStr;
+                    ssScore.str("");
+                    ssScore.clear();
                 };
                 score = gameModel_->getPlayerModel(i)->getScore();
                 discardScore = gameModel_->getPlayerModel(i)->getValOfDiscards();
-                ssScore << std::endl << "<b>Player " << i + 1 << "\'s score: " << score << " + " << discardScore
-                        << " = " << score + discardScore  << "</b>" << std::endl << std::endl;
+                scoreString += "\n<b>Player " + std::to_string(i + 1) + "\'s score: " + std::to_string(score) + " + " + std::to_string(discardScore)
+                        + " = " + std::to_string(score + discardScore) + "</b>\n\n";
                 allPlayersWidget_.setPoints(i, score + discardScore);
             }
-            ssScore >> scoreString;
             Gtk::MessageDialog scoreDialog("<big><b>" + scoreString + "</b></big>", true);
             scoreDialog.set_title("Player Scores");
             scoreDialog.run();
+            tableFrame_.resetTable();
             break;
         }
 
@@ -185,9 +196,9 @@ void GameView::update()
                 if (i != 0) {
                     winString += ", ";
                 }
-                winString += "Player " + gameModel_->getWinners().at(i) + 1;
+                winString += "Player " + std::to_string(gameModel_->getWinners().at(i) + 1);
             }
-            winString += "win";
+            winString += " win";
             if (gameModel_->getWinners().size() <= 1) {
                 winString += "s";
             }
@@ -195,6 +206,10 @@ void GameView::update()
             Gtk::MessageDialog endDialog("<big><b>" + winString + "</b></big>", true);
             endDialog.set_title("Winner!");
             endDialog.run();
+            for(unsigned int i = 0; i < NUM_PLAYERS; ++i)
+            {
+                allPlayersWidget_.resetPlayer(i);
+            }
             break;
         }
 
@@ -205,54 +220,5 @@ void GameView::update()
 
         default:
             return;
-    }
-}
-
-// print out the cards on the table sorted by the suit and the rank
-void GameView::printTable() const
-{
-    auto table = gameModel_->getCardsOnTable();
-    std::cout << "Cards on the table:" << std::endl;
-    for (auto it = table->cbegin(); it != table->cend(); ++it)
-    {
-        // list by suit
-        switch (it->first)
-        {
-            case (CLUB):
-                std::cout << "Clubs:";
-                break;
-            case (DIAMOND):
-                std::cout << "Diamonds:";
-                break;
-            case (HEART):
-                std::cout << "Hearts:";
-                break;
-            case (SPADE):
-                std::cout << "Spades:";
-                break;
-            default:
-                return;
-        }
-        // sort by rank since ordered map is sorted by value
-        for (auto rit = it->second.cbegin(); rit != it->second.cend(); ++rit)
-        {
-            std::cout << " ";
-            switch (rit->first)
-            {
-                case (JACK):
-                    std::cout << 'J';
-                    break;
-                case (QUEEN):
-                    std::cout << 'Q';
-                    break;
-                case (KING):
-                    std::cout << 'K';
-                    break;
-                default:
-                    std::cout << int(rit->first) + 1;
-                    break;
-            }
-        }
-        std::cout << std::endl;
     }
 }
