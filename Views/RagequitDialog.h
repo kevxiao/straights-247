@@ -8,8 +8,8 @@ class RagequitDialog : public Gtk::Dialog
 public:
     RagequitDialog();               // constructor
     virtual ~RagequitDialog();      // destructor
-protected:
-    Gtk::Image ragequit;            // image that will be displayed in the ragequit dialog
+private:
+    Gtk::Image ragequit_;           // image that will be displayed in the ragequit dialog
 };
 
 #endif
