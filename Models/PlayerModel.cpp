@@ -1,7 +1,7 @@
 #include "PlayerModel.h"
 
 // create player model with the identifier and whether it is a computer
-PlayerModel::PlayerModel(unsigned int playerNum, bool isComputer):playerNum_(playerNum), isComputer_(isComputer)
+PlayerModel::PlayerModel(unsigned int playerNum, bool isComputer):playerNum_(playerNum), isComputer_(isComputer), score_(0)
 {
 }
 

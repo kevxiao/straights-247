@@ -16,14 +16,13 @@ HandFrame::~HandFrame()
 
 void HandFrame::resetHand()
 {
-    vector<Widget *> oldChildren = hBoxContainer.get_children();
     const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 
     clearContainer();
 
     deleteCards();
 
-    for(int i = 0; i < RANK_COUNT; i++)
+    for(unsigned int i = 0; i < RANK_COUNT; i++)
     {
         displayedImages.push_back(new Gtk::Image( nullCardPixbuf ));
 
@@ -48,7 +47,7 @@ void HandFrame::displayPlayerHand(unsigned int playerNum)
     {
         createNewButton( new Gtk::Image (deck.getCardImage( playerHand.at(i)->getRank(), playerHand.at(i)->getSuit())));
 
-        int buttonIndex = displayedCardButtons.size() - 1;
+        unsigned long buttonIndex = displayedCardButtons.size() - 1;
 
         bool canClick = legalMoves.size() == 0 || isCardLegalMove(playerHand.at(i), legalMoves);
         displayedCardButtons.at(buttonIndex)->set_sensitive(canClick);
@@ -58,11 +57,11 @@ void HandFrame::displayPlayerHand(unsigned int playerNum)
         hBoxContainer.add(*displayedCardButtons.at(displayedCardButtons.size() - 1));
     }
 
-    int numOfCards = playerHand.size();
+    unsigned long numOfCards = playerHand.size();
 
     const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 
-    for(int i = numOfCards; i < RANK_COUNT; i++)
+    for(unsigned long i = numOfCards; i < RANK_COUNT; i++)
     {
         displayedImages.push_back(new Gtk::Image( nullCardPixbuf ));
         hBoxContainer.add(*displayedImages.at(i));
@@ -98,10 +97,10 @@ void HandFrame::deleteCards()
 void HandFrame::createNewButton(Gtk::Image *buttonImage)
 {
     displayedImages.push_back(buttonImage);
-    int addedImageIndex = displayedImages.size() - 1;
+    unsigned long addedImageIndex = displayedImages.size() - 1;
 
     displayedCardButtons.push_back(new Gtk::Button());
-    int addedButtonNum = displayedCardButtons.size() - 1;
+    unsigned long addedButtonNum = displayedCardButtons.size() - 1;
 
     displayedCardButtons.at(addedButtonNum)->set_image(*displayedImages.at(addedImageIndex));     
 }

@@ -185,6 +185,10 @@ void GameView::update()
             scoreDialog.set_title("Player Scores");
             scoreDialog.run();
             tableFrame_.resetTable();
+            for(unsigned int i = 0; i < NUM_PLAYERS; ++i)
+            {
+                allPlayersWidget_.setDiscards(i, 0);
+            }
             break;
         }
 
