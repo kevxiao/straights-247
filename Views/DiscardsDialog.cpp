@@ -4,6 +4,7 @@
 DiscardsDialog::DiscardsDialog(GameModel * gameModel, unsigned int playerNum) :
         firstRow(true, UI_SPACING), secondRow(true, UI_SPACING)
 {
+    set_title("Discards");
     Gtk::VBox *dialogContent = this->get_vbox();
     unsigned long first, second;
     std::shared_ptr<PlayerModel> playerModel = gameModel->getPlayerModel(playerNum);

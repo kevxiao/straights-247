@@ -22,6 +22,7 @@ public:
     unsigned int getScore(unsigned int playerNum) const;                                    // accessor - get current score
     void incrementScore(unsigned int amountToIncrement, unsigned int playerNum);            // mutator - add to player score
     void setLegalMoves(unsigned int playerNum);                                             // mutator - create list of legal moves
+    void resetPlayers();                                                                    // mutator - reset the current list of players
 
 protected:
     void playCard(CardType typeToPlay, unsigned int playerNum);                             // mutator - move card from hand to table

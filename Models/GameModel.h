@@ -27,13 +27,13 @@ public:
     void incrementCurPlayerNum();                                                               // mutator - move to next player
     void setWinners(std::vector<unsigned int>);                                                 // mutator - set the winning player(s)
     std::vector<unsigned int> getWinners() const;                                               // accessor - get the winning player(s)
-    void clearPlayers();                                                                        // mutator - delete all the players
     void resetTable();                                                                          // mutator - clear cards on table
     void addCardToTable(std::shared_ptr<Card> cardToAdd);                                       // mutator - add one card to table
     const std::map<Suit, std::map<Rank, std::shared_ptr<Card> > > * getCardsOnTable() const;    // accessor - get the list of cards on table
     void shuffle(unsigned long);                                                                // mutator - shuffle order of cards
     const std::vector<std::shared_ptr<Card> > * getCards() const;                               // accessor - get the cards in the deck in order
     void resetDeck();                                                                           // mutator - reset the deck to the original state
+    void resetGame();                                                                           // mutator - reset the game to the original state
 
 private:
     TableModel * tableModel_;

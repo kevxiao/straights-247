@@ -2,7 +2,7 @@
 
 // constructor for game model
 GameModel::GameModel(TableModel * tableModel, DeckModel * deckModel) : tableModel_(tableModel),
-        deckModel_(deckModel), gameStatus_(INIT_GAME)
+        deckModel_(deckModel), gameStatus_(INIT_GAME), curPlayerNum_(0)
 {
 }
 
@@ -77,12 +77,6 @@ std::vector<unsigned int> GameModel::getWinners() const
     return winners_;
 }
 
-// delete all players so that they can be added again
-void GameModel::clearPlayers()
-{
-    players_.clear();
-}
-
 // clear all cards from the table
 void GameModel::resetTable()
 {
@@ -117,4 +111,13 @@ const std::vector<std::shared_ptr<Card> > * GameModel::getCards() const
 void GameModel::resetDeck()
 {
     deckModel_->reset();
+}
+
+// reset everything in the game model to the original state
+void GameModel::resetGame()
+{
+    curPlayerNum_ = 0;
+    winners_.clear();
+    players_.clear();
+    gameStatus_ = INIT_GAME;
 }

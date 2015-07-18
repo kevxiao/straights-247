@@ -4,6 +4,7 @@
 AllPlayersWidget::AllPlayersWidget(GameController *gameController, GameModel *gameModel) : gameController_(gameController),
         gameModel_(gameModel), players_(true, UI_SPACING), handFrame_(gameModel_, gameController_)
 {
+    set_spacing(UI_SPACING);
     add(players_);
     std::shared_ptr<PlayerWidget> onePlayer;
     for (unsigned int i = 0; i < NUM_PLAYERS; ++i)

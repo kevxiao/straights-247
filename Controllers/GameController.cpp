@@ -143,18 +143,17 @@ void GameController::resetGame()
 {
     tableController_->resetTable();
     deckController_->reset();
-    gameModel_->clearPlayers();
+    gameModel_->resetGame();
+    humanPlayerController_->resetPlayers();
+    computerPlayerController_->resetPlayers();
     gameModel_->setGameStatus(INIT_GAME);
 }
 
 // restart the game with new deck, table and players and set a new seed for shuffling
 void GameController::resetGame(unsigned long seed)
 {
-    tableController_->resetTable();
-    deckController_->reset();
     deckController_->setSeed(seed);
-    gameModel_->clearPlayers();
-    gameModel_->setGameStatus(INIT_GAME);
+    resetGame();
 }
 
 // initialize game with different type of players

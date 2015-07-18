@@ -84,6 +84,12 @@ void PlayerController::setLegalMoves(unsigned int playerNum)
     curPlayer->setLegalMoves(legalMoves);
 }
 
+// reset the current list of players
+void PlayerController::resetPlayers()
+{
+    players_.clear();
+}
+
 // play card by removing from hand and adding to table
 void PlayerController::playCard(CardType valToPlay, unsigned int playerNum)
 {

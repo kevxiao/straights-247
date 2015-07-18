@@ -1,11 +1,13 @@
 #include "HandFrame.h"
 
-HandFrame::HandFrame(GameModel *gameModel, GameController *gameController): Frame("Hand"), 
-    gameController_(gameController), gameModel_(gameModel), hBoxContainer(false, UI_SPACING)
+HandFrame::HandFrame(GameModel *gameModel, GameController *gameController): gameController_(gameController),
+     gameModel_(gameModel), title_("Hand", Gtk::ALIGN_LEFT, Gtk::ALIGN_TOP), handContainer_(false, 0), hBoxContainer_(false, UI_SPACING)
 {
-    hBoxContainer.set_border_width(UI_SPACING);
+    handContainer_.set_border_width(UI_SPACING);
 
-    add(hBoxContainer);
+    handContainer_.add(title_);
+    handContainer_.add(hBoxContainer_);
+    add(handContainer_);
     resetHand();
 }
 
@@ -19,14 +21,14 @@ void HandFrame::resetHand()
     const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 
     clearContainer();
-
+    title_.set_text("Hand");
     deleteCards();
 
     for(unsigned int i = 0; i < RANK_COUNT; i++)
     {
-        displayedImages.push_back(new Gtk::Image( nullCardPixbuf ));
+        displayedImages_.push_back(new Gtk::Image( nullCardPixbuf ));
 
-        hBoxContainer.add(*displayedImages.at(i));
+        hBoxContainer_.add(*displayedImages_.at(i));
     }
 
     show_all_children();
@@ -43,18 +45,25 @@ void HandFrame::displayPlayerHand(unsigned int playerNum)
     std::vector<std::shared_ptr<Card> > playerHand = playerModel_->getHand();
     std::vector<CardType> legalMoves = playerModel_->getLegalMoves();
 
+    title_.set_text((legalMoves.size() > 0) ? "Your Hand: Please play a card" : "Your Hand: No legal plays, please discard a card");
+
     for(unsigned int i = 0; i < playerHand.size(); i++)
     {
         createNewButton( new Gtk::Image (deck.getCardImage( playerHand.at(i)->getRank(), playerHand.at(i)->getSuit())));
 
-        unsigned long buttonIndex = displayedCardButtons.size() - 1;
+        unsigned long buttonIndex = displayedCardButtons_.size() - 1;
 
         bool canClick = legalMoves.size() == 0 || isCardLegalMove(playerHand.at(i), legalMoves);
-        displayedCardButtons.at(buttonIndex)->set_sensitive(canClick);
+        displayedCardButtons_.at(buttonIndex)->set_sensitive(canClick);
 
-        displayedCardButtons.at(buttonIndex)->signal_clicked().connect(sigc::bind<CardType>( sigc::mem_fun(*this, &HandFrame::playCard), CardType(playerHand.at(i)->getSuit(), playerHand.at(i)->getRank())));
+        if (legalMoves.size() > 0 && legalMoves.at(0) == CardType(Suit::SPADE, Rank::SEVEN) && !canClick)
+        {
+            displayedCardButtons_.at(buttonIndex)->set_tooltip_text("I'm sorry, did you mean the SEVEN OF SPADES?!");
+        }
 
-        hBoxContainer.add(*displayedCardButtons.at(displayedCardButtons.size() - 1));
+        displayedCardButtons_.at(buttonIndex)->signal_clicked().connect(sigc::bind<CardType>( sigc::mem_fun(*this, &HandFrame::playCard), CardType(playerHand.at(i)->getSuit(), playerHand.at(i)->getRank())));
+
+        hBoxContainer_.add(*displayedCardButtons_.at(displayedCardButtons_.size() - 1));
     }
 
     unsigned long numOfCards = playerHand.size();
@@ -63,8 +72,8 @@ void HandFrame::displayPlayerHand(unsigned int playerNum)
 
     for(unsigned long i = numOfCards; i < RANK_COUNT; i++)
     {
-        displayedImages.push_back(new Gtk::Image( nullCardPixbuf ));
-        hBoxContainer.add(*displayedImages.at(i));
+        displayedImages_.push_back(new Gtk::Image( nullCardPixbuf ));
+        hBoxContainer_.add(*displayedImages_.at(i));
     }
 
     show_all_children();
@@ -72,37 +81,37 @@ void HandFrame::displayPlayerHand(unsigned int playerNum)
 
 void HandFrame::clearContainer()
 {
-    vector<Widget *> oldChildren = hBoxContainer.get_children();
+    vector<Widget *> oldChildren = hBoxContainer_.get_children();
     for(unsigned int i = 0; i < oldChildren.size(); i++)
     {
-        hBoxContainer.remove(*oldChildren.at(i));
+        hBoxContainer_.remove(*oldChildren.at(i));
     }
 }
 
 void HandFrame::deleteCards()
 {
-    for(unsigned int i = 0; i < displayedImages.size(); i++)
+    for(unsigned int i = 0; i < displayedImages_.size(); i++)
     {
-        delete displayedImages.at(i);
+        delete displayedImages_.at(i);
     }
-    displayedImages.clear();
+    displayedImages_.clear();
 
-    for(unsigned int i = 0; i < displayedCardButtons.size(); i++)
+    for(unsigned int i = 0; i < displayedCardButtons_.size(); i++)
     {
-        delete displayedCardButtons.at(i);
+        delete displayedCardButtons_.at(i);
     }
-    displayedCardButtons.clear();
+    displayedCardButtons_.clear();
 }
 
 void HandFrame::createNewButton(Gtk::Image *buttonImage)
 {
-    displayedImages.push_back(buttonImage);
-    unsigned long addedImageIndex = displayedImages.size() - 1;
+    displayedImages_.push_back(buttonImage);
+    unsigned long addedImageIndex = displayedImages_.size() - 1;
 
-    displayedCardButtons.push_back(new Gtk::Button());
-    unsigned long addedButtonNum = displayedCardButtons.size() - 1;
+    displayedCardButtons_.push_back(new Gtk::Button());
+    unsigned long addedButtonNum = displayedCardButtons_.size() - 1;
 
-    displayedCardButtons.at(addedButtonNum)->set_image(*displayedImages.at(addedImageIndex));     
+    displayedCardButtons_.at(addedButtonNum)->set_image(*displayedImages_.at(addedImageIndex));     
 }
 
 void HandFrame::playCard(CardType cardToPlay) const

@@ -4,6 +4,7 @@
 #include <gtkmm/frame.h>
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
+#include <gtkmm/label.h>
 
 #include "../Lib/Constants.h"
 #include "../Lib/CardType.h"
@@ -25,9 +26,11 @@ private:
 
     DeckGUI deck;                       // deckGUI that will retrieve pixbufs for any card that we need to display
 
-    Gtk::VBox vBoxContainer;            // main container for elements in this frame
-    Gtk::HBox* rowHBoxes[4];            // hboxes that will each display one row of the cards on the table
-    Gtk::Image * card[52];              // images to display.
+    Gtk::Label title_;                  // title label for the frame
+    Gtk::VBox tableContainer_;          // container to split title and actual content
+    Gtk::VBox vBoxContainer_;           // main container for elements in this frame
+    Gtk::HBox* rowHBoxes_[4];           // hboxes that will each display one row of the cards on the table
+    Gtk::Image * card_[52];             // images to display.
 };
 
 #endif

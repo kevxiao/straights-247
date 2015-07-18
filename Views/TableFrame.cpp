@@ -1,15 +1,17 @@
 #include "TableFrame.h"
 #include "DeckGUI.h"
 
-TableFrame::TableFrame(): Frame("Table"), vBoxContainer(true, UI_SPACING)
+TableFrame::TableFrame(): title_("Table", Gtk::ALIGN_LEFT, Gtk::ALIGN_TOP), tableContainer_(false, 0), vBoxContainer_(true, UI_SPACING)
 {
-    vBoxContainer.set_border_width(UI_SPACING);
+    tableContainer_.set_border_width(UI_SPACING);
+    tableContainer_.add(title_);
+    tableContainer_.add(vBoxContainer_);
 
-    add(vBoxContainer);
+    add(tableContainer_);
 
     for(int i = 0; i < 52; i++)
     {
-        card[i] = NULL;
+        card_[i] = NULL;
     }
 
     resetTable();
@@ -31,7 +33,7 @@ void TableFrame::resetTable()
     const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
     for(int j = 0; j < SUIT_COUNT*RANK_COUNT; j++)
     {
-        card[j] = new Gtk::Image( nullCardPixbuf );
+        card_[j] = new Gtk::Image( nullCardPixbuf );
     }
 
     addCardsToRows();
@@ -50,8 +52,8 @@ void TableFrame::addCardToTable(Rank rankOfCard, Suit suitOfCard)
 {
     const Glib::RefPtr<Gdk::Pixbuf> cardPixBuf = deck.getCardImage(rankOfCard, suitOfCard);
 
-    delete card[(suitOfCard * RANK_COUNT) + rankOfCard];
-    card[(suitOfCard * RANK_COUNT) + rankOfCard] = new Gtk::Image( cardPixBuf );
+    delete card_[(suitOfCard * RANK_COUNT) + rankOfCard];
+    card_[(suitOfCard * RANK_COUNT) + rankOfCard] = new Gtk::Image( cardPixBuf );
 
     deleteRows();
 
@@ -66,25 +68,25 @@ void TableFrame::addCardsToRows()
 {
     for(int j = 0; j < SUIT_COUNT; j++)
     {
-        rowHBoxes[j] = new Gtk::HBox(true, UI_SPACING);
+        rowHBoxes_[j] = new Gtk::HBox(true, UI_SPACING);
         for (int i = 0; i < RANK_COUNT; i++ )
         {
-            rowHBoxes[j]->add( *card[(j * RANK_COUNT) + i] );
+            rowHBoxes_[j]->add( *card_[(j * RANK_COUNT) + i] );
         }
     }
 }
 
 void TableFrame::addRowsToContainer()
 {
-    vector<Widget *> currentItems = vBoxContainer.get_children();
+    vector<Widget *> currentItems = vBoxContainer_.get_children();
     for(unsigned int i = 0; i < currentItems.size(); i++)
     {
-        vBoxContainer.remove(*currentItems.at(i));
+        vBoxContainer_.remove(*currentItems.at(i));
     }
 
     for(int j = 0; j < SUIT_COUNT; j++)
     {
-        vBoxContainer.add(*rowHBoxes[j]);
+        vBoxContainer_.add(*rowHBoxes_[j]);
     }
 }
 
@@ -92,25 +94,25 @@ void TableFrame::deleteCards()
 {
     for(int i = 0; i < 52; i++)
     {
-        if(card[i] != NULL)
+        if(card_[i] != NULL)
         {
-            delete card[i];
-            card[i] = NULL;
+            delete card_[i];
+            card_[i] = NULL;
         }
     }
 }
 
 void TableFrame::deleteRows()
 {
-    vector<Widget *> currentItems = vBoxContainer.get_children();
+    vector<Widget *> currentItems = vBoxContainer_.get_children();
     for(unsigned int i = 0; i < currentItems.size(); i++)
     {
-        vBoxContainer.remove(*currentItems.at(i));
+        vBoxContainer_.remove(*currentItems.at(i));
         delete currentItems.at(i);
     }
 
     for(int i = 0; i < SUIT_COUNT; i++)
     {
-        rowHBoxes[i] = NULL;
+        rowHBoxes_[i] = NULL;
     }
 }

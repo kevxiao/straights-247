@@ -5,6 +5,7 @@
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 #include <gtkmm/button.h>
+#include <gtkmm/label.h>
 
 #include <iostream>
 
@@ -33,9 +34,11 @@ private:
     GameController *gameController_;            // pointer to the gameController
     GameModel *gameModel_;                      // pointer to the gameModel
 
-    Gtk::HBox hBoxContainer;                    // main container for all elements within this frame
-    vector <Gtk::Image *> displayedImages;      // vector of all card images that are displayed or within buttons
-    vector <Gtk::Button *> displayedCardButtons;// vector of all buttons we are displaying
+    Gtk::Label title_;                           // title label for the frame
+    Gtk::VBox handContainer_;                    // container to split the text from the images
+    Gtk::HBox hBoxContainer_;                    // main container for all elements within this frame
+    vector <Gtk::Image *> displayedImages_;      // vector of all card images that are displayed or within buttons
+    vector <Gtk::Button *> displayedCardButtons_;// vector of all buttons we are displaying
 };
 
 #endif

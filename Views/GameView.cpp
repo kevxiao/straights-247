@@ -80,6 +80,7 @@ void GameView::onStartGameButtonClicked()
 void GameView::onEndGameButtonClicked()
 {
     gameController_->resetGame();
+    tableFrame_.resetTable();
     for (unsigned int i = 0; i < NUM_PLAYERS; ++i)
     {
         allPlayersWidget_.resetPlayer(i);
@@ -127,6 +128,7 @@ void GameView::update()
         case START_TURN:
         {
             allPlayersWidget_.enablePlayer(gameModel_->getCurPlayerNum(), !gameModel_->getPlayerModel(gameModel_->getCurPlayerNum())->isComputer());
+            break;
         }
 
         // ask for input in a human player's turn
@@ -138,6 +140,7 @@ void GameView::update()
         {
             RagequitDialog rageDialog;
             rageDialog.run();
+            allPlayersWidget_.setType(gameModel_->getCurPlayerNum(), false);
             break;
         }
 
@@ -178,7 +181,11 @@ void GameView::update()
                 score = gameModel_->getPlayerModel(i)->getScore();
                 discardScore = gameModel_->getPlayerModel(i)->getValOfDiscards();
                 scoreString += "\n<b>Player " + std::to_string(i + 1) + "\'s score: " + std::to_string(score) + " + " + std::to_string(discardScore)
-                        + " = " + std::to_string(score + discardScore) + "</b>\n\n";
+                        + " = " + std::to_string(score + discardScore) + "</b>";
+                if (i < NUM_PLAYERS - 1)
+                {
+                    scoreString += "\n\n";
+                }
                 allPlayersWidget_.setPoints(i, score + discardScore);
             }
             Gtk::MessageDialog scoreDialog("<big><b>" + scoreString + "</b></big>", true);
