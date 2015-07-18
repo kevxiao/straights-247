@@ -1,0 +1,23 @@
+Additional Features:
+
+Legal Play Detection:
+    - we only allow the user to make legal moves
+    - when there are legal plays, only the buttons for the legal plays will be enabled and the others are disabled
+    - when there are no legal plays, all buttons are enabled for discarding
+    - the text prompt for the hand changes to reflect whether the player needs to play or discard cards
+
+Ragequit Gif:
+    - ragequitting is an important action, and the UI feedback should reflect it
+    - clicking the ragequit button for a human player will show a popup with a gif of a ragequit
+    - gif shows player what he/she should do when he/she ragequits
+
+Discarded Cards:
+    - players should be able to see the cards he/she discarded
+    - discards is a button in our game
+    - clicking the discards button will show a popup with all the cards that the player has discarded
+    - discarded cards are shown in two rows of equal numbers if an even number of discarded cards, or it will show one extra image in the top row
+
+Informative/Interesting Tooltips:
+    - Many elements (Start Game, End Game, Quit Game, Player Name, Points, Discards, Ragequit) have tooltips
+    - Tooltips explain what the elements mean or encourage the user to use or not use the feature
+    - On the first turn of a round, since the only legal play is the seven of spades, hovering over the other cards will inform the user of that
