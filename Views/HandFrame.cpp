@@ -1,7 +1,7 @@
 #include "HandFrame.h"
 
-HandFrame::HandFrame(GameModel *gameModel): Frame("Hand"), 
-    gameModel_(gameModel), hBoxContainer(false, UI_SPACING)
+HandFrame::HandFrame(GameModel *gameModel, GameController *gameController): Frame("Hand"), 
+    gameController_(gameController), gameModel_(gameModel), hBoxContainer(false, UI_SPACING)
 {
     hBoxContainer.set_border_width(UI_SPACING);
 
@@ -19,10 +19,8 @@ void HandFrame::resetHand()
     vector<Widget *> oldChildren = hBoxContainer.get_children();
     const Glib::RefPtr<Gdk::Pixbuf> nullCardPixbuf = deck.getNullCardImage();
 
-    for(unsigned int i = 0; i < oldChildren.size(); i++)
-    {
-        hBoxContainer.remove(*oldChildren.at(i));
-    }
+    clearContainer();
+
     deleteCards();
 
     for(int i = 0; i < RANK_COUNT; i++)
@@ -110,7 +108,14 @@ void HandFrame::createNewButton(Gtk::Image *buttonImage)
 
 void HandFrame::playCard(CardType cardToPlay) const
 {
-    // Add functiontionality here after
+    Type commandType = PLAY;
+    std::shared_ptr<PlayerModel> curPlayer = gameModel_->getPlayerModel(gameModel_->getCurPlayerNum());
+    if(curPlayer->getLegalMoves().size() == 0)
+    {
+        commandType = DISCARD;
+    }
+    Command playerCommand(commandType, cardToPlay);
+    gameController_->processPlayerCommand(playerCommand);
 }
 
 bool HandFrame::isCardLegalMove(std::shared_ptr<Card> cardToCheck, std::vector<CardType> legalMoves) const

@@ -10,6 +10,7 @@ class Command
 {
 public:
     Command(std::string commandInStringForm);                       // constructor - using string
+    Command(Type, CardType);                                        // constructor - using Type and CardType
 	Command() : type_(BAD_COMMAND), cardType_(SPADE, ACE) {}        // default constructor with bad command
     Type getType() const;                                           // accessor - type of command
     CardType getCardType() const;                                   // accessor - card in command

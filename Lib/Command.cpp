@@ -22,8 +22,6 @@ Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
         }
         assert(commandInStringForm.find(" ") != std::string::npos);
 		cardType_ = CardType(commandInStringForm.substr(commandInStringForm.find(" ") + 1, std::string::npos));
-	} else if (commandInStringForm == "deck") {
-		type_ = DECK;
 	} else if (commandInStringForm == "quit") {
 		type_ = QUIT;
 	} else if (commandInStringForm == "ragequit") {
@@ -31,6 +29,11 @@ Command::Command(std::string commandInStringForm):cardType_(SPADE, ACE)
 	}
 
 	assert(type_ != BAD_COMMAND);
+}
+
+// create command out of a Type and CardType
+Command::Command(Type commandType, CardType card): type_(commandType), cardType_(card)
+{
 }
 
 // get the command type

@@ -14,7 +14,8 @@ class GameController
 public:
     GameController(GameModel *, DeckController *, TableController *);   // constructor
     ~GameController();                                                  // destructor
-    void processInput(std::string userInput);                           // mutator - process input
+    void processInput(std::string);                                     // mutator - process input
+    void processPlayerCommand(Command);                                 // mutator - process playerCommand
     void startGame();                                                   // mutator - set states and perform start of game actions
     void startRound();                                                  // mutator - set states and perform start of round actions
     void startTurn();                                                   // mutator - determine which player has 7S and needs to start

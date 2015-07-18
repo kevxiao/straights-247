@@ -31,7 +31,7 @@ PlayerWidget::~PlayerWidget()
 
 void PlayerWidget::discardsClicked()
 {
-    DiscardsDialog dialog(gameModel_, playerNum_);
+    DiscardsDialog dialog(gameModel_, playerNum_ - 1);
     dialog.run();
 }
 

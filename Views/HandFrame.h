@@ -8,13 +8,15 @@
 
 #include <iostream>
 
+#include "../Controllers/GameController.h"
 #include "../Lib/Constants.h"
+#include "../Lib/Command.h"
 #include "../Models/GameModel.h"
 #include "DeckGUI.h"
 
 class HandFrame : public Gtk::Frame {
 public:
-    HandFrame(GameModel *);                     // constructor
+    HandFrame(GameModel *, GameController *);   // constructor
 	virtual ~HandFrame();                       // deconstructor
 
     void resetHand();                           // mutator - resets the hand to display 13 blank card images
@@ -28,6 +30,7 @@ private:
     bool isCardLegalMove(std::shared_ptr<Card>, std::vector<CardType>) const;    // accessor - checks if card is in vector of legalMoves
 
     DeckGUI deck;                               // deckGUI which returns pixbufs for card images
+    GameController *gameController_;            // pointer to the gameController
     GameModel *gameModel_;                      // pointer to the gameModel
 
     Gtk::HBox hBoxContainer;                    // main container for all elements within this frame

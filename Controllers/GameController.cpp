@@ -243,6 +243,11 @@ std::vector<unsigned int> GameController::determineWinner() const
 void GameController::processPlayerCommand(std::string userInput)
 {
     Command playerCommand = Command(userInput);
+    processPlayerCommand(playerCommand);
+}
+
+void GameController::processPlayerCommand(Command playerCommand)
+{
     // make the action and move to next turn if playing or discarding
     if(playerCommand.getType() == Type::PLAY || playerCommand.getType() == Type::DISCARD)
     {
