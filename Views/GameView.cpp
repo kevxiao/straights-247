@@ -64,6 +64,7 @@ void GameView::onStartGameButtonClicked()
         if (!arePlayersHuman.empty())
         {
             gameController_->resetGame(seedValue);
+            tableFrame_.resetTable();
             for(unsigned int i = 0; i < arePlayersHuman.size(); ++i)
             {
                 gameController_->processInput(arePlayersHuman.at(i) ? "h" : "c");
